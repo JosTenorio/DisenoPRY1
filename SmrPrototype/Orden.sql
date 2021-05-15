@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Orden]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [FechaHora] DATETIME NOT NULL
+)
