@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Agregado]
+(
+	[Id] INT NOT NULL IDENTITY, 
+    [IdItem] INT NOT NULL, 
+    [IdAcomp] INT NOT NULL,
+    [IdOrden] INT NOT NULL, 
+    CONSTRAINT PkAgregado PRIMARY KEY (IdOrden,IdItem, Id),
+    CONSTRAINT FkAgregadoItem FOREIGN KEY (IdOrden,IdItem) REFERENCES Item (IdOrden,id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FkAgregadoAcomp FOREIGN KEY (IdAcomp) REFERENCES Comida (Id) ON DELETE NO ACTION ON UPDATE CASCADE
+)

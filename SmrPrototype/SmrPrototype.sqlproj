@@ -63,6 +63,9 @@
     <Build Include="Orden.sql" />
     <Build Include="CategoriaIng.sql" />
     <Build Include="Item.sql" />
+    <Build Include="Comida.sql" />
+    <Build Include="Agregado.sql" />
+    <Build Include="TrgInsAgregado.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SmrPrototype.refactorlog" />
