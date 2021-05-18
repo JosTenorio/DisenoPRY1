@@ -8,8 +8,8 @@
     [Archivado] BIT NOT NULL, 
     [CantidadAcomp] INT NULL,
     [IdCategoria] INT NULL, 
-    CONSTRAINT FkComidaCategoria FOREIGN KEY (IdCategoria) REFERENCES CategoriaCom (id) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT FkComidaCategoria FOREIGN KEY (IdCategoria) REFERENCES CategoriaCom (Id) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT AkComida UNIQUE(Nombre),
     CONSTRAINT CkComidaPrecio CHECK (Precio >= 0),
-    CONSTRAINT CkComidaCantAcomp CHECK (CantidadAcomp >= 0)
+    CONSTRAINT CkComidaCantAcomp CHECK (ISNULL(CantidadAcomp,0) >= 0)
 )

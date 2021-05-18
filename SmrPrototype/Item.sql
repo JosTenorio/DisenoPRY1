@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Item]
 (
 	[Id] INT NOT NULL IDENTITY, 
-    [Pago] BIT NOT NULL, 
-    [Estado] BIT NOT NULL, 
+    [Pago] BIT NOT NULL DEFAULT 0, 
+    [Estado] BIT NOT NULL DEFAULT 0, 
     [Nota] NVARCHAR(50) NOT NULL, 
     [IdOrden] INT NOT NULL,
     [IdComida] INT NOT NULL, 
