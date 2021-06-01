@@ -1,0 +1,28 @@
+@font-face {
+    src: url('Montserrat-SemiBold.ttf');
+}
+
+.title{
+    -fx-text-fill: #2B2E34;
+    -fx-font-size: 24px;
+    -fx-font-family: "Montserrat SemiBold";
+}
+
+.background{
+    -fx-background-color: #2B2E34;
+}
+
+.menuBar{
+    -fx-background-color: white;
+}
+
+.table{
+    -fx-background-color: white;
+    -fx-text-fill: #0B1126;
+    -fx-text-alignment: center;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-font-size: 36;
+    -fx-background-radius: 35px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
+}
+

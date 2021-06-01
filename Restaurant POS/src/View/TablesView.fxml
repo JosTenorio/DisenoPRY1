@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1366.0" styleClass="background" stylesheets="@../StyleSheets/AppStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TablesController">
+   <children>
+      <AnchorPane prefHeight="77.0" prefWidth="1366.0" styleClass="menuBar" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="hambMenu" fitHeight="38.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="16.0">
+               <image>
+                  <Image url="@../Images/MenuBar.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="102.0" layoutY="35.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesas" AnchorPane.leftAnchor="103.0" AnchorPane.topAnchor="24.0" />
+            <ImageView fx:id="edit" fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1301.0" AnchorPane.topAnchor="16.0">
+               <image>
+                  <Image url="@../Images/Edit.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="table1" layoutX="118.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="144.0" />
+      <Button fx:id="table2" layoutX="353.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="376.0" AnchorPane.topAnchor="144.0" />
+      <Button fx:id="table3" layoutX="666.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="400.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="144.0" />
+      <Button fx:id="table4" layoutX="990.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="278.0" prefWidth="278.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="1002.0" AnchorPane.topAnchor="144.0" />
+      <Button fx:id="table5" layoutX="75.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="200.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" />
+      <Button fx:id="table6" layoutX="384.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="200.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" />
+      <Button fx:id="table7" layoutX="83.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="630.0" />
+      <Button fx:id="table8" layoutX="384.0" layoutY="613.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="376.0" AnchorPane.topAnchor="630.0" />
+      <Button fx:id="table9" layoutX="691.0" layoutY="613.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="630.0" />
+      <Button fx:id="table10" layoutX="1002.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="278.0" prefWidth="278.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="1002.0" AnchorPane.topAnchor="476.0" />
+      <Button fx:id="table11" layoutX="100.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="809.0" />
+      <Button fx:id="table12" layoutX="409.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="809.0" />
+      <Button fx:id="table13" layoutX="677.0" layoutY="834.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="300.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="834.0" />
+   </children>
+</AnchorPane>
