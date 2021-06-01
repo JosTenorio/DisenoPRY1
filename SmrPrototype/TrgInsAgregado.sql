@@ -6,7 +6,7 @@
 	RETURN;
 	SET NOCOUNT ON
 	IF EXISTS ( SELECT 1
-				FROM inserted INNER JOIN Item ON (inserted.IdItem = Item.Id AND inserted.IdOrden = Item.IdOrden)
+				FROM inserted INNER JOIN Item ON (inserted.IdItem = Item.Id)
 				INNER JOIN Comida ON Item.IdComida = Comida.Id
 				WHERE Comida.CantidadAcomp IS NULL
 		)
