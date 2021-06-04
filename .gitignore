@@ -383,3 +383,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+Restaurant POS/nbproject/genfiles.properties
+
+Restaurant POS/nbproject/configs/Run_in_Browser.properties
+
+Restaurant POS/nbproject/configs/Run_as_WebStart.properties
