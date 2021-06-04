@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Connection.*;
+import java.sql.SQLException;
 
 public class Main extends Application{
     
@@ -19,6 +21,11 @@ public class Main extends Application{
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+        try {
+            ConnectionManager test = new ConnectionManager();
+            test.getConnection();
+        } catch (Exception e) {
+            System.out.println(e.toString());              
+        }
     }
-    
 }
