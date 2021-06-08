@@ -24,8 +24,10 @@ public class Main extends Application{
         primaryStage.show();
         try {
             Proxy.openProxy();
+            ConnectionManager.logIn("127.0.0.1", "sqlserver", "BigRoo85");
+            ConnectionManager.connect();
+            ConnectionManager.disconnect();
             Proxy.closeProxy();
-            
         } catch (Exception e) {
             System.out.println(e.toString());              
         }

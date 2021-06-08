@@ -12,7 +12,6 @@ import com.profesorfalken.jpowershell.*;
  * @author JOS
  */
 public class Proxy {
-    private static final String proxyDirCommand = "sl C:\\Users\\JOS\\Desktop\\DisenoPRY1\\Restaurant POS";
     private static final String proxyInitCommand = ".//cloud_sql_proxy -instances=hallowed-trail-313100:us-central1:sgr-prototype=tcp:1433";
     private static PowerShell PowerShellSession = null;
     
@@ -29,8 +28,7 @@ public class Proxy {
     
     public static void openProxy () {
        openPSSession();
-       PowerShellResponse response = PowerShellSession.executeCommand(proxyDirCommand);
-       response = PowerShellSession.executeCommand(proxyInitCommand);
+       PowerShellResponse response = PowerShellSession.executeCommand(proxyInitCommand);
     }
     
     
