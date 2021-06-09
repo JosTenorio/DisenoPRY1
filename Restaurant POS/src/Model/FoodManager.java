@@ -20,7 +20,12 @@ import java.util.logging.Logger;
  * @author JOS
  */
 public class FoodManager {
-        private static Hashtable<String, PreparedStatement> PreparedStatements = new Hashtable<String, PreparedStatement>();
+    private static Hashtable<String, PreparedStatement> PreparedStatements = new Hashtable<String, PreparedStatement>();
     private static String error;
     private static Boolean errorFlag;
+    
+    
+    
+    
+    
 }

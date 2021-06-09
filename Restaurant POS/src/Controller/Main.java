@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Connection.*;
-import Model.TablesManager;
+import Model.*;
 
 public class Main extends Application{
     
@@ -23,8 +23,7 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         try {
-            ConnectionManager.connect();
-            System.out.println(TablesManager.getTableNames().toString());
+            System.out.println(TableManager.getTableNames().toString());
             ConnectionManager.disconnect();
         } catch (Exception e) {
             System.out.println(e.toString());              

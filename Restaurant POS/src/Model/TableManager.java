@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class TablesManager {
+public class TableManager {
     
     private static Hashtable<String, PreparedStatement> PreparedStatements = new Hashtable<String, PreparedStatement>();
     private static String error;
@@ -30,7 +30,7 @@ public class TablesManager {
             try {
                 insertTableStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(TablesManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
                 errorFlag = true;
                 return rowsAffected;
             }
@@ -48,7 +48,7 @@ public class TablesManager {
             insertTableStatement.setDouble(7, posicionY);
         } catch (SQLException ex) {
             errorFlag = true;
-            Logger.getLogger(TablesManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
             return rowsAffected;
         }
         try {
@@ -70,7 +70,7 @@ public class TablesManager {
             try {
                 selectTableNamesStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(TablesManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
                 errorFlag = true;
                 return results;
             }
