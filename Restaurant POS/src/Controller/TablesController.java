@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 public class TablesController extends SceneController implements Initializable {
      
@@ -21,8 +20,6 @@ public class TablesController extends SceneController implements Initializable {
 
     @FXML
     private ImageView hambMenu;
-    @FXML
-    private ImageView edit;
     @FXML
     private Button table1;
     @FXML
@@ -51,35 +48,49 @@ public class TablesController extends SceneController implements Initializable {
     private Button table13;
     @FXML
     private AnchorPane slider;
+    @FXML
+    private ImageView editTables;
+    @FXML
+    private Label tableName;
+    @FXML
+    private ImageView editOrder;
+    @FXML
+    private Button selectAll;
+    @FXML
+    private AnchorPane popUp;
+    @FXML
+    private ImageView add;
+    @FXML
+    private ImageView addOrder;
+    @FXML
+    private Button charge;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
         if (event.getSource() == hambMenu){
             if (!menuOpen){
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(0);
-                slide.play();
-                slider.setTranslateX(-176);
+                slideOpen(slider);
                 menuOpen = true;
             }
             else{
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(-176);
-                slide.play();
-                slider.setTranslateX(0);
+                slideClose(slider);
                 menuOpen = false;
             }
+        }
+        if (event.getSource() == table1){
+            if(menuOpen){
+                slideClose(slider);
+                menuOpen = false;
+            }
+            popUp.setVisible(true);
         }
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        slider.setTranslateX(-176);
+        resetSlide(slider);
         menuOpen = false;
+        popUp.setVisible(false);
         // Populate table names
     }
 }

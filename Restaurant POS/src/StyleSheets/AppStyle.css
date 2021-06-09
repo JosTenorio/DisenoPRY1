@@ -7,16 +7,37 @@
 
 .title{
     -fx-text-fill: #2B2E34;
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-family: "Montserrat SemiBold";
 }
 
-.background{
+.darkGray{
     -fx-background-color: #2B2E34;
 }
 
-.menuBar{
+.white{
     -fx-background-color: white;
+}
+
+.lightGray{
+    -fx-background-color: #E1E1E1;
+}
+
+.popUp{
+    -fx-background-radius : 35;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
+}
+
+.roundedTop{
+    -fx-background-radius : 35 35 0 0;
+}
+
+.size16{
+    -fx-font-size: 16px;
+}
+
+.size24{
+    -fx-font-size: 24px;
 }
 
 .sideButton{
@@ -25,6 +46,14 @@
     -fx-text-fill: #671B1B;
     -fx-font-size: 20px;
     -fx-font-family: "Montserrat Medium";
+}
+
+.normButton{
+    -fx-background-color: #671B1B;
+    -fx-text-fill: white;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-background-radius: 35px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
 }
 
 .table{
