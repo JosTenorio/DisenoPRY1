@@ -1,12 +1,16 @@
 
 package Controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
-public class TablesController {
+public class TablesController extends SceneController {
+     
+    private ArrayList<String> tableIds;
 
     @FXML
     private ImageView hambMenu;
@@ -40,9 +44,9 @@ public class TablesController {
     private Button table13;
 
     @FXML
-    private void btnHandle(MouseEvent event) {
+    private void btnHandle(MouseEvent event) throws IOException {
         if (event.getSource() == table1){
-            
+            tablesShow(event);
         }
     }
 }
