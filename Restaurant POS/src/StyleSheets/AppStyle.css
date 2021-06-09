@@ -23,6 +23,10 @@
     -fx-background-color: #E1E1E1;
 }
 
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
 .popUp{
     -fx-background-radius : 35;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);

@@ -3,9 +3,11 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1366.0" styleClass="darkGray" stylesheets="@../StyleSheets/AppStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TablesController">
@@ -34,7 +36,7 @@
       <Button fx:id="table7" layoutX="83.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="630.0" />
       <Button fx:id="table8" layoutX="384.0" layoutY="613.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="376.0" AnchorPane.topAnchor="630.0" />
       <Button fx:id="table9" layoutX="691.0" layoutY="613.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="200.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="630.0" />
-      <Button fx:id="table10" layoutX="1002.0" layoutY="491.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="278.0" prefWidth="278.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="1002.0" AnchorPane.topAnchor="476.0" />
+      <Button fx:id="table10" layoutX="1002.0" layoutY="476.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="278.0" prefWidth="278.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="1002.0" AnchorPane.topAnchor="476.0" />
       <Button fx:id="table11" layoutX="100.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="809.0" />
       <Button fx:id="table12" layoutX="409.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="809.0" />
       <Button fx:id="table13" layoutX="677.0" layoutY="834.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="300.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="834.0" />
@@ -112,7 +114,7 @@
                   <String fx:value="size16" />
                </styleClass></Button>
             <ImageView fx:id="add" fitHeight="150.0" fitWidth="200.0" layoutX="397.0" layoutY="594.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="addOrder" fitHeight="55.0" fitWidth="55.0" layoutX="382.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="538.0" AnchorPane.topAnchor="688.0">
+            <ImageView fx:id="addOrder" fitHeight="55.0" fitWidth="55.0" layoutX="382.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="538.0" AnchorPane.topAnchor="694.0">
                <image>
                   <Image url="@../Images/Add.png" />
                </image>
@@ -123,6 +125,14 @@
                   <String fx:value="size24" />
                </styleClass>
             </Button>
+            <HBox layoutX="33.0" layoutY="142.0" prefHeight="542.0" prefWidth="564.0" styleClass="transparent" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="143.0">
+               <children>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@../StyleSheets/AppStyle.css" HBox.hgrow="ALWAYS">
+                     <content>
+                        <VBox prefHeight="540.0" prefWidth="556.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" />
+                     </content>
+                  </ScrollPane>
+               </children></HBox>
          </children>
          <styleClass>
             <String fx:value="white" />
