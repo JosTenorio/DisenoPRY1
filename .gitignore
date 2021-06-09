@@ -387,3 +387,5 @@ MigrationBackup/
 Restaurant POS/nbproject/configs/Run_in_Browser.properties
 
 Restaurant POS/nbproject/configs/Run_as_WebStart.properties
+
+Restaurant POS/Env.xml

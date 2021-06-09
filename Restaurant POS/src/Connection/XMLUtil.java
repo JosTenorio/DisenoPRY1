@@ -16,16 +16,13 @@ import org.xml.sax.SAXException;
 public class XMLUtil {
     
     private static Document config;
-    private static String IpEnvVar;
-    private static String LoginEnvVar; 
-    private static String LoginPWEnvVar;
-    private static final String ConfigXML = "Env.xml";
+    private static final String configXML = "Env.xml";
     
     
     
     private static void getDocument() throws ParserConfigurationException, SAXException {
 
-        File fXmlFile = new File(ConfigXML);
+        File fXmlFile = new File(configXML);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
           try {
@@ -35,51 +32,24 @@ public class XMLUtil {
           }
     }
     
-    private static void readEnvConfig() {
-        doc.getDocumentElement().normalize();
- 
-          System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-    NodeList nList = doc.getElementsByTagName("staff");
-    System.out.println("----------------------------");
-    
-    
-    
-    
-    
-    for (int temp = 0; temp < nList.getLength(); temp++) {
-        Node nNode = nList.item(temp);
-        System.out.println("\nCurrent Element :" + nNode.getNodeName());
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) nNode;
-            System.out.println("Staff id : "
-                               + eElement.getAttribute("id"));
-            System.out.println("First Name : "
-                               + eElement.getElementsByTagName("firstname")
-                                 .item(0).getTextContent());
-            System.out.println("Last Name : "
-                               + eElement.getElementsByTagName("lastname")
-                                 .item(0).getTextContent());
-            System.out.println("Nick Name : "
-                               + eElement.getElementsByTagName("nickname")
-                                 .item(0).getTextContent());
-            System.out.println("Salary : "
-                               + eElement.getElementsByTagName("salary")
-                                 .item(0).getTextContent());
+    public static void readEnvConfig() {
+        try {
+            getDocument();
+        } catch (ParserConfigurationException | SAXException ex) {
+            System.out.println(ex.getMessage());
         }
+        config.getDocumentElement().normalize();
+        NodeList nList = config.getElementsByTagName("databaseLogin");
+        Node DBLoginNode = nList.item(0);
+        Element DBLoginElement = (Element) DBLoginNode;
+        String ip = DBLoginElement.getElementsByTagName("ip").item(0).getTextContent();
+        String port = DBLoginElement.getElementsByTagName("port").item(0).getTextContent();
+        String database = DBLoginElement.getElementsByTagName("database").item(0).getTextContent();
+        String login = DBLoginElement.getElementsByTagName("username").item(0).getTextContent();
+        String password = DBLoginElement.getElementsByTagName("password").item(0).getTextContent();
+        String proxyInit = DBLoginElement.getElementsByTagName("proxyInit").item(0).getTextContent();
+        Proxy.setProxyInit(proxyInit);
+        ConnectionManager.setConnString(ip, port, database);
+        ConnectionManager.setLogIn(login, password);
     }
-    } catch (Exception e) {
-    e.printStackTrace();
-    }
-  }
-
-
-    }
-
-
-    
-    
-    
-    
-    
-  
 }

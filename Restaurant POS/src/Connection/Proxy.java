@@ -7,14 +7,14 @@ package Connection;
 
 import com.profesorfalken.jpowershell.*;
 
-/**
- *
- * @author JOS
- */
 public class Proxy {
-    private static final String proxyInitCommand = ".//cloud_sql_proxy -instances=hallowed-trail-313100:us-central1:sgr-prototype=tcp:1433";
-    private static PowerShell PowerShellSession = null;
+    private static String proxyInitCommand;
+    private static PowerShell PowerShellSession;
     
+    
+    public static void setProxyInit (String initCommand) {
+        proxyInitCommand = initCommand;
+    }
     
     private static void openPSSession () {
         if (PowerShellSession == null)
@@ -22,13 +22,15 @@ public class Proxy {
     }
     
     public static void closeProxy () {
-            if (PowerShellSession != null)
-                PowerShellSession.close();
+        if (PowerShellSession != null)
+            PowerShellSession.close();
     }
     
     public static void openProxy () {
-       openPSSession();
-       PowerShellResponse response = PowerShellSession.executeCommand(proxyInitCommand);
+        if (proxyInitCommand == null)
+            return;
+        openPSSession();
+        PowerShellResponse response = PowerShellSession.executeCommand(proxyInitCommand);
     }
     
     
