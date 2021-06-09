@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConnectionManager {
    
@@ -15,7 +17,7 @@ public class ConnectionManager {
     private static String Password;
     
     
-    public static Connection connection;
+    private static Connection connection;
     private static Statement statement;
     
     public static void setLogIn(String username, String password){
@@ -35,15 +37,27 @@ public class ConnectionManager {
         if (Arrays.asList(Database, Port, Ip, Login, Password).contains(null))
             return;   
         String url = "jdbc:sqlserver://" + Ip  + ":" + Port + ";databaseName=" + Database + ";user=" + Login + ";password=" + Password;
-        Proxy.openProxy();
+        //Proxy.openProxy();
         connection = DriverManager.getConnection(url);
     }
     
     public static void disconnect() throws SQLException {
         if (connection != null)
             connection.close();
-        Proxy.closeProxy();
+        //Proxy.closeProxy();
     }
+    
+    public static Connection getConnection(){
+        if (connection == null) {
+            try {
+                connect();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return connection; 
+    }
+    
 }
   
 
