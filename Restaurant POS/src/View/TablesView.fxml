@@ -5,12 +5,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1366.0" styleClass="background" stylesheets="@../StyleSheets/AppStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TablesController">
    <children>
       <AnchorPane prefHeight="77.0" prefWidth="1366.0" styleClass="menuBar" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="hambMenu" fitHeight="38.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="16.0">
+            <ImageView fx:id="hambMenu" fitHeight="38.0" fitWidth="45.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="16.0">
                <image>
                   <Image url="@../Images/MenuBar.png" />
                </image>
@@ -36,5 +37,17 @@
       <Button fx:id="table11" layoutX="100.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="809.0" />
       <Button fx:id="table12" layoutX="409.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="809.0" />
       <Button fx:id="table13" layoutX="677.0" layoutY="834.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="300.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="834.0" />
+      <AnchorPane fx:id="slider" layoutX="2.0" layoutY="77.0" prefHeight="947.0" prefWidth="176.0" styleClass="sideBar" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="77.0">
+         <children>
+            <VBox layoutX="30.0" layoutY="107.0" prefHeight="947.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
+                  <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="176.0" text="Button" />
+               </children></VBox>
+         </children></AnchorPane>
    </children>
 </AnchorPane>
