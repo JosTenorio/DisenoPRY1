@@ -1,6 +1,9 @@
 @font-face {
     src: url('Montserrat-SemiBold.ttf');
 }
+@font-face {
+    src: url('Montserrat-Medium.ttf');
+}
 
 .title{
     -fx-text-fill: #2B2E34;
@@ -16,8 +19,12 @@
     -fx-background-color: white;
 }
 
-.sideBar{
+.sideButton{
     -fx-background-color: white;
+    -fx-border-color: #2B2E34;
+    -fx-text-fill: #671B1B;
+    -fx-font-size: 20px;
+    -fx-font-family: "Montserrat Medium";
 }
 
 .table{
@@ -29,4 +36,5 @@
     -fx-background-radius: 35px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
 }
+
 

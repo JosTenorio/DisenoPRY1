@@ -41,12 +41,53 @@
          <children>
             <VBox layoutX="30.0" layoutY="107.0" prefHeight="947.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="176.0" text="Button" />
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Mesas">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Tables.png" />
+                           </image></ImageView>
+                     </graphic></Button>
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Órdenes">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Orders.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Cocina">
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Kitchen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Menú">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Menu.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Inventario">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Inventory.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children></VBox>
          </children></AnchorPane>
    </children>
