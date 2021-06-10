@@ -96,6 +96,8 @@ public class TablesController extends SceneController implements Initializable {
     private ImageView editOrderBuild;
     @FXML
     private GridPane menuGrid;
+    @FXML
+    private Button confirm;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {

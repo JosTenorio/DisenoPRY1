@@ -161,7 +161,14 @@
                <styleClass>
                   <String fx:value="roundedBotRight" />
                   <String fx:value="lightGray" />
-               </styleClass></AnchorPane>
+               </styleClass>
+               <children>
+                  <Button fx:id="confirm" layoutX="120.0" layoutY="636.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" stylesheets="@../StyleSheets/AppStyle.css" text="Confirmar" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="616.0">
+                     <styleClass>
+                        <String fx:value="normButton" />
+                        <String fx:value="size24" />
+                     </styleClass></Button>
+               </children></AnchorPane>
             <Label fx:id="tableNameBuild" layoutX="868.0" layoutY="19.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" />
             <ImageView fx:id="editOrderBuild" fitHeight="44.0" fitWidth="44.0" layoutX="1104.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
