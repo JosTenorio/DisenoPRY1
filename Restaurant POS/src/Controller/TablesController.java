@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +31,7 @@ import javafx.util.Pair;
 public class TablesController extends SceneController implements Initializable {
      
     private ArrayList<Button> tableButtons;
+    private ArrayList<Button> itemButtons;
     private boolean menuOpen;
 
     @FXML
@@ -122,8 +127,15 @@ public class TablesController extends SceneController implements Initializable {
         if (event.getSource() == addOrder){
             popupOrder.setVisible(true);
             dimmer.setVisible(true);
-            setFatherCategories();
+            setCategories(null);
+            setFood(null);
             setFlow(); 
+        }
+        for (Button item : itemButtons){
+            if (event.getSource() == item){
+                setCategories(item.getText());
+                setFood(item.getText());
+            }
         }
     }
     
@@ -153,28 +165,47 @@ public class TablesController extends SceneController implements Initializable {
         }
     }
     
-    private void setFatherCategories(){
-        this.tableNameBuild.setText(tableName.getText());
-
-        //TEMP
+    private void setCategories(String category){
         ArrayList<Pair<String, String>> categories = new ArrayList<>();
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-        categories.add(new Pair("", "Prueba"));
-                
+        if (category == null){
+            //TEMP
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+        } else {
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba"));
+        }     
+        menuGrid.getChildren().clear();
+        itemButtons = new ArrayList<>();
+        this.tableNameBuild.setText(tableName.getText());
         int col = 0;
         int row = 0;
         for (int i = 0; i < categories.size(); i++){
@@ -190,11 +221,25 @@ public class TablesController extends SceneController implements Initializable {
                 itemController.setData(categories.get(i).getKey(), categories.get(i).getValue());
                 menuGrid.add(pane, col++, row);
                 GridPane.setMargin(pane, new Insets(10));
+                itemController.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            btnHandle(event);
+                        } catch (IOException ex) {
+                            System.err.println(ex);
+                        }
+                    }
+                });
+                itemButtons.add(itemController.getButton());
             } catch (IOException ex) {
                 System.err.println(ex.toString());
             }
         }
 
+    }
+    
+    private void setFood(String category){
     }
     
     private void setFlow(){   
@@ -207,6 +252,7 @@ public class TablesController extends SceneController implements Initializable {
         popupTable.setVisible(false);
         popupOrder.setVisible(false);
         dimmer.setVisible(false);
+        itemButtons = new ArrayList<>();
         tableButtons = new ArrayList<>();
         tableButtons.add(table1);
         tableButtons.add(table2);
@@ -231,5 +277,6 @@ public class TablesController extends SceneController implements Initializable {
             tableButtons.get(i).setText(tableNames.get(i));
             tableButtons.get(i).setVisible(true);
         }
+        
     }
 }

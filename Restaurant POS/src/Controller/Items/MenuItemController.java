@@ -16,4 +16,8 @@ public class MenuItemController {
         button.setText(text);
     }
     
+    public Button getButton(){
+        return button;
+    }
+    
 }
