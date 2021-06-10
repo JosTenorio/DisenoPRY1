@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 
 public class TablesController extends SceneController implements Initializable {
      
-    private ArrayList<String> tableNames;
+    private ArrayList<Button> tableButtons;
     private boolean menuOpen;
 
     @FXML
@@ -84,23 +84,29 @@ public class TablesController extends SceneController implements Initializable {
                 menuOpen = false;
             }
         }
-        if (event.getSource() == table1){
-            if(menuOpen){
-                slideClose(slider);
-                menuOpen = false;
+        for (Button table : tableButtons){
+            if (event.getSource() == table){
+                closeMenu();
+                setTableOrder(table.getText());
             }
-            popUp.setVisible(true);
-            setTableOrder(table1.getText());
+        }
+    }
+    
+    private void closeMenu(){
+        if(menuOpen){
+            slideClose(slider);
+            menuOpen = false;
         }
     }
     
     private void setTableOrder(String tableName){
+        popUp.setVisible(true);
         //TEMP
         ArrayList<String> subItems = new ArrayList<>();
         subItems.add("Papas Fritas");
         subItems.add("Ensalada");
         ArrayList<Item> list = new ArrayList<>();
-        list.add(new Item("Carne de Res", subItems, 8000, true, null));
+        list.add(new Item("Carne de Res", subItems, 8000, true, "Notas notas notas"));
         list.add(new Item("Carne de Cerdo", subItems, 8000, false, null));
         Order tableOrder = new Order("Mesa 1", list);
         
@@ -124,6 +130,21 @@ public class TablesController extends SceneController implements Initializable {
         resetSlide(slider);
         menuOpen = false;
         popUp.setVisible(false);
+        tableButtons = new ArrayList<>();
+        tableButtons.add(table1);
+        tableButtons.add(table2);
+        tableButtons.add(table3);
+        tableButtons.add(table4);
+        tableButtons.add(table5);
+        tableButtons.add(table6);
+        tableButtons.add(table7);
+        tableButtons.add(table8);
+        tableButtons.add(table9);
+        tableButtons.add(table10);
+        tableButtons.add(table11);
+        tableButtons.add(table12);
+        tableButtons.add(table13);
+        
         // Populate table names
     }
 }
