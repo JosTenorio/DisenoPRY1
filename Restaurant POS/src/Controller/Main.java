@@ -23,10 +23,13 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         try {
-            System.out.println(TableManager.getTableNames().toString());
-            ConnectionManager.disconnect();
+//            Proxy.openProxy();
+//            ConnectionManager.logIn("127.0.0.1", "sqlserver", "BigRoo85");
+//            ConnectionManager.connect();
+//            ConnectionManager.disconnect();
+//            Proxy.closeProxy();
         } catch (Exception e) {
-            System.out.println(e.toString());              
+            System.err.println(e.toString());              
         }
     }
 }
