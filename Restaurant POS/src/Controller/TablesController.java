@@ -3,6 +3,7 @@ package Controller;
 
 import Controller.Items.TableItemController;
 import Model.Item;
+import Model.Managers.TableManager;
 import Model.Order;
 import java.io.IOException;
 import java.net.URL;
@@ -72,6 +73,8 @@ public class TablesController extends SceneController implements Initializable {
     private Button charge;
     @FXML
     private VBox itemContainer;
+    @FXML
+    private AnchorPane dimmer;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -86,21 +89,22 @@ public class TablesController extends SceneController implements Initializable {
         }
         for (Button table : tableButtons){
             if (event.getSource() == table){
-                closeMenu();
+                if(menuOpen){
+                    slideClose(slider);
+                    menuOpen = false;
+                }
+                popUp.setVisible(true);
+                dimmer.setVisible(true);
                 setTableOrder(table.getText());
             }
         }
-    }
-    
-    private void closeMenu(){
-        if(menuOpen){
-            slideClose(slider);
-            menuOpen = false;
+        if (event.getSource() == dimmer){
+            popUp.setVisible(false);
+            dimmer.setVisible(false);
         }
     }
     
     private void setTableOrder(String tableName){
-        popUp.setVisible(true);
         //TEMP
         ArrayList<String> subItems = new ArrayList<>();
         subItems.add("Papas Fritas");
@@ -110,6 +114,7 @@ public class TablesController extends SceneController implements Initializable {
         list.add(new Item("Carne de Cerdo", subItems, 8000, false, null));
         Order tableOrder = new Order("Mesa 1", list);
         
+        itemContainer.getChildren().clear();
         this.tableName.setText(tableOrder.tableName);
         for (int i = 0; i < tableOrder.items.size(); i++){
             FXMLLoader loader = new FXMLLoader();
@@ -130,6 +135,7 @@ public class TablesController extends SceneController implements Initializable {
         resetSlide(slider);
         menuOpen = false;
         popUp.setVisible(false);
+        dimmer.setVisible(false);
         tableButtons = new ArrayList<>();
         tableButtons.add(table1);
         tableButtons.add(table2);
@@ -145,6 +151,14 @@ public class TablesController extends SceneController implements Initializable {
         tableButtons.add(table12);
         tableButtons.add(table13);
         
-        // Populate table names
+        for (int i = 0; i < tableButtons.size(); i++){
+            tableButtons.get(i).setVisible(false);
+        }
+        
+        ArrayList<String> tableNames = TableManager.getTableNames();
+        for (int i = 0; i < tableNames.size(); i++){
+            tableButtons.get(i).setText(tableNames.get(i));
+            tableButtons.get(i).setVisible(true);
+        }
     }
 }

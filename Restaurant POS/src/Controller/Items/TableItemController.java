@@ -18,7 +18,7 @@ public class TableItemController {
     private ImageView checkbox;
 
     public void setData(Item item){
-        String itemNames = item.name;
+        String itemNames = "  " + item.name;
         if (item.sideDishes != null){
             for (String dish : item.sideDishes){
                 itemNames += "\n\t" + dish;

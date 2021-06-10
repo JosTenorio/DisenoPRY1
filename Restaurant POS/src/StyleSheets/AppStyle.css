@@ -30,6 +30,10 @@
     -fx-background-color: rgba(0,0,0,0);
 }
 
+.dim{
+    -fx-background-color: rgba(0,0,0,0.5);
+}
+
 .popUp{
     -fx-background-radius : 35;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
