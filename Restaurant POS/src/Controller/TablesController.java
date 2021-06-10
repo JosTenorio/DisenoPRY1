@@ -1,6 +1,7 @@
 
 package Controller;
 
+import Controller.Items.MenuItemController;
 import Controller.Items.TableItemController;
 import Model.Item;
 import Model.Managers.TableManager;
@@ -13,12 +14,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 
 public class TablesController extends SceneController implements Initializable {
      
@@ -77,6 +81,16 @@ public class TablesController extends SceneController implements Initializable {
     private ImageView add;
     @FXML
     private AnchorPane popupOrder;
+    @FXML
+    private ImageView search;
+    @FXML
+    private HBox flowContainer;
+    @FXML
+    private Label tableNameBuild;
+    @FXML
+    private ImageView editOrderBuild;
+    @FXML
+    private GridPane menuGrid;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -108,6 +122,8 @@ public class TablesController extends SceneController implements Initializable {
         if (event.getSource() == addOrder){
             popupOrder.setVisible(true);
             dimmer.setVisible(true);
+            setFatherCategories();
+            setFlow(); 
         }
     }
     
@@ -119,7 +135,7 @@ public class TablesController extends SceneController implements Initializable {
         ArrayList<Item> list = new ArrayList<>();
         list.add(new Item("Carne de Res", subItems, 8000, true, "Notas notas notas"));
         list.add(new Item("Carne de Cerdo", subItems, 8000, false, null));
-        Order tableOrder = new Order("Mesa 1", list);
+        Order tableOrder = new Order(tableName, list);
         
         itemContainer.getChildren().clear();
         this.tableName.setText(tableOrder.tableName);
@@ -135,6 +151,53 @@ public class TablesController extends SceneController implements Initializable {
                 System.err.println(ex.toString());
             }
         }
+    }
+    
+    private void setFatherCategories(){
+        this.tableNameBuild.setText(tableName.getText());
+
+        //TEMP
+        ArrayList<Pair<String, String>> categories = new ArrayList<>();
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+        categories.add(new Pair("", "Prueba"));
+                
+        int col = 0;
+        int row = 0;
+        for (int i = 0; i < categories.size(); i++){
+            FXMLLoader loader = new FXMLLoader();
+            if (col == 4){
+                col = 0;
+                row++;
+            }
+            try{
+                loader.setLocation(getClass().getResource("/View/Items/MenuItemView.fxml"));
+                AnchorPane pane = loader.load();
+                MenuItemController itemController = loader.getController();
+                itemController.setData(categories.get(i).getKey(), categories.get(i).getValue());
+                menuGrid.add(pane, col++, row);
+                GridPane.setMargin(pane, new Insets(10));
+            } catch (IOException ex) {
+                System.err.println(ex.toString());
+            }
+        }
+
+    }
+    
+    private void setFlow(){   
     }
 
     @Override

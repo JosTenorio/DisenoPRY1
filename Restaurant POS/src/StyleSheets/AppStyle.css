@@ -7,11 +7,20 @@
 @font-face {
     src: url('Montserrat-Regular.ttf');
 }
+@font-face {
+    src: url('Montserrat-Bold.ttf');
+}
 
 .title{
     -fx-text-fill: #2B2E34;
     -fx-font-size: 28px;
     -fx-font-family: "Montserrat SemiBold";
+}
+
+.subtitle{
+    -fx-text-fill: #2B2E34;
+    -fx-font-size: 18px;
+    -fx-font-family: "Montserrat Regular";
 }
 
 .darkGray{
@@ -27,7 +36,12 @@
 }
 
 .transparent{
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: transparent;
+}
+
+.scroller{
+    -fx-background-color: transparent;
+    -fx-background: transparent;
 }
 
 .dim{
@@ -73,6 +87,13 @@
     -fx-font-family: "Montserrat SemiBold";
     -fx-background-radius: 35px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
+}
+
+.itemButton{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Montserrat Bold";
+    -fx-font-size: 28px;
 }
 
 .table{
