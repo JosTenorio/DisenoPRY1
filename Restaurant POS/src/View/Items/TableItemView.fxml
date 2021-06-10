@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="556.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Items.TableItemController">
+   <children>
+      <BorderPane prefWidth="556.0" styleClass="white" stylesheets="@../../StyleSheets/AppStyle.css">
+         <left>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="status" prefHeight="20.0" prefWidth="20.0" styleClass="status" stylesheets="@../../StyleSheets/AppStyle.css" />
+                  <Label fx:id="name" styleClass="item" stylesheets="@../../StyleSheets/AppStyle.css" text="Nombre de plato" />
+               </children>
+            </HBox>
+         </left>
+         <right>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="cost" styleClass="item" stylesheets="@../../StyleSheets/AppStyle.css" text="\$100" />
+                  <ImageView fx:id="checkbox" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/Checkbox.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+   </children>
+</HBox>

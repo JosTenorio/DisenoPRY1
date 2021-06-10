@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -40,6 +43,7 @@
       <Button fx:id="table11" layoutX="100.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="809.0" />
       <Button fx:id="table12" layoutX="409.0" layoutY="804.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="150.0" prefWidth="150.0" style="-fx-shape: &quot;    M 25, 50    a 25,25 0 1,1 50,0    a 25,25 0 1,1 -50,0  &quot;;" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="809.0" />
       <Button fx:id="table13" layoutX="677.0" layoutY="834.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="100.0" prefWidth="300.0" styleClass="table" stylesheets="@../StyleSheets/AppStyle.css" text="Button" AnchorPane.leftAnchor="677.0" AnchorPane.topAnchor="834.0" />
+      <AnchorPane fx:id="dimmer" onMouseClicked="#btnHandle" prefHeight="1024.0" prefWidth="1366.0" styleClass="dim" stylesheets="@../StyleSheets/AppStyle.css" />
       <AnchorPane fx:id="slider" layoutX="2.0" layoutY="77.0" prefHeight="947.0" prefWidth="176.0" styleClass="sideBar" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="77.0">
          <children>
             <VBox layoutX="30.0" layoutY="107.0" prefHeight="947.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -93,7 +97,7 @@
                      </graphic></Button>
                </children></VBox>
          </children></AnchorPane>
-      <AnchorPane fx:id="popUp" layoutX="484.0" layoutY="299.0" prefHeight="772.0" prefWidth="618.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="368.0" AnchorPane.topAnchor="144.0">
+      <AnchorPane fx:id="popupTable" layoutX="484.0" layoutY="299.0" prefHeight="772.0" prefWidth="618.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="368.0" AnchorPane.topAnchor="144.0">
          <children>
             <AnchorPane prefHeight="78.0" prefWidth="618.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -102,7 +106,7 @@
                </styleClass>
                <children>
                   <Label fx:id="tableName" layoutX="274.0" layoutY="29.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="18.0" />
-                  <ImageView fx:id="editOrder" fitHeight="44.0" fitWidth="44.0" layoutX="549.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="18.0">
+                  <ImageView fx:id="editOrder" fitHeight="44.0" fitWidth="44.0" layoutX="549.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="18.0">
                      <image>
                         <Image url="@../Images/Edit.png" />
                      </image>
@@ -114,12 +118,12 @@
                   <String fx:value="size16" />
                </styleClass></Button>
             <ImageView fx:id="add" fitHeight="150.0" fitWidth="200.0" layoutX="397.0" layoutY="594.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="addOrder" fitHeight="55.0" fitWidth="55.0" layoutX="382.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="538.0" AnchorPane.topAnchor="694.0">
+            <ImageView fx:id="addOrder" fitHeight="55.0" fitWidth="55.0" layoutX="382.0" layoutY="586.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="538.0" AnchorPane.topAnchor="694.0">
                <image>
                   <Image url="@../Images/Add.png" />
                </image>
             </ImageView>
-            <Button fx:id="charge" layoutX="197.0" layoutY="691.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="224.0" stylesheets="@../StyleSheets/AppStyle.css" text="Marcar todo" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="694.0">
+            <Button fx:id="charge" layoutX="197.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="45.0" prefWidth="224.0" stylesheets="@../StyleSheets/AppStyle.css" text="Cobrar" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="694.0">
                <styleClass>
                   <String fx:value="normButton" />
                   <String fx:value="size24" />
@@ -129,7 +133,7 @@
                <children>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@../StyleSheets/AppStyle.css" HBox.hgrow="ALWAYS">
                      <content>
-                        <VBox prefHeight="540.0" prefWidth="556.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" />
+                        <VBox fx:id="itemContainer" prefHeight="540.0" prefWidth="556.0" spacing="10.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" />
                      </content>
                   </ScrollPane>
                </children></HBox>
@@ -137,6 +141,52 @@
          <styleClass>
             <String fx:value="white" />
             <String fx:value="popUp" />
+         </styleClass></AnchorPane>
+      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
+         <children>
+            <AnchorPane prefHeight="78.0" prefWidth="858.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="lightGray" />
+                  <String fx:value="roundedTopLeft" />
+               </styleClass>
+               <children>
+                  <ImageView fx:id="search" fitHeight="39.0" fitWidth="39.0" layoutX="805.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/Search.png" />
+                     </image>
+                  </ImageView>
+                  <HBox fx:id="flowContainer" layoutX="105.0" layoutY="9.0" prefHeight="22.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="28.0" />
+               </children></AnchorPane>
+            <AnchorPane prefHeight="694.0" prefWidth="304.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="858.0" AnchorPane.topAnchor="78.0">
+               <styleClass>
+                  <String fx:value="roundedBotRight" />
+                  <String fx:value="lightGray" />
+               </styleClass></AnchorPane>
+            <Label fx:id="tableNameBuild" layoutX="868.0" layoutY="19.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" />
+            <ImageView fx:id="editOrderBuild" fitHeight="44.0" fitWidth="44.0" layoutX="1104.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Edit.png" />
+               </image>
+            </ImageView>
+            <HBox layoutY="78.0" prefHeight="694.0" prefWidth="858.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css">
+               <children>
+                  <ScrollPane prefHeight="674.0" prefWidth="847.0" styleClass="scroller" stylesheets="@../StyleSheets/AppStyle.css">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <content>
+                        <GridPane fx:id="menuGrid" prefHeight="0.0" prefWidth="814.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children></HBox>
+         </children>
+         <styleClass>
+            <String fx:value="popUp" />
+            <String fx:value="white" />
          </styleClass></AnchorPane>
    </children>
 </AnchorPane>

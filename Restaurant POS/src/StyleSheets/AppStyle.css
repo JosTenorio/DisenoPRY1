@@ -4,11 +4,23 @@
 @font-face {
     src: url('Montserrat-Medium.ttf');
 }
+@font-face {
+    src: url('Montserrat-Regular.ttf');
+}
+@font-face {
+    src: url('Montserrat-Bold.ttf');
+}
 
 .title{
     -fx-text-fill: #2B2E34;
     -fx-font-size: 28px;
     -fx-font-family: "Montserrat SemiBold";
+}
+
+.subtitle{
+    -fx-text-fill: #2B2E34;
+    -fx-font-size: 18px;
+    -fx-font-family: "Montserrat Regular";
 }
 
 .darkGray{
@@ -24,7 +36,16 @@
 }
 
 .transparent{
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: transparent;
+}
+
+.scroller{
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.dim{
+    -fx-background-color: rgba(0,0,0,0.5);
 }
 
 .popUp{
@@ -34,6 +55,14 @@
 
 .roundedTop{
     -fx-background-radius : 35 35 0 0;
+}
+
+.roundedTopLeft{
+    -fx-background-radius : 35 0 0 0;
+}
+
+.roundedBotRight{
+    -fx-background-radius : 0 0 35 0;
 }
 
 .size16{
@@ -60,6 +89,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
 }
 
+.itemButton{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Montserrat Bold";
+    -fx-font-size: 28px;
+}
+
 .table{
     -fx-background-color: white;
     -fx-text-fill: #0B1126;
@@ -70,4 +106,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
 }
 
+.item{
+    -fx-text-fill: #2B2E34;
+    -fx-font-family: "Montserrat Regular";
+    -fx-font-size: 20px;
+}
+
+.status{
+    -fx-background-radius: 45px;
+}
 
