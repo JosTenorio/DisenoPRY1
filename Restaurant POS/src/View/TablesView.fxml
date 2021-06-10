@@ -119,7 +119,7 @@
                   <Image url="@../Images/Add.png" />
                </image>
             </ImageView>
-            <Button fx:id="charge" layoutX="197.0" layoutY="691.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="224.0" stylesheets="@../StyleSheets/AppStyle.css" text="Marcar todo" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="694.0">
+            <Button fx:id="charge" layoutX="197.0" layoutY="691.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="224.0" stylesheets="@../StyleSheets/AppStyle.css" text="Cobrar" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="694.0">
                <styleClass>
                   <String fx:value="normButton" />
                   <String fx:value="size24" />
@@ -129,7 +129,7 @@
                <children>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="transparent" stylesheets="@../StyleSheets/AppStyle.css" HBox.hgrow="ALWAYS">
                      <content>
-                        <VBox prefHeight="540.0" prefWidth="556.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" />
+                        <VBox fx:id="itemContainer" prefHeight="540.0" prefWidth="556.0" spacing="10.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" />
                      </content>
                   </ScrollPane>
                </children></HBox>

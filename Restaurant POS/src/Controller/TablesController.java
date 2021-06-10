@@ -1,17 +1,23 @@
 
 package Controller;
 
+import Controller.Items.TableItemController;
+import Model.Item;
+import Model.Order;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class TablesController extends SceneController implements Initializable {
      
@@ -64,6 +70,8 @@ public class TablesController extends SceneController implements Initializable {
     private ImageView addOrder;
     @FXML
     private Button charge;
+    @FXML
+    private VBox itemContainer;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -71,8 +79,7 @@ public class TablesController extends SceneController implements Initializable {
             if (!menuOpen){
                 slideOpen(slider);
                 menuOpen = true;
-            }
-            else{
+            } else{
                 slideClose(slider);
                 menuOpen = false;
             }
@@ -83,6 +90,32 @@ public class TablesController extends SceneController implements Initializable {
                 menuOpen = false;
             }
             popUp.setVisible(true);
+            setTableOrder(table1.getText());
+        }
+    }
+    
+    private void setTableOrder(String tableName){
+        //TEMP
+        ArrayList<String> subItems = new ArrayList<>();
+        subItems.add("Papas Fritas");
+        subItems.add("Ensalada");
+        ArrayList<Item> list = new ArrayList<>();
+        list.add(new Item("Carne de Res", subItems, 8000, true, null));
+        list.add(new Item("Carne de Cerdo", subItems, 8000, false, null));
+        Order tableOrder = new Order("Mesa 1", list);
+        
+        this.tableName.setText(tableOrder.tableName);
+        for (int i = 0; i < tableOrder.items.size(); i++){
+            FXMLLoader loader = new FXMLLoader();
+            try{
+                loader.setLocation(getClass().getResource("/View/Items/TableItemView.fxml"));
+                HBox hbox = loader.load();
+                TableItemController itemController = loader.getController();
+                itemController.setData(tableOrder.items.get(i));
+                itemContainer.getChildren().add(hbox);
+            } catch (IOException ex) {
+                System.err.println(ex.toString());
+            }
         }
     }
 

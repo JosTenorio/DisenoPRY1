@@ -4,6 +4,9 @@
 @font-face {
     src: url('Montserrat-Medium.ttf');
 }
+@font-face {
+    src: url('Montserrat-Regular.ttf');
+}
 
 .title{
     -fx-text-fill: #2B2E34;
@@ -70,4 +73,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
 }
 
+.item{
+    -fx-text-fill: #2B2E34;
+    -fx-font-family: "Montserrat Regular";
+    -fx-font-size: 20px;
+}
+
+.status{
+    -fx-background-radius: 45px;
+}
 
