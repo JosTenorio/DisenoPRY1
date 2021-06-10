@@ -37,7 +37,7 @@ public class ItemManager {
     }
     
     public static void insertItem (Item item, int orderId) throws SQLException {
-        if (!item.isMainDish) {
+        if (item.sideDishes == null) {
             try {
                 createItem(item.name,orderId ,item.notes);
             } catch (SQLException ex) {
