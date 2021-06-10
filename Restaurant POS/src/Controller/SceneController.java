@@ -32,10 +32,6 @@ public abstract class SceneController {
         slider.setTranslateX(0);
     }
     
-    public void resetSlide(AnchorPane slider){
-        slider.setTranslateX(-176);
-    }
-    
     public void tablesShow(MouseEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/View/TablesView.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -43,4 +39,13 @@ public abstract class SceneController {
         stage.setScene(scene);
         stage.show();
     }
+    
+    public void menuShow(MouseEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/View/MenuView.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
 }

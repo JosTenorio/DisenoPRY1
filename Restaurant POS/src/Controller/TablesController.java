@@ -95,6 +95,18 @@ public class TablesController extends SceneController implements Initializable {
     private GridPane menuGrid;
     @FXML
     private Button confirm;
+    @FXML
+    private Button sideMenuTable;
+    @FXML
+    private Button sideMenuOrders;
+    @FXML
+    private Button sideMenuKitchen;
+    @FXML
+    private Button sideMenuMenu;
+    @FXML
+    private Button sideMenuInventory;
+    @FXML
+    private Button sideMenuSettings;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -107,6 +119,18 @@ public class TablesController extends SceneController implements Initializable {
                 menuOpen = false;
             }
         }
+        else if (event.getSource() == dimmer){
+            popupTable.setVisible(false);
+            popupOrder.setVisible(false);
+            dimmer.setVisible(false);
+        }
+        else if (event.getSource() == addOrder){
+            popupOrder.setVisible(true);
+            dimmer.setVisible(true);
+            setCategories(null);
+            setFood(null);
+            setFlow(); 
+        }
         for (Button table : tableButtons){
             if (event.getSource() == table){
                 if(menuOpen){
@@ -118,24 +142,17 @@ public class TablesController extends SceneController implements Initializable {
                 setTableOrder(table.getText());
             }
         }
-        if (event.getSource() == dimmer){
-            popupTable.setVisible(false);
-            popupOrder.setVisible(false);
-            dimmer.setVisible(false);
-        }
-        if (event.getSource() == addOrder){
-            popupOrder.setVisible(true);
-            dimmer.setVisible(true);
-            setCategories(null);
-            setFood(null);
-            setFlow(); 
-        }
         for (Button item : itemButtons){
             if (event.getSource() == item){
                 setCategories(item.getText());
                 setFood(item.getText());
             }
         }
+        // SIDE MENU
+        if (event.getSource() == sideMenuTable)
+            tablesShow(event);
+        else if (event.getSource() == sideMenuMenu)
+            menuShow(event);
     }
     
     private void setTableOrder(String tableName){
@@ -159,7 +176,7 @@ public class TablesController extends SceneController implements Initializable {
                 itemController.setData(tableOrder.items.get(i));
                 itemContainer.getChildren().add(hbox);
             } catch (IOException ex) {
-                System.err.println(ex.toString());
+                System.err.println(ex);
             }
         }
     }
@@ -232,7 +249,7 @@ public class TablesController extends SceneController implements Initializable {
                 });
                 itemButtons.add(itemController.getButton());
             } catch (IOException ex) {
-                System.err.println(ex.toString());
+                System.err.println(ex);
             }
         }
 
@@ -246,7 +263,7 @@ public class TablesController extends SceneController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        resetSlide(slider);
+        slideClose(slider);
         menuOpen = false;
         popupTable.setVisible(false);
         popupOrder.setVisible(false);
