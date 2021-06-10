@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Connection.*;
 import Model.*;
+import Model.Managers.FoodManager;
+import Model.Managers.OrderManager;
+import java.util.ArrayList;
 
 public class Main extends Application{
     
@@ -23,11 +26,20 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         try {
-//            Proxy.openProxy();
-//            ConnectionManager.logIn("127.0.0.1", "sqlserver", "BigRoo85");
-//            ConnectionManager.connect();
-//            ConnectionManager.disconnect();
-//            Proxy.closeProxy();
+            ArrayList<String> sideDishes1 = new ArrayList<String>();
+            sideDishes1.add("Papas fritas");
+            sideDishes1.add("Papas fritas");
+            ArrayList<String> sideDishes2 = new ArrayList<String>();
+            Item item1 = new Item("Papas Fritas", false, sideDishes2, "Sin sal");
+            Item item2 = new Item("Pasta boloñesa", true, sideDishes2, "Sin carne");
+            Item item3 = new Item("Pasta alfredo", true, sideDishes1, "Sin hongos");
+            ArrayList<Item> Itemes = new ArrayList<Item>();
+            Itemes.add(item1);
+            Itemes.add(item2);
+            Itemes.add(item3);
+            Order oder = new Order ("Mesa 1", Itemes);
+            System.out.println(OrderManager.insertOrder(oder));
+            ConnectionManager.disconnect();
         } catch (Exception e) {
             System.err.println(e.toString());              
         }
