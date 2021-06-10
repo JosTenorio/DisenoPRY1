@@ -22,7 +22,7 @@ public class TableManager {
     private static Boolean errorFlag;
 
     
-    public static int insertTable (double orientacion, int forma, String nombre, Double tamanoA, Double tamanoB, Double posicionX, Double posicionY) {
+    public static int insertTable (String name, double orientation, int shape, Double sizeA, Double sizeB, Double posX, Double posY) {
         int rowsAffected = -1;
         PreparedStatement insertTableStatement;
         if (!PreparedStatements.containsKey("insertTableStatement")){
@@ -39,13 +39,13 @@ public class TableManager {
             insertTableStatement = PreparedStatements.get("insertTableStatement");
         }
         try {
-            insertTableStatement.setDouble(1, orientacion);
-            insertTableStatement.setDouble(2, forma);
-            insertTableStatement.setString(3, nombre);
-            insertTableStatement.setDouble(4, tamanoA);
-            insertTableStatement.setDouble(5, tamanoB);
-            insertTableStatement.setDouble(6, posicionX);
-            insertTableStatement.setDouble(7, posicionY);
+            insertTableStatement.setDouble(1, orientation);
+            insertTableStatement.setDouble(2, shape);
+            insertTableStatement.setString(3, name);
+            insertTableStatement.setDouble(4, sizeA);
+            insertTableStatement.setDouble(5, sizeB);
+            insertTableStatement.setDouble(6, posX);
+            insertTableStatement.setDouble(7, posY);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,6 +90,10 @@ public class TableManager {
             return results;
         }
     }
+    
+    
+    
+    
     
     public static boolean hasError() {
         return errorFlag;
