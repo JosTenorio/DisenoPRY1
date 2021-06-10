@@ -3,7 +3,7 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Descripcion] NVARCHAR(200) NOT NULL, 
     [DireccionFoto] NVARCHAR(200) NOT NULL, 
-    [Precio] DECIMAL NOT NULL, 
+    [Precio] DECIMAL(18, 4) NOT NULL, 
     [Nombre] NVARCHAR(50) NOT NULL, 
     [Archivado] BIT NOT NULL, 
     [CantidadAcomp] INT NULL,
