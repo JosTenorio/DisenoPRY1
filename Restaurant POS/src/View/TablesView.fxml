@@ -94,7 +94,7 @@
                      </graphic></Button>
                </children></VBox>
          </children></AnchorPane>
-      <AnchorPane fx:id="popUp" layoutX="484.0" layoutY="299.0" prefHeight="772.0" prefWidth="618.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="368.0" AnchorPane.topAnchor="144.0">
+      <AnchorPane fx:id="popupTable" layoutX="484.0" layoutY="299.0" prefHeight="772.0" prefWidth="618.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="368.0" AnchorPane.topAnchor="144.0">
          <children>
             <AnchorPane prefHeight="78.0" prefWidth="618.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -138,6 +138,23 @@
          <styleClass>
             <String fx:value="white" />
             <String fx:value="popUp" />
+         </styleClass></AnchorPane>
+      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
+         <children>
+            <AnchorPane prefHeight="78.0" prefWidth="858.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="lightGray" />
+                  <String fx:value="roundedTopLeft" />
+               </styleClass></AnchorPane>
+            <AnchorPane prefHeight="694.0" prefWidth="304.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="858.0" AnchorPane.topAnchor="78.0">
+               <styleClass>
+                  <String fx:value="roundedBotRight" />
+                  <String fx:value="lightGray" />
+               </styleClass></AnchorPane>
+         </children>
+         <styleClass>
+            <String fx:value="popUp" />
+            <String fx:value="white" />
          </styleClass></AnchorPane>
    </children>
 </AnchorPane>

@@ -64,9 +64,7 @@ public class TablesController extends SceneController implements Initializable {
     @FXML
     private Button selectAll;
     @FXML
-    private AnchorPane popUp;
-    @FXML
-    private ImageView add;
+    private AnchorPane popupTable;
     @FXML
     private ImageView addOrder;
     @FXML
@@ -75,6 +73,10 @@ public class TablesController extends SceneController implements Initializable {
     private VBox itemContainer;
     @FXML
     private AnchorPane dimmer;
+    @FXML
+    private ImageView add;
+    @FXML
+    private AnchorPane popupOrder;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -93,14 +95,19 @@ public class TablesController extends SceneController implements Initializable {
                     slideClose(slider);
                     menuOpen = false;
                 }
-                popUp.setVisible(true);
+                popupTable.setVisible(true);
                 dimmer.setVisible(true);
                 setTableOrder(table.getText());
             }
         }
         if (event.getSource() == dimmer){
-            popUp.setVisible(false);
+            popupTable.setVisible(false);
+            popupOrder.setVisible(false);
             dimmer.setVisible(false);
+        }
+        if (event.getSource() == addOrder){
+            popupOrder.setVisible(true);
+            dimmer.setVisible(true);
         }
     }
     
@@ -134,7 +141,8 @@ public class TablesController extends SceneController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         resetSlide(slider);
         menuOpen = false;
-        popUp.setVisible(false);
+        popupTable.setVisible(false);
+        popupOrder.setVisible(false);
         dimmer.setVisible(false);
         tableButtons = new ArrayList<>();
         tableButtons.add(table1);
