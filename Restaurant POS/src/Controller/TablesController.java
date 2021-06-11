@@ -4,6 +4,7 @@ package Controller;
 import Controller.Items.MenuItemController;
 import Controller.Items.TableItemController;
 import Model.Item;
+import Model.Managers.OrderManager;
 import Model.Managers.TableManager;
 import Model.Order;
 import java.io.IOException;
@@ -156,14 +157,8 @@ public class TablesController extends SceneController implements Initializable {
     }
     
     private void setTableOrder(String tableName){
-        //TEMP
-        ArrayList<String> subItems = new ArrayList<>();
-        subItems.add("Papas Fritas");
-        subItems.add("Ensalada");
-        ArrayList<Item> list = new ArrayList<>();
-        list.add(new Item("Carne de Res", subItems, 8000, true, "Notas notas notas"));
-        list.add(new Item("Carne de Cerdo", subItems, 8000, false, null));
-        Order tableOrder = new Order(tableName, list);
+        Order tableOrder = OrderManager.getTableOrders(tableName, false);
+        // catch error wrong name
         
         itemContainer.getChildren().clear();
         this.tableName.setText(tableOrder.tableName);
