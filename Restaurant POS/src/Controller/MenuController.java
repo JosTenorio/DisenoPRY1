@@ -1,10 +1,12 @@
 
 package Controller;
 
+import Controller.Abstract.CategoryController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class MenuController extends SceneController implements Initializable {
+public class MenuController extends CategoryController implements Initializable {
     
     private ArrayList<Button> itemButtons;
     private boolean menuOpen;
@@ -79,13 +81,31 @@ public class MenuController extends SceneController implements Initializable {
             menuShow(event);
         
     }
+    
+    private void setGridButtons(){
+        for (Button item : itemButtons){
+            item.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        btnHandle(event);
+                    } catch (IOException ex) {
+                        System.err.println(ex);
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         slideClose(slider);
         menuOpen = false;
         dishCard.setVisible(false);
-        itemButtons = new ArrayList<>();
+        itemButtons = setMenuCategories(null, menuGrid, 3, 215.0);
+        setGridButtons();
+        //set Food
+        //set Flow
     }    
 
     

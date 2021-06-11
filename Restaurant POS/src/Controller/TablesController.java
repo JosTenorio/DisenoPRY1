@@ -1,9 +1,8 @@
 
 package Controller;
 
-import Controller.Items.MenuItemController;
+import Controller.Abstract.CategoryController;
 import Controller.Items.TableItemController;
-import Model.Item;
 import Model.Managers.OrderManager;
 import Model.Managers.TableManager;
 import Model.Order;
@@ -16,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -24,9 +22,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Pair;
 
-public class TablesController extends SceneController implements Initializable {
+public class TablesController extends CategoryController implements Initializable {
      
     private ArrayList<Button> tableButtons;
     private ArrayList<Button> itemButtons;
@@ -128,9 +125,10 @@ public class TablesController extends SceneController implements Initializable {
         else if (event.getSource() == addOrder){
             popupOrder.setVisible(true);
             dimmer.setVisible(true);
-            setCategories(null);
-            setFood(null);
-            setFlow(); 
+            itemButtons = setMenuCategories(null, menuGrid, 4, 182.2);
+            setGridButtons();
+            //set Food
+            //set Flow
         }
         for (Button table : tableButtons){
             if (event.getSource() == table){
@@ -145,8 +143,10 @@ public class TablesController extends SceneController implements Initializable {
         }
         for (Button item : itemButtons){
             if (event.getSource() == item){
-                setCategories(item.getText());
-                setFood(item.getText());
+                itemButtons = setMenuCategories(item.getText(), menuGrid, 4, 182.2);
+                setGridButtons();
+                //set Food
+                //set Flow
             }
         }
         // SIDE MENU
@@ -176,84 +176,30 @@ public class TablesController extends SceneController implements Initializable {
         }
     }
     
-    private void setCategories(String category){
-        ArrayList<Pair<String, String>> categories = new ArrayList<>();
-        if (category == null){
-            //TEMP
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-        } else {
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-        }     
-        menuGrid.getChildren().clear();
-        itemButtons = new ArrayList<>();
-        this.tableNameBuild.setText(tableName.getText());
-        int col = 0;
-        int row = 0;
-        for (int i = 0; i < categories.size(); i++){
-            FXMLLoader loader = new FXMLLoader();
-            if (col == 4){
-                col = 0;
-                row++;
-            }
-            try{
-                loader.setLocation(getClass().getResource("/View/Items/MenuItemView.fxml"));
-                AnchorPane pane = loader.load();
-                MenuItemController itemController = loader.getController();
-                itemController.setData(categories.get(i).getKey(), categories.get(i).getValue());
-                menuGrid.add(pane, col++, row);
-                GridPane.setMargin(pane, new Insets(10));
-                itemController.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            btnHandle(event);
-                        } catch (IOException ex) {
-                            System.err.println(ex);
-                        }
+    private void setGridButtons(){
+        for (Button item : itemButtons){
+            item.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        btnHandle(event);
+                    } catch (IOException ex) {
+                        System.err.println(ex);
                     }
-                });
-                itemButtons.add(itemController.getButton());
-            } catch (IOException ex) {
-                System.err.println(ex);
-            }
+                }
+            });
         }
-
     }
     
-    private void setFood(String category){
-    }
-    
-    private void setFlow(){   
+    private void setTableNames(){
+        for (int i = 0; i < tableButtons.size(); i++){
+            tableButtons.get(i).setVisible(false);
+        }
+        ArrayList<String> tableNames = TableManager.getTableNames();
+        for (int i = 0; i < tableNames.size(); i++){
+            tableButtons.get(i).setText(tableNames.get(i));
+            tableButtons.get(i).setVisible(true);
+        }
     }
 
     @Override
@@ -278,16 +224,7 @@ public class TablesController extends SceneController implements Initializable {
         tableButtons.add(table11);
         tableButtons.add(table12);
         tableButtons.add(table13);
-        
-        for (int i = 0; i < tableButtons.size(); i++){
-            tableButtons.get(i).setVisible(false);
-        }
-        
-        ArrayList<String> tableNames = TableManager.getTableNames();
-        for (int i = 0; i < tableNames.size(); i++){
-            tableButtons.get(i).setText(tableNames.get(i));
-            tableButtons.get(i).setVisible(true);
-        }
+        setTableNames();
         
     }
 }

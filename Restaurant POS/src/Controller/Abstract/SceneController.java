@@ -1,5 +1,5 @@
 
-package Controller;
+package Controller.Abstract;
 
 import java.io.IOException;
 import javafx.animation.TranslateTransition;
