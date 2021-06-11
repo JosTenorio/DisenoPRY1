@@ -7,7 +7,9 @@ package Model.Managers;
 
 import Connection.ConnectionManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 
@@ -32,4 +34,22 @@ public class SideDishManager {
         return rowsAffected;
     }
     
+    public static ArrayList<String> getSideDishNameByItem (int itemId) throws SQLException {
+        ResultSet rs;
+        ArrayList<String> results = new ArrayList<String>();
+        PreparedStatement getSideDishNameByItemStatement;
+        if (!PreparedStatements.containsKey("getSideDishNameByItemStatement")){
+            String sql = "SELECT Comida.Nombre FROM Agregado INNER JOIN Comida ON Agregado.IdAcomp = Comida.Id WHERE IdItem = ?";
+            getSideDishNameByItemStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            PreparedStatements.put("insertSideDishStatement", getSideDishNameByItemStatement);
+        } else {
+            getSideDishNameByItemStatement = PreparedStatements.get("getSideDishNameByItemStatement");
+        }
+        getSideDishNameByItemStatement.setInt(1, itemId);
+        rs = getSideDishNameByItemStatement.executeQuery();
+        while (rs.next()) {
+           results.add(rs.getString(1));
+        }
+       return results;
+    }
 }

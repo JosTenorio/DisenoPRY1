@@ -25,7 +25,7 @@ public class OrderManager {
     
  
     private static int createOrder (String tableName) throws SQLException {
-        int rowsAffected = -1;
+        int rowsAffected;
         PreparedStatement createOrderStatement;
         if (!PreparedStatements.containsKey("createOrderStatement")){
             String sql = "INSERT INTO Orden(IdMesa) VALUES ((SELECT Id FROM Mesa WHERE Nombre = ?))";
@@ -41,7 +41,7 @@ public class OrderManager {
     
     private static int getLastOrderId() throws SQLException {
         ResultSet rs;
-        int results = -1;
+        int results;
         PreparedStatement getLastOrderIdStatement;
         if (!PreparedStatements.containsKey("getLastOrderIdStatement")){
             String sql = "SELECT MAX(Id) FROM Orden";
@@ -98,6 +98,55 @@ public class OrderManager {
             }
         }
         return affectedRows; 
+    }
+    
+    public static Order getTableOrders(String tableName, boolean includePaidItems) {
+        Order result = null;
+        ArrayList<Item> tableItems = new ArrayList<>();
+        ArrayList<Integer> OrderIds;
+        try {
+            OrderIds = getOrderIdsByTableName(tableName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = "Esto no debería pasar";
+            Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }
+        for (Integer orderId : OrderIds) {
+            ArrayList<Item> items;
+            try {
+                items = ItemManager.getItemsByOrder(orderId, includePaidItems);
+            } catch (SQLException ex) {
+                errorFlag = true;
+                error = "Esto no debería pasar";
+                Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
+                return result;
+            }
+            items.forEach(item -> {
+                tableItems.add(item);
+            });
+        }
+        result = new Order (tableName, tableItems);
+        return result;
+    }
+    
+    private static ArrayList<Integer> getOrderIdsByTableName(String tableName) throws SQLException {
+        ResultSet rs;
+        ArrayList<Integer> results = new ArrayList<>();
+        PreparedStatement getOrderIdsByTableNameStatement;
+        if (!PreparedStatements.containsKey("getOrderIdsByTableNameStatement")){
+            String sql = "SELECT Orden.Id FROM Orden INNER JOIN Mesa ON Mesa.Id = Orden.IdMesa WHERE Mesa.Nombre = ?";
+            getOrderIdsByTableNameStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            PreparedStatements.put("getOrderIdsByTableNameStatement", getOrderIdsByTableNameStatement);
+        } else {
+            getOrderIdsByTableNameStatement = PreparedStatements.get("getOrderIdsByTableNameStatement");
+        }
+        getOrderIdsByTableNameStatement.setString(1, tableName);
+        rs = getOrderIdsByTableNameStatement.executeQuery();
+       while (rs.next()) {
+           results.add(rs.getInt(1));
+       }
+       return results;
     }
     
     public static boolean hasError() {

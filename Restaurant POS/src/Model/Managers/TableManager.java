@@ -95,6 +95,8 @@ public class TableManager {
     
     
     
+    
+    
     public static boolean hasError() {
         return errorFlag;
     }
