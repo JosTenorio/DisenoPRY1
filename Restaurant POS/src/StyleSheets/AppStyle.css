@@ -10,6 +10,9 @@
 @font-face {
     src: url('Montserrat-Bold.ttf');
 }
+@font-face {
+    src: url('Montserrat-Light.ttf');
+}
 
 .title{
     -fx-text-fill: #2B2E34;
@@ -21,6 +24,24 @@
     -fx-text-fill: #2B2E34;
     -fx-font-size: 18px;
     -fx-font-family: "Montserrat Regular";
+}
+
+.txtLight{
+    -fx-text-fill: #2B2E34;
+    -fx-font-size: 20px;
+    -fx-font-family: "Montserrat Light";
+}
+
+.txtMed{
+    -fx-text-fill: #2B2E34;
+    -fx-font-size: 20px;
+    -fx-font-family: "Montserrat Medium";
+}
+
+.txtBold{
+    -fx-text-fill: #2B2E34;
+    -fx-font-size: 20px;
+    -fx-font-family: "Montserrat SemiBold";
 }
 
 .darkGray{
@@ -94,6 +115,7 @@
     -fx-text-fill: white;
     -fx-font-family: "Montserrat Bold";
     -fx-font-size: 28px;
+    -fx-background-radius: 35px;
 }
 
 .table{

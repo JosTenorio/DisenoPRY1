@@ -105,8 +105,8 @@
                   <String fx:value="roundedTop" />
                </styleClass>
                <children>
-                  <Label fx:id="tableName" layoutX="274.0" layoutY="29.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="18.0" />
-                  <ImageView fx:id="editOrder" fitHeight="44.0" fitWidth="44.0" layoutX="549.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="18.0">
+                  <Label fx:id="tableName" layoutX="274.0" layoutY="29.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="25.0" />
+                  <ImageView fx:id="editOrder" fitHeight="44.0" fitWidth="44.0" layoutX="551.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="22.0">
                      <image>
                         <Image url="@../Images/Edit.png" />
                      </image>
@@ -142,7 +142,7 @@
             <String fx:value="white" />
             <String fx:value="popUp" />
          </styleClass></AnchorPane>
-      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
+      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
          <children>
             <AnchorPane prefHeight="78.0" prefWidth="858.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <styleClass>

@@ -8,9 +8,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class MenuController extends SceneController implements Initializable {
     
@@ -19,8 +22,6 @@ public class MenuController extends SceneController implements Initializable {
 
     @FXML
     private ImageView hambMenu;
-    @FXML
-    private ImageView editTables;
     @FXML
     private AnchorPane slider;
     @FXML
@@ -35,6 +36,30 @@ public class MenuController extends SceneController implements Initializable {
     private Button sideMenuInventory;
     @FXML
     private Button sideMenuSettings;
+    @FXML
+    private ImageView editMenu;
+    @FXML
+    private ImageView editMenu1;
+    @FXML
+    private HBox flowContainer;
+    @FXML
+    private Label dishName;
+    @FXML
+    private ImageView editDish;
+    @FXML
+    private ImageView dishImage;
+    @FXML
+    private Button confirm;
+    @FXML
+    private Label dishDesc;
+    @FXML
+    private Label dishSides;
+    @FXML
+    private Label dishPrice;
+    @FXML
+    private GridPane menuGrid;
+    @FXML
+    private AnchorPane dishCard;
     
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -59,6 +84,7 @@ public class MenuController extends SceneController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         slideClose(slider);
         menuOpen = false;
+        dishCard.setVisible(false);
         itemButtons = new ArrayList<>();
     }    
 
