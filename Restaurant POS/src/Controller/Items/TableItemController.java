@@ -24,8 +24,8 @@ public class TableItemController {
                 itemNames += "\n\t" + dish;
             }
         }
-        if (item.notes != null){
-            itemNames += "\n\t" + item.notes;
+        if (!"".equals(item.notes)){
+            itemNames += "\n\tNota: " + item.notes;
         }
         name.setText(itemNames);
         cost.setText("₡" + item.cost);

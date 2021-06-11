@@ -48,14 +48,14 @@
          <children>
             <VBox layoutX="30.0" layoutY="107.0" prefHeight="947.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Mesas">
+                  <Button fx:id="sideMenuTable" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Mesas">
                      <graphic>
                         <ImageView fitHeight="41.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Images/Tables.png" />
                            </image></ImageView>
                      </graphic></Button>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Órdenes">
+                  <Button fx:id="sideMenuOrders" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Órdenes">
                      <graphic>
                         <ImageView fitHeight="54.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -63,7 +63,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Cocina">
+                  <Button fx:id="sideMenuKitchen" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Cocina">
                      <graphic>
                         <ImageView fitHeight="44.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -71,7 +71,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Menú">
+                  <Button fx:id="sideMenuMenu" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Menú">
                      <graphic>
                         <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -79,7 +79,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Inventario">
+                  <Button fx:id="sideMenuInventory" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Inventario">
                      <graphic>
                         <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -87,7 +87,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button mnemonicParsing="false" prefHeight="102.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css">
+                  <Button fx:id="sideMenuSettings" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="102.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -105,8 +105,8 @@
                   <String fx:value="roundedTop" />
                </styleClass>
                <children>
-                  <Label fx:id="tableName" layoutX="274.0" layoutY="29.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="18.0" />
-                  <ImageView fx:id="editOrder" fitHeight="44.0" fitWidth="44.0" layoutX="549.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="18.0">
+                  <Label fx:id="tableName" layoutX="274.0" layoutY="29.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="25.0" />
+                  <ImageView fx:id="editOrder" fitHeight="44.0" fitWidth="44.0" layoutX="551.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="22.0">
                      <image>
                         <Image url="@../Images/Edit.png" />
                      </image>
@@ -142,7 +142,7 @@
             <String fx:value="white" />
             <String fx:value="popUp" />
          </styleClass></AnchorPane>
-      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
+      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
          <children>
             <AnchorPane prefHeight="78.0" prefWidth="858.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -161,7 +161,14 @@
                <styleClass>
                   <String fx:value="roundedBotRight" />
                   <String fx:value="lightGray" />
-               </styleClass></AnchorPane>
+               </styleClass>
+               <children>
+                  <Button fx:id="confirm" layoutX="120.0" layoutY="636.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" stylesheets="@../StyleSheets/AppStyle.css" text="Confirmar" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="616.0">
+                     <styleClass>
+                        <String fx:value="normButton" />
+                        <String fx:value="size24" />
+                     </styleClass></Button>
+               </children></AnchorPane>
             <Label fx:id="tableNameBuild" layoutX="868.0" layoutY="19.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Mesa #" />
             <ImageView fx:id="editOrderBuild" fitHeight="44.0" fitWidth="44.0" layoutX="1104.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
