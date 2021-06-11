@@ -17,7 +17,7 @@ public abstract class CategoryController extends SceneController {
         ArrayList<Pair<String, String>> categories = new ArrayList<>();
         if (category == null){
             //TEMP
-            categories.add(new Pair("", "Prueba"));
+            categories.add(new Pair("", "Prueba 1"));
             categories.add(new Pair("", "Prueba"));
             categories.add(new Pair("", "Prueba"));
             categories.add(new Pair("", "Prueba"));
@@ -80,5 +80,7 @@ public abstract class CategoryController extends SceneController {
         }
         return itemButtons;
     }
+    
+    public abstract void setGridButtons();
     
 }

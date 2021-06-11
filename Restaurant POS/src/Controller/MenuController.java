@@ -74,6 +74,14 @@ public class MenuController extends CategoryController implements Initializable 
                 menuOpen = false;
             }
         }
+        for (Button item : itemButtons){
+            if (event.getSource() == item){
+                itemButtons = setMenuCategories(item.getText(), menuGrid, 3, 210.0);
+                setGridButtons();
+                //set Food
+                //set Flow
+            }
+        }
         // SIDE MENU
         if (event.getSource() == sideMenuTable)
             tablesShow(event);
@@ -82,7 +90,8 @@ public class MenuController extends CategoryController implements Initializable 
         
     }
     
-    private void setGridButtons(){
+    @Override
+    public void setGridButtons(){
         for (Button item : itemButtons){
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -102,7 +111,7 @@ public class MenuController extends CategoryController implements Initializable 
         slideClose(slider);
         menuOpen = false;
         dishCard.setVisible(false);
-        itemButtons = setMenuCategories(null, menuGrid, 3, 215.0);
+        itemButtons = setMenuCategories(null, menuGrid, 3, 210.0);
         setGridButtons();
         //set Food
         //set Flow
