@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.javatuples.Pair;
 
 
 /**
@@ -64,6 +65,84 @@ public class FoodManager {
             return rowsAffected;
         }
         return rowsAffected;
+    }
+    
+    public static ArrayList<Pair<String,String>> getFoodByCathegory(String cathegoryName) {
+        ResultSet rs;
+        ArrayList<Pair<String,String>> results = new ArrayList<>();
+        PreparedStatement getFoodByCathegoryStatement;
+        if (!PreparedStatements.containsKey("getFoodByCathegoryStatement")){
+            String sql = "SELECT Nombre, DireccionFoto FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?)";
+            try {
+                getFoodByCathegoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return results;
+            }
+            PreparedStatements.put("getFoodByCathegoryStatement", getFoodByCathegoryStatement);
+        } else {
+            getFoodByCathegoryStatement = PreparedStatements.get("getFoodByCathegoryStatement");
+        }
+        try {
+            getFoodByCathegoryStatement.setString(1, cathegoryName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        try {
+            rs = getFoodByCathegoryStatement.executeQuery();
+            while (rs.next()) {
+                Pair<String,String> result;
+                result = new Pair<>(rs.getString(1), rs.getString(2));
+                results.add(result);
+            }
+            return results;
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return results;
+        }
+    }
+    
+    public static ArrayList<Pair<String,String>> getSideDishesByCathegory(String cathegoryName) {
+        ResultSet rs;
+        ArrayList<Pair<String,String>> results = new ArrayList<>();
+        PreparedStatement getSideDishesByCathegoryStatement;
+        if (!PreparedStatements.containsKey("getSideDishesByCathegoryStatement")){
+            String sql = "  SELECT Nombre, DireccionFoto FROM Comida WHERE (IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND CantidadAcomp IS NULL)";
+            try {
+                getSideDishesByCathegoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return results;
+            }
+            PreparedStatements.put("getSideDishesByCathegoryStatement", getSideDishesByCathegoryStatement);
+        } else {
+            getSideDishesByCathegoryStatement = PreparedStatements.get("getSideDishesByCathegoryStatement");
+        }
+        try {
+            getSideDishesByCathegoryStatement.setString(1, cathegoryName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        try {
+            rs = getSideDishesByCathegoryStatement.executeQuery();
+            while (rs.next()) {
+                Pair<String,String> result;
+                result = new Pair<>(rs.getString(1), rs.getString(2));
+                results.add(result);
+            }
+            return results;
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return results;
+        }
     }
     
     public static boolean hasError() {
