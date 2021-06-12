@@ -26,25 +26,25 @@ public class FoodCtgrManager {
     private static Boolean errorFlag;
     
     
-    public static ArrayList<Pair<String,String>> getFatherCathegoriesIds() {
+    public static ArrayList<Pair<String,String>> getFatherCathegories() {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
-        PreparedStatement getFatherCathegoriesIdsStatement;
-        if (!PreparedStatements.containsKey("getFatherCathegoriesIdsStatement")){
+        PreparedStatement getFatherCathegoriesStatement;
+        if (!PreparedStatements.containsKey("getFatherCathegoriesStatement")){
             String sql = "SELECT nombre FROM CategoriaCom WHERE IdCategoriaPadre IS NULL";
             try {
-                getFatherCathegoriesIdsStatement = ConnectionManager.getConnection().prepareStatement(sql);
+                getFatherCathegoriesStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
                 errorFlag = true;
                 return results;
             }
-            PreparedStatements.put("getFatherCathegoriesIdsStatement", getFatherCathegoriesIdsStatement);
+            PreparedStatements.put("getFatherCathegoriesStatement", getFatherCathegoriesStatement);
         } else {
-            getFatherCathegoriesIdsStatement = PreparedStatements.get("getFatherCathegoriesIdsStatement");
+            getFatherCathegoriesStatement = PreparedStatements.get("getFatherCathegoriesStatement");
         }
         try {
-            rs = getFatherCathegoriesIdsStatement.executeQuery();
+            rs = getFatherCathegoriesStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
                 result = new Pair<>(rs.getString(1), getImageForCathegory(rs.getString(1)));

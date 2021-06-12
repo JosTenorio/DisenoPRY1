@@ -67,12 +67,12 @@ public class FoodManager {
         return rowsAffected;
     }
     
-    public static ArrayList<Pair<String,String>> getFoodByCathegory(String cathegoryName) {
+    public static ArrayList<Pair<String,String>> getFoodByCathegory(String cathegoryName, boolean includeMainDishes) {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
         PreparedStatement getFoodByCathegoryStatement;
         if (!PreparedStatements.containsKey("getFoodByCathegoryStatement")){
-            String sql = "SELECT Nombre, DireccionFoto FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?)";
+            String sql = "SELECT Nombre, DireccionFoto FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND (1 = ? OR CantidadAcomp IS NULL)";
             try {
                 getFoodByCathegoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
@@ -86,6 +86,10 @@ public class FoodManager {
         }
         try {
             getFoodByCathegoryStatement.setString(1, cathegoryName);
+            if (includeMainDishes)
+                getFoodByCathegoryStatement.setInt(2, 1);
+            else
+                getFoodByCathegoryStatement.setInt(2, 0);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,32 +110,35 @@ public class FoodManager {
         }
     }
     
-    public static ArrayList<Pair<String,String>> getSideDishesByCathegory(String cathegoryName) {
+    public static ArrayList<Pair<String,String>> getUncategorizedFood (boolean includeMainDishes) {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
-        PreparedStatement getSideDishesByCathegoryStatement;
-        if (!PreparedStatements.containsKey("getSideDishesByCathegoryStatement")){
-            String sql = "  SELECT Nombre, DireccionFoto FROM Comida WHERE (IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND CantidadAcomp IS NULL)";
+        PreparedStatement getUncategorizedFoodStatement;
+        if (!PreparedStatements.containsKey("getUncategorizedFoodStatement")){
+            String sql = "SELECT Nombre, DireccionFoto FROM Comida WHERE IdCategoria IS NULL AND (1 = ? OR CantidadAcomp IS NULL)";
             try {
-                getSideDishesByCathegoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
+                getUncategorizedFoodStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
                 errorFlag = true;
                 return results;
             }
-            PreparedStatements.put("getSideDishesByCathegoryStatement", getSideDishesByCathegoryStatement);
+            PreparedStatements.put("getUncategorizedFoodStatement", getUncategorizedFoodStatement);
         } else {
-            getSideDishesByCathegoryStatement = PreparedStatements.get("getSideDishesByCathegoryStatement");
+            getUncategorizedFoodStatement = PreparedStatements.get("getUncategorizedFoodStatement");
         }
         try {
-            getSideDishesByCathegoryStatement.setString(1, cathegoryName);
+            if (includeMainDishes)
+                getUncategorizedFoodStatement.setInt(1, 1);
+            else
+                getUncategorizedFoodStatement.setInt(1, 0);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
             return results;
         }
         try {
-            rs = getSideDishesByCathegoryStatement.executeQuery();
+            rs = getUncategorizedFoodStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
                 result = new Pair<>(rs.getString(1), rs.getString(2));
