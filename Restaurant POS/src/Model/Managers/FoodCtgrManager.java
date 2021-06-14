@@ -26,7 +26,7 @@ public class FoodCtgrManager {
     private static Boolean errorFlag;
     
     
-    public static ArrayList<Pair<String,String>> getFatherCathegories() {
+    public static ArrayList<Pair<String,String>> getFatherCategories() {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
         PreparedStatement getFatherCathegoriesStatement;
@@ -47,7 +47,7 @@ public class FoodCtgrManager {
             rs = getFatherCathegoriesStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), getImageForCathegory(rs.getString(1)));
+                result = new Pair<>(rs.getString(1), getImageForCategory(rs.getString(1)));
                 results.add(result);
             }
             return results;
@@ -58,7 +58,7 @@ public class FoodCtgrManager {
         }
     }
     
-    public static ArrayList<Pair<String,String>> getSubCategories(String cathegoryName) {
+    public static ArrayList<Pair<String,String>> getSubCategories(String categoryName) {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
         PreparedStatement getSubCategoriesStatement;
@@ -76,7 +76,7 @@ public class FoodCtgrManager {
             getSubCategoriesStatement = PreparedStatements.get("getSubCategoriesStatement");
         }
         try {
-            getSubCategoriesStatement.setString(1, cathegoryName);
+            getSubCategoriesStatement.setString(1, categoryName);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,7 +86,7 @@ public class FoodCtgrManager {
             rs = getSubCategoriesStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), getImageForCathegory(rs.getString(1)));
+                result = new Pair<>(rs.getString(1), getImageForCategory(rs.getString(1)));
                 results.add(result);
             }
             return results;
@@ -97,7 +97,7 @@ public class FoodCtgrManager {
         }
     }
     
-    private static String getImageForCathegory(String cathegoryName) throws SQLException {
+    private static String getImageForCategory(String categoryName) throws SQLException {
         ResultSet rs;
         String results;
         PreparedStatement getImageForCathegoryStatement;
@@ -119,7 +119,7 @@ public class FoodCtgrManager {
         } else {
             getImageForCathegoryStatement = PreparedStatements.get("getImageForCathegoryStatement");
         }
-        getImageForCathegoryStatement.setString(1, cathegoryName);
+        getImageForCathegoryStatement.setString(1, categoryName);
         rs = getImageForCathegoryStatement.executeQuery();
         rs.next();
         results = rs.getString(1);

@@ -12,8 +12,9 @@ public class MenuItemController {
     @FXML
     private Button button;
     
-    public void setData(String path, String text){
+    public void setData(String text, String path){
         button.setText(text);
+        //path can be null
     }
     
     public Button getButton(){

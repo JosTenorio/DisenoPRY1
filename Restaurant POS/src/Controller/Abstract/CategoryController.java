@@ -2,6 +2,7 @@
 package Controller.Abstract;
 
 import Controller.Items.MenuItemController;
+import Model.Managers.FoodCtgrManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
@@ -9,47 +10,16 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 
 public abstract class CategoryController extends SceneController {
     
     public ArrayList<Button> setMenuCategories(String category, GridPane menuGrid, int cols, double size){
         ArrayList<Pair<String, String>> categories = new ArrayList<>();
         if (category == null){
-            //TEMP
-            categories.add(new Pair("", "Prueba 1"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
+            categories = FoodCtgrManager.getFatherCategories();
         } else {
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
-            categories.add(new Pair("", "Prueba"));
+            categories = FoodCtgrManager.getSubCategories(category);
         } 
         return setCategories(categories, menuGrid, cols, size);
     }
@@ -69,7 +39,7 @@ public abstract class CategoryController extends SceneController {
                 loader.setLocation(getClass().getResource("/View/Items/MenuItemView.fxml"));
                 AnchorPane pane = loader.load();
                 MenuItemController itemController = loader.getController();
-                itemController.setData(categories.get(i).getKey(), categories.get(i).getValue());
+                itemController.setData(categories.get(i).getValue0(), categories.get(i).getValue1());
                 pane.setPrefSize(size, size);
                 menuGrid.add(pane, col++, row);
                 GridPane.setMargin(pane, new Insets(10));
