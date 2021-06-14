@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Model.Managers.FoodManager;
 
 public class Main extends Application{
     
@@ -20,7 +21,7 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         try {
-            //connect
+            System.out.println(FoodManager.getFoodByCathegory("Carnes", true));
         } catch (Exception e) {
             System.err.println(e.toString());              
         }
