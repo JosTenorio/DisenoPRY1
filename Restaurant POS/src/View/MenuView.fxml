@@ -49,11 +49,6 @@
                </styleClass>
                <children>
                   <Label fx:id="dishName" layoutX="33.0" layoutY="19.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Platillo" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
-                  <ImageView fx:id="editDish" fitHeight="44.0" fitWidth="44.0" layoutX="509.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="22.0">
-                     <image>
-                        <Image url="@../Images/Edit.png" />
-                     </image>
-                  </ImageView>
                </children>
             </AnchorPane>
             <ImageView fx:id="dishImage" fitHeight="483.0" fitWidth="575.0" layoutX="55.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0" />

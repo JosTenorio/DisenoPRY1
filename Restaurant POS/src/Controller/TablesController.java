@@ -162,6 +162,7 @@ public class TablesController extends CategoryController implements Initializabl
         
         itemContainer.getChildren().clear();
         this.tableName.setText(tableOrder.tableName);
+        this.tableNameBuild.setText(tableOrder.tableName);
         for (int i = 0; i < tableOrder.items.size(); i++){
             FXMLLoader loader = new FXMLLoader();
             try{
