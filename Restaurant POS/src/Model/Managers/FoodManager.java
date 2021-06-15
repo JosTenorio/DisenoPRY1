@@ -180,6 +180,47 @@ public class FoodManager {
         return rowsAffected;
     }
     
+    public static int updateFood (String oldFoodName, Dish newFood) {
+        int rowsAffected = -1;
+        PreparedStatement updateFoodStatement;
+        if (!PreparedStatements.containsKey("updateFoodStatement")){
+            String sql = "UPDATE Comida SET Nombre = ?, DireccionFoto = ?, Descripcion = ?, CantidadAcomp = ?, Precio = ? WHERE Nombre = ?";
+            try {
+                updateFoodStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("updateFoodStatement", updateFoodStatement);
+        } else {
+            updateFoodStatement = PreparedStatements.get("updateFoodStatement");
+        }
+        try {
+            updateFoodStatement.setString(1, newFood.name);
+            updateFoodStatement.setString(2, newFood.imgPath);
+            updateFoodStatement.setString(3, newFood.description);
+            if (newFood.isSideDish)
+                updateFoodStatement.setNull(4, java.sql.Types.INTEGER);
+            else
+                updateFoodStatement.setInt(4, newFood.sideDishes);
+            updateFoodStatement.setDouble(5, newFood.price);
+            updateFoodStatement.setString(6, oldFoodName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = updateFoodStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+    
     public static ArrayList<Triplet<String,String,Boolean>> getUncategorizedFood (boolean includeMainDishes, boolean includeArchived) {
         ResultSet rs;
         ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
