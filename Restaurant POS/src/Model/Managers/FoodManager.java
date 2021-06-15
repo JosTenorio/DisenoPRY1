@@ -226,6 +226,48 @@ public class FoodManager {
         }
     }
     
+    public static Dish getFoodDetails (String foodName) {
+        ResultSet rs;
+        Dish results = null;
+        PreparedStatement getFoodDetailsStatement;
+        if (!PreparedStatements.containsKey("getFoodDetailsStatement")){
+            String sql = "SELECT Descripcion, DireccionFoto, Precio, Nombre, Archivado, CantidadAcomp FROM Comida WHERE Nombre = ?";
+            try {
+                getFoodDetailsStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return results;
+            }
+            PreparedStatements.put("getFoodDetailsStatement", getFoodDetailsStatement);
+        } else {
+            getFoodDetailsStatement = PreparedStatements.get("getFoodDetailsStatement");
+        }
+        try {
+            getFoodDetailsStatement.setString(1, foodName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        try {
+            rs = getFoodDetailsStatement.executeQuery();
+            if (rs.next()) {
+                rs.getInt(6);
+                if (rs.wasNull())
+                    results = new Dish(rs.getString(4),rs.getString(2), rs.getString(1), true, rs.getDouble(3));
+                else
+                    results = new Dish(rs.getString(4),rs.getString(2), rs.getString(1), false, rs.getInt(6),rs.getDouble(3));
+            }
+            return results;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            errorFlag = true;
+            error = ex.getMessage();
+            return results;
+        }
+    }
+    
     public static boolean hasError() {
         return errorFlag;
     }
