@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.javatuples.Pair;
+import org.javatuples.Triplet;
 
 
 /**
@@ -67,39 +67,43 @@ public class FoodManager {
         return rowsAffected;
     }
     
-    public static ArrayList<Pair<String,String>> getFoodByCathegory(String cathegoryName, boolean includeMainDishes) {
+    public static ArrayList<Triplet<String,String,Boolean>> getFoodByCategory(String cathegoryName, boolean includeMainDishes, boolean includeArchived) {
         ResultSet rs;
-        ArrayList<Pair<String,String>> results = new ArrayList<>();
-        PreparedStatement getFoodByCathegoryStatement;
-        if (!PreparedStatements.containsKey("getFoodByCathegoryStatement")){
-            String sql = "SELECT Nombre, DireccionFoto FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND (1 = ? OR CantidadAcomp IS NULL)";
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
+        PreparedStatement getFoodByCategoryStatement;
+        if (!PreparedStatements.containsKey("getFoodByCategoryStatement")){
+            String sql = "SELECT Nombre, DireccionFoto, Archivado FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND (1 = ? OR CantidadAcomp IS NULL) AND (1 = ? OR Archivado = 0)";
             try {
-                getFoodByCathegoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
+                getFoodByCategoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
                 errorFlag = true;
                 return results;
             }
-            PreparedStatements.put("getFoodByCathegoryStatement", getFoodByCathegoryStatement);
+            PreparedStatements.put("getFoodByCategoryStatement", getFoodByCategoryStatement);
         } else {
-            getFoodByCathegoryStatement = PreparedStatements.get("getFoodByCathegoryStatement");
+            getFoodByCategoryStatement = PreparedStatements.get("getFoodByCategoryStatement");
         }
         try {
-            getFoodByCathegoryStatement.setString(1, cathegoryName);
+            getFoodByCategoryStatement.setString(1, cathegoryName);
             if (includeMainDishes)
-                getFoodByCathegoryStatement.setInt(2, 1);
+                getFoodByCategoryStatement.setInt(2, 1);
             else
-                getFoodByCathegoryStatement.setInt(2, 0);
+                getFoodByCategoryStatement.setInt(2, 0);
+            if (includeArchived)
+                getFoodByCategoryStatement.setInt(3, 1);
+            else
+                getFoodByCategoryStatement.setInt(3, 0);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
             return results;
         }
         try {
-            rs = getFoodByCathegoryStatement.executeQuery();
+            rs = getFoodByCategoryStatement.executeQuery();
             while (rs.next()) {
-                Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), rs.getString(2));
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), rs.getString(2), rs.getBoolean(3));
                 results.add(result);
             }
             return results;
@@ -110,12 +114,78 @@ public class FoodManager {
         }
     }
     
-    public static ArrayList<Pair<String,String>> getUncategorizedFood (boolean includeMainDishes) {
+    public static int archiveFood (String foodName) {
+        int rowsAffected = -1;
+        PreparedStatement archiveFoodStatement;
+        if (!PreparedStatements.containsKey("archiveFoodStatement")){
+            String sql = "UPDATE Comida SET Archivado = 1 WHERE Nombre = ?";
+            try {
+                archiveFoodStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("archiveFoodStatement", archiveFoodStatement);
+        } else {
+            archiveFoodStatement = PreparedStatements.get("archiveFoodStatement");
+        }
+        try {
+            archiveFoodStatement.setString(1, foodName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = archiveFoodStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+    
+    public static int unarchiveFood (String foodName) {
+        int rowsAffected = -1;
+        PreparedStatement unarchiveFoodStatement;
+        if (!PreparedStatements.containsKey("unarchiveFoodStatement")){
+            String sql = "UPDATE Comida SET Archivado = 0 WHERE Nombre = ?";
+            try {
+                unarchiveFoodStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("archiveFoodStatement", unarchiveFoodStatement);
+        } else {
+            unarchiveFoodStatement = PreparedStatements.get("unarchiveFoodStatement");
+        }
+        try {
+            unarchiveFoodStatement.setString(1, foodName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = unarchiveFoodStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+    
+    public static ArrayList<Triplet<String,String,Boolean>> getUncategorizedFood (boolean includeMainDishes, boolean includeArchived) {
         ResultSet rs;
-        ArrayList<Pair<String,String>> results = new ArrayList<>();
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
         PreparedStatement getUncategorizedFoodStatement;
         if (!PreparedStatements.containsKey("getUncategorizedFoodStatement")){
-            String sql = "SELECT Nombre, DireccionFoto FROM Comida WHERE IdCategoria IS NULL AND (1 = ? OR CantidadAcomp IS NULL)";
+            String sql = "SELECT Nombre, DireccionFoto, Archivado FROM Comida WHERE IdCategoria IS NULL AND (1 = ? OR CantidadAcomp IS NULL) AND (1 = ? OR Archivado = 0)";
             try {
                 getUncategorizedFoodStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
@@ -132,6 +202,10 @@ public class FoodManager {
                 getUncategorizedFoodStatement.setInt(1, 1);
             else
                 getUncategorizedFoodStatement.setInt(1, 0);
+            if (includeArchived)
+                getUncategorizedFoodStatement.setInt(2, 1);
+            else
+                getUncategorizedFoodStatement.setInt(2, 0);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,8 +214,8 @@ public class FoodManager {
         try {
             rs = getUncategorizedFoodStatement.executeQuery();
             while (rs.next()) {
-                Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), rs.getString(2));
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), rs.getString(2), rs.getBoolean(3));
                 results.add(result);
             }
             return results;

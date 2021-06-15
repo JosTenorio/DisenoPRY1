@@ -21,7 +21,7 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         try {
-            System.out.println(FoodManager.getFoodByCathegory("Carnes", true));
+            System.out.println(FoodManager.getFoodByCategory("Carnes", true, false));
         } catch (Exception e) {
             System.err.println(e.toString());              
         }
