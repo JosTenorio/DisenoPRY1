@@ -15,11 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.javatuples.Triplet;
 
-
-/**
- *
- * @author JOS
- */
 public class FoodManager {
     private static Hashtable<String, PreparedStatement> PreparedStatements = new Hashtable<String, PreparedStatement>();
     private static String error;

@@ -11,29 +11,29 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import org.javatuples.Pair;
+import org.javatuples.Triplet;
 
 public abstract class CategoryController extends SceneController {
     
     public ArrayList<Button> categoryButtons;
     public ArrayList<Button> foodButtons;
     
-    public void setFoodCategories(String category, GridPane menuGrid, int cols, double size){
+    public void setFoodCategories(String category, GridPane menuGrid, int cols, double size, boolean includeArchived){
         menuGrid.getChildren().clear();
-        ArrayList<Pair<String, String>> categories;
-        ArrayList<Pair<String, String>> food;
+        ArrayList<Triplet<String, String, Boolean>> categories;
+        ArrayList<Triplet<String, String, Boolean>> food;
         if (category == null){
             categories = FoodCtgrManager.getFatherCategories();
-            food = FoodManager.getUncategorizedFood(true);
+            food = FoodManager.getUncategorizedFood(true, includeArchived);
         } else {
             categories = FoodCtgrManager.getSubCategories(category);
-            food = FoodManager.getFoodByCategory(category, true);
+            food = FoodManager.getFoodByCategory(category, true, includeArchived);
         } 
         categoryButtons = setItems(categories, menuGrid, 0, cols, size);
         foodButtons = setItems(food, menuGrid, categories.size() % cols, cols, size);
     }
     
-    private ArrayList<Button> setItems(ArrayList<Pair<String, String>> items, GridPane menuGrid, int col, int cols, double size){   
+    private ArrayList<Button> setItems(ArrayList<Triplet<String, String, Boolean>> items, GridPane menuGrid, int col, int cols, double size){   
         ArrayList<Button> itemButtons = new ArrayList<>();
         int row = 0;
         for (int i = 0; i < items.size(); i++){
@@ -46,7 +46,8 @@ public abstract class CategoryController extends SceneController {
                 loader.setLocation(getClass().getResource("/View/Items/MenuItemView.fxml"));
                 AnchorPane pane = loader.load();
                 MenuItemController itemController = loader.getController();
-                itemController.setData(items.get(i).getValue0(), items.get(i).getValue1());
+                Triplet<String, String, Boolean> item = items.get(i);
+                itemController.setData(item.getValue0(), item.getValue1(), item.getValue2());
                 pane.setPrefSize(size, size);
                 menuGrid.add(pane, col++, row);
                 GridPane.setMargin(pane, new Insets(10));

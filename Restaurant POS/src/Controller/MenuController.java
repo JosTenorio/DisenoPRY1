@@ -2,6 +2,7 @@
 package Controller;
 
 import Controller.Abstract.CategoryController;
+import Model.Dish;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MenuController extends CategoryController implements Initializable 
     private boolean menuOpen;
     private boolean dishCardOpen;
     private boolean editMode;
+    private boolean isNewDish;
 
     @FXML
     private ImageView hambMenu;
@@ -118,16 +120,24 @@ public class MenuController extends CategoryController implements Initializable 
             }
         }
         else if (event.getSource() == addDish){
+            isNewDish = true;
             dishCardOpen = true;
             dishCardEdit.setVisible(true);
             emptyDishCardEdit();
         }
         else if (event.getSource() == confirm){
-            //this button only creates doesnt update
+            if (isNewDish){
+                Dish newDish = setDishInfo();
+            } else {
+                //send info to dishName
+            }
+        }
+        else if (event.getSource() == archive){
+            //send info and reset items
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
-                setFoodCategories(item.getText(), menuGrid, 3, 210.0);
+                setFoodCategories(item.getText(), menuGrid, 3, 210.0, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
                 //set Flow
@@ -140,6 +150,7 @@ public class MenuController extends CategoryController implements Initializable 
                     dishCard.setVisible(false);
                     dishCardEdit.setVisible(false);
                 } else {
+                    isNewDish = false;
                     dishCardOpen = true;
                     if (editMode){
                         dishCardEdit.setVisible(true);
@@ -180,6 +191,19 @@ public class MenuController extends CategoryController implements Initializable 
         dishPriceInput.getValueFactory().setValue(0.00);
     }
     
+    private Dish setDishInfo(){
+        String name = dishNameInput.getText();
+        String path = "";
+        String desc = dishDescInput.getText();
+        boolean isSide = dishIsSide.isSelected();
+        int sides = dishSidesInput.getValueFactory().getValue();
+        double price = dishPriceInput.getValueFactory().getValue();
+        if (isSide)
+            return new Dish(name, path, desc, isSide, price);
+        else
+            return new Dish(name, path, desc, isSide, sides, price);
+    }
+    
     @Override
     public void addButtonFunction(ArrayList<Button> buttons){
         for (Button item : buttons){
@@ -205,7 +229,7 @@ public class MenuController extends CategoryController implements Initializable 
         dishCard.setVisible(false);
         dishCardEdit.setVisible(false);
         addDish.setVisible(false);
-        setFoodCategories(null, menuGrid, 3, 210.0);
+        setFoodCategories(null, menuGrid, 3, 210.0, true);
         addButtonFunction(categoryButtons);
         addButtonFunction(foodButtons);
         editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
