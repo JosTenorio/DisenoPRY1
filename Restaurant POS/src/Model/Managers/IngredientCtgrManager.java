@@ -16,37 +16,31 @@ import java.util.logging.Logger;
 import org.javatuples.Pair;
 
 
-/**
- *
- * @author JOS
- */
 public class IngredientCtgrManager {
     
     private static Hashtable<String, PreparedStatement> PreparedStatements = new Hashtable<String, PreparedStatement>();
     private static String error;
     private static Boolean errorFlag;
     
-    public static ArrayList<Pair<String,String>> getFatherCathegories() {
-        
+    public static ArrayList<Pair<String,String>> getFatherCategories() {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
-        PreparedStatement getFatherCathegoriesStatement;
-        
-        if (!PreparedStatements.containsKey("getFatherCathegoriesStatement")){
-            String sql = "SELECT nombre FROM CategoriaCom WHERE IdCategoriaPadre IS NULL";
+        PreparedStatement getFatherCategoriesStatement;
+        if (!PreparedStatements.containsKey("getFatherCategoriesStatement")){
+            String sql = "SELECT nombre FROM CategoriaIng WHERE IdCategoriaPadre IS NULL";
             try {
-                getFatherCathegoriesStatement = ConnectionManager.getConnection().prepareStatement(sql);
+                getFatherCategoriesStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
                 errorFlag = true;
                 return results;
             }
-            PreparedStatements.put("getFatherCathegoriesStatement", getFatherCathegoriesStatement);
+            PreparedStatements.put("getFatherCategoriesStatement", getFatherCategoriesStatement);
         } else {
-            getFatherCathegoriesStatement = PreparedStatements.get("getFatherCathegoriesStatement");
+            getFatherCategoriesStatement = PreparedStatements.get("getFatherCategoriesStatement");
         }
         try {
-            rs = getFatherCathegoriesStatement.executeQuery();
+            rs = getFatherCategoriesStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
                 result = new Pair<>(rs.getString(1), getImageForCathegory(rs.getString(1)));
