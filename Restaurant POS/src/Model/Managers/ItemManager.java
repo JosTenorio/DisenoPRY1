@@ -91,7 +91,7 @@ public class ItemManager {
                 else {
                     sideDishes = null;
                 }
-                Item item = new Item(result.getValue1(),sideDishes,result.getValue2(),result.getValue3(),result.getValue4());
+                Item item = new Item(result.getValue0(), result.getValue1(),sideDishes,result.getValue2(),result.getValue3(),result.getValue4());
                 results.add(item);
             }
         }
