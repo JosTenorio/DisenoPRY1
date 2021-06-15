@@ -145,6 +145,9 @@ public class MenuController extends CategoryController implements Initializable 
             setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
             addButtonFunction(categoryButtons);
             addButtonFunction(foodButtons);
+            Dish dish = FoodManager.getFoodDetails(dishName.getText());
+            // catch error dish not found
+            toggleArchiveText(dish);
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -192,6 +195,14 @@ public class MenuController extends CategoryController implements Initializable 
         dishDesc.setText(dish.description);
         dishSides.setText("Inlcuye " + dish.sideDishes + " acompañamientos");
         dishPrice.setText("₡" + dish.price);
+        toggleArchiveText(dish);
+    }
+    
+    private void toggleArchiveText(Dish dish){
+        if (dish.isArchived)
+            confirm.setText("Desarchivar");
+        else
+            confirm.setText("Archivar");
     }
     
     private void populateDishCardEdit(Dish dish){
@@ -225,11 +236,10 @@ public class MenuController extends CategoryController implements Initializable 
         boolean isSide = dishIsSide.isSelected();
         int sides = Integer.valueOf(dishSidesInput.getText());
         double price = Double.valueOf(dishPriceInput.getText());  
-        boolean isArchvied = false; //CHANGE
         if (isSide)
-            return new Dish(name, path, desc, isSide, price, isArchvied);
+            return new Dish(name, path, desc, isSide, price, false);
         else
-            return new Dish(name, path, desc, isSide, sides, price, isArchvied);
+            return new Dish(name, path, desc, isSide, sides, price, false);
     }
     
     private boolean validInputs(){
