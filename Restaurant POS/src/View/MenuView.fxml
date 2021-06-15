@@ -6,7 +6,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -105,8 +104,18 @@
                   <String fx:value="textInput" />
                </styleClass></TextField>
             <CheckBox fx:id="dishIsSide" layoutX="28.0" layoutY="644.0" mnemonicParsing="false" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" text="Acompañamiento" />
-            <Spinner fx:id="dishSidesInput" editable="true" layoutX="238.0" layoutY="693.0" prefHeight="31.0" prefWidth="90.0" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" />
-            <Spinner fx:id="dishPriceInput" editable="true" layoutX="144.0" layoutY="750.0" prefHeight="31.0" prefWidth="110.0" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" />
+            <TextField fx:id="dishSidesInput" layoutX="237.0" layoutY="693.0" prefWidth="150.0" stylesheets="@../StyleSheets/AppStyle.css">
+               <styleClass>
+                  <String fx:value="textInput" />
+                  <String fx:value="txtLight" />
+               </styleClass>
+            </TextField>
+            <TextField fx:id="dishPriceInput" layoutX="144.0" layoutY="750.0" prefWidth="200.0" stylesheets="@../StyleSheets/AppStyle.css">
+               <styleClass>
+                  <String fx:value="textInput" />
+                  <String fx:value="txtLight" />
+               </styleClass>
+            </TextField>
          </children>
       </AnchorPane>
       <HBox layoutY="77.0" prefHeight="947.0" prefWidth="762.0">

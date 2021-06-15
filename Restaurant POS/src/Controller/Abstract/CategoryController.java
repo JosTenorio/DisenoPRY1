@@ -28,14 +28,13 @@ public abstract class CategoryController extends SceneController {
         } else {
             categories = FoodCtgrManager.getSubCategories(category);
             food = FoodManager.getFoodByCategory(category, true, includeArchived);
-        } 
-        categoryButtons = setItems(categories, menuGrid, 0, cols, size);
-        foodButtons = setItems(food, menuGrid, categories.size() % cols, cols, size);
+        }
+        categoryButtons = setItems(categories, menuGrid, 0, 0, cols, size);
+        foodButtons = setItems(food, menuGrid, categories.size() % cols, categories.size() / cols, cols, size);
     }
     
-    private ArrayList<Button> setItems(ArrayList<Triplet<String, String, Boolean>> items, GridPane menuGrid, int col, int cols, double size){   
+    private ArrayList<Button> setItems(ArrayList<Triplet<String, String, Boolean>> items, GridPane menuGrid, int col, int row, int cols, double size){   
         ArrayList<Button> itemButtons = new ArrayList<>();
-        int row = 0;
         for (int i = 0; i < items.size(); i++){
             FXMLLoader loader = new FXMLLoader();
             if (col == cols){
