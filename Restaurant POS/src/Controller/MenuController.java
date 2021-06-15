@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +22,8 @@ import javafx.scene.layout.HBox;
 public class MenuController extends CategoryController implements Initializable {
     
     private boolean menuOpen;
+    private boolean dishCardOpen;
+    private boolean editMode;
 
     @FXML
     private ImageView hambMenu;
@@ -46,8 +50,6 @@ public class MenuController extends CategoryController implements Initializable 
     @FXML
     private Label dishName;
     @FXML
-    private ImageView editDish;
-    @FXML
     private ImageView dishImage;
     @FXML
     private Button confirm;
@@ -61,6 +63,24 @@ public class MenuController extends CategoryController implements Initializable 
     private GridPane menuGrid;
     @FXML
     private AnchorPane dishCard;
+    @FXML
+    private ImageView addDish;
+    @FXML
+    private AnchorPane dishCardEdit;
+    @FXML
+    private TextField dishNameInput;
+    @FXML
+    private ImageView dishImage1;
+    @FXML
+    private Button confirm1;
+    @FXML
+    private Label dishDesc1;
+    @FXML
+    private Label dishSides1;
+    @FXML
+    private Label dishPrice1;
+    @FXML
+    private AnchorPane addPane;
     
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -73,6 +93,28 @@ public class MenuController extends CategoryController implements Initializable 
                 menuOpen = false;
             }
         }
+        else if (event.getSource() == editMenu){
+            if (editMode){
+                editMode = false;
+                editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
+                addDish.setVisible(false);
+                if (dishCardOpen){
+                    dishCard.setVisible(true);
+                    dishCardEdit.setVisible(false);
+                }
+            } else {
+                editMode = true;
+                editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/ConfirmEdit.png")));
+                addDish.setVisible(true);
+                if (dishCardOpen){
+                    dishCard.setVisible(false);
+                    dishCardEdit.setVisible(true);
+                }
+            }
+        }
+        else if (event.getSource() == addDish){
+            
+        }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
                 setFoodCategories(item.getText(), menuGrid, 3, 210.0);
@@ -83,12 +125,19 @@ public class MenuController extends CategoryController implements Initializable 
         }
         for (Button item : foodButtons){
             if (event.getSource() == item){
-                if (dishName.getText().equals(item.getText())){
+                if (dishName.getText().equals(item.getText()) && dishCardOpen){
+                    dishCardOpen = false;
                     dishCard.setVisible(false);
-                    dishName.setText("");
+                    dishCardEdit.setVisible(false);
                 } else {
-                    dishCard.setVisible(true);
+                    dishCardOpen = true;
+                    if (editMode){
+                        dishCardEdit.setVisible(true);
+                    } else {
+                        dishCard.setVisible(true);
+                    }
                     populateDishCard(item.getText());
+                    populateDishCardEdit(item.getText());
                 }
             }
         }
@@ -102,6 +151,12 @@ public class MenuController extends CategoryController implements Initializable 
     
     private void populateDishCard(String name){
         dishName.setText(name);
+        //get info for dish or sidedish
+    }
+    
+    private void populateDishCardEdit(String name){
+        dishNameInput.setText(name);
+        //get info for dish or sidedish
     }
     
     @Override
@@ -124,10 +179,16 @@ public class MenuController extends CategoryController implements Initializable 
     public void initialize(URL url, ResourceBundle rb) {
         slideClose(slider);
         menuOpen = false;
+        editMode = false;
+        dishCardOpen = false;
         dishCard.setVisible(false);
+        dishCardEdit.setVisible(false);
+        addDish.setVisible(false);
         setFoodCategories(null, menuGrid, 3, 210.0);
         addButtonFunction(categoryButtons);
         addButtonFunction(foodButtons);
+        editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
+        addPane.setPickOnBounds(false);
         //set Flow
     }    
 
