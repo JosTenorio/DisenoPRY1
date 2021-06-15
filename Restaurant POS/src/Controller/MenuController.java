@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -85,9 +84,9 @@ public class MenuController extends CategoryController implements Initializable 
     @FXML
     private CheckBox dishIsSide;
     @FXML
-    private Spinner<Integer> dishSidesInput;
+    private TextField dishSidesInput;
     @FXML
-    private Spinner<Double> dishPriceInput;
+    private TextField dishPriceInput;
     @FXML
     private ImageView dishImageInput;
     
@@ -128,10 +127,15 @@ public class MenuController extends CategoryController implements Initializable 
             emptyDishCardEdit();
         }
         else if (event.getSource() == confirm){
-            if (isNewDish){
+            if (isNewDish && validInputs()){
                 Dish newDish = setDishInfo();
                 FoodManager.insertFood(newDish);
                 // catch error wrong info
+                FoodManager.categorizeFood(newDish.name, currentCategory);
+                // catch error wrong info
+                setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(foodButtons);
             } else {
                 //send info to dishName
             }
@@ -195,8 +199,8 @@ public class MenuController extends CategoryController implements Initializable 
         }
         dishDescInput.setText(dish.description);
         dishIsSide.setSelected(dish.isSideDish);
-        dishSidesInput.getValueFactory().setValue(dish.sideDishes);
-        dishPriceInput.getValueFactory().setValue(dish.price);
+        dishSidesInput.setText(String.valueOf(dish.sideDishes));
+        dishPriceInput.setText(String.valueOf(dish.price));
     }
     
     private void emptyDishCardEdit(){
@@ -206,8 +210,8 @@ public class MenuController extends CategoryController implements Initializable 
         dishDescInput.setText("");
         dishDescInput.setPromptText("Descripción...");
         dishIsSide.setSelected(false);
-        dishSidesInput.getValueFactory().setValue(0);
-        dishPriceInput.getValueFactory().setValue(0.00);
+        dishSidesInput.setText("");
+        dishPriceInput.setText("");
     }
     
     private Dish setDishInfo(){
@@ -216,12 +220,24 @@ public class MenuController extends CategoryController implements Initializable 
         String path = "";
         String desc = dishDescInput.getText();
         boolean isSide = dishIsSide.isSelected();
-        int sides = dishSidesInput.getValueFactory().getValue();
-        double price = dishPriceInput.getValueFactory().getValue();
+        int sides = Integer.valueOf(dishSidesInput.getText());
+        double price = Double.valueOf(dishPriceInput.getText());        
         if (isSide)
             return new Dish(name, path, desc, isSide, price);
         else
             return new Dish(name, path, desc, isSide, sides, price);
+    }
+    
+    private boolean validInputs(){
+        if ("".equals(dishNameInput.getText()))
+            return false;
+        try {
+            Integer.valueOf(dishSidesInput.getText());
+            Double.valueOf(dishPriceInput.getText());
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
     }
     
     private void setFlow(String category){
@@ -259,16 +275,6 @@ public class MenuController extends CategoryController implements Initializable 
         addButtonFunction(foodButtons);
         editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
         addPane.setPickOnBounds(false);
-        setSpinners();
         setFlow(null);
-    }    
-    
-    private void setSpinners(){
-        SpinnerValueFactory<Integer> valueFactoryInt = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100);
-        dishSidesInput.setValueFactory(valueFactoryInt);
-        SpinnerValueFactory<Double> valueFactoryDoub = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, 100000.00);
-        dishPriceInput.setValueFactory(valueFactoryDoub);
-    }
-
-    
+    }     
 }
