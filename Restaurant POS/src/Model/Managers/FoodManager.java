@@ -67,7 +67,7 @@ public class FoodManager {
         return rowsAffected;
     }
     
-    public static ArrayList<Triplet<String,String,Boolean>> getFoodByCategory(String cathegoryName, boolean includeMainDishes, boolean includeArchived) {
+    public static ArrayList<Triplet<String,String,Boolean>> getFoodByCategory(String categoryName, boolean includeMainDishes, boolean includeArchived) {
         ResultSet rs;
         ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
         PreparedStatement getFoodByCategoryStatement;
@@ -85,7 +85,7 @@ public class FoodManager {
             getFoodByCategoryStatement = PreparedStatements.get("getFoodByCategoryStatement");
         }
         try {
-            getFoodByCategoryStatement.setString(1, cathegoryName);
+            getFoodByCategoryStatement.setString(1, categoryName);
             if (includeMainDishes)
                 getFoodByCategoryStatement.setInt(2, 1);
             else
