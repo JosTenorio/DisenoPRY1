@@ -6,6 +6,7 @@
 package Model.Managers;
 
 import Connection.ConnectionManager;
+import Model.Dish;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class FoodManager {
     private static String error;
     private static Boolean errorFlag;
     
-    public static int insertFood (String name, String description, double prize, String photoDir, boolean isArchived, boolean isSideDish, int sideDishAmount) {
+    public static int insertFood (Dish dish) {
         int rowsAffected = -1;
         PreparedStatement insertFoodStatement;
         if (!PreparedStatements.containsKey("insertFoodStatement")){
@@ -37,15 +38,15 @@ public class FoodManager {
             insertFoodStatement = PreparedStatements.get("insertTableStatement");
         }
         try {
-            insertFoodStatement.setString(1, description);
-            insertFoodStatement.setString(2, photoDir);
-            insertFoodStatement.setDouble(3, prize);
-            insertFoodStatement.setString(4, name);
-            insertFoodStatement.setBoolean(5, isArchived);
-            if (isSideDish)
+            insertFoodStatement.setString(1, dish.description);
+            insertFoodStatement.setString(2, dish.imgPath);
+            insertFoodStatement.setDouble(3, dish.price);
+            insertFoodStatement.setString(4, dish.name);
+            insertFoodStatement.setBoolean(5, false);
+            if (dish.isSideDish)
                 insertFoodStatement.setNull(6, java.sql.Types.INTEGER);
             else
-                insertFoodStatement.setInt(6, sideDishAmount);               
+                insertFoodStatement.setInt(6, dish.sideDishes);               
 
         } catch (SQLException ex) {
             errorFlag = true;

@@ -3,6 +3,7 @@ package Controller;
 
 import Controller.Abstract.CategoryController;
 import Model.Dish;
+import Model.Managers.FoodManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class MenuController extends CategoryController implements Initializable 
     private boolean dishCardOpen;
     private boolean editMode;
     private boolean isNewDish;
+    private String currentCategory;
 
     @FXML
     private ImageView hambMenu;
@@ -128,6 +130,8 @@ public class MenuController extends CategoryController implements Initializable 
         else if (event.getSource() == confirm){
             if (isNewDish){
                 Dish newDish = setDishInfo();
+                FoodManager.insertFood(newDish);
+                // catch error wrong info
             } else {
                 //send info to dishName
             }
@@ -140,7 +144,7 @@ public class MenuController extends CategoryController implements Initializable 
                 setFoodCategories(item.getText(), menuGrid, 3, 210.0, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
-                //set Flow
+                setFlow(item.getText());
             }
         }
         for (Button item : foodButtons){
@@ -157,8 +161,10 @@ public class MenuController extends CategoryController implements Initializable 
                     } else {
                         dishCard.setVisible(true);
                     }
-                    populateDishCard(item.getText());
-                    populateDishCardEdit(item.getText());
+                    // get dish item.getText()
+                    Dish dish = new Dish("Prueba", "", "Prueba", false, 2, 100.00);
+                    populateDishCard(dish);
+                    populateDishCardEdit(dish);
                 }
             }
         }
@@ -170,14 +176,27 @@ public class MenuController extends CategoryController implements Initializable 
         
     }
     
-    private void populateDishCard(String name){
-        dishName.setText(name);
-        //get info for dish or sidedish
+    private void populateDishCard(Dish dish){
+        dishName.setText(dish.name);
+        try {
+            dishImage.setImage(new Image(getClass().getResourceAsStream(dish.imgPath)));
+        } catch (Exception e) {
+        }
+        dishDesc.setText(dish.description);
+        dishSides.setText("Inlcuye " + dish.sideDishes + " acompañamientos");
+        dishPrice.setText("₡" + dish.price);
     }
     
-    private void populateDishCardEdit(String name){
-        dishNameInput.setText(name);
-        //get info for dish or sidedish
+    private void populateDishCardEdit(Dish dish){
+        dishNameInput.setText(dish.name);
+        try {
+            dishImageEdit.setImage(new Image(getClass().getResourceAsStream(dish.imgPath)));
+        } catch (Exception e) {
+        }
+        dishDescInput.setText(dish.description);
+        dishIsSide.setSelected(dish.isSideDish);
+        dishSidesInput.getValueFactory().setValue(dish.sideDishes);
+        dishPriceInput.getValueFactory().setValue(dish.price);
     }
     
     private void emptyDishCardEdit(){
@@ -193,6 +212,7 @@ public class MenuController extends CategoryController implements Initializable 
     
     private Dish setDishInfo(){
         String name = dishNameInput.getText();
+        // get path from button
         String path = "";
         String desc = dishDescInput.getText();
         boolean isSide = dishIsSide.isSelected();
@@ -202,6 +222,11 @@ public class MenuController extends CategoryController implements Initializable 
             return new Dish(name, path, desc, isSide, price);
         else
             return new Dish(name, path, desc, isSide, sides, price);
+    }
+    
+    private void setFlow(String category){
+        // set flow menu to navigate
+        currentCategory = category;
     }
     
     @Override
@@ -235,7 +260,7 @@ public class MenuController extends CategoryController implements Initializable 
         editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
         addPane.setPickOnBounds(false);
         setSpinners();
-        //set Flow
+        setFlow(null);
     }    
     
     private void setSpinners(){
