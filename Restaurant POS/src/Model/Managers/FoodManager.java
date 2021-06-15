@@ -6,6 +6,7 @@
 package Model.Managers;
 
 import Connection.ConnectionManager;
+import Model.Dish;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class FoodManager {
     private static String error;
     private static Boolean errorFlag;
     
-    public static int insertFood (String name, String description, double prize, String photoDir, boolean isArchived, boolean isSideDish, int sideDishAmount) {
+    public static int insertFood (Dish dish) {
         int rowsAffected = -1;
         PreparedStatement insertFoodStatement;
         if (!PreparedStatements.containsKey("insertFoodStatement")){
@@ -37,15 +38,15 @@ public class FoodManager {
             insertFoodStatement = PreparedStatements.get("insertTableStatement");
         }
         try {
-            insertFoodStatement.setString(1, description);
-            insertFoodStatement.setString(2, photoDir);
-            insertFoodStatement.setDouble(3, prize);
-            insertFoodStatement.setString(4, name);
-            insertFoodStatement.setBoolean(5, isArchived);
-            if (isSideDish)
+            insertFoodStatement.setString(1, dish.description);
+            insertFoodStatement.setString(2, dish.imgPath);
+            insertFoodStatement.setDouble(3, dish.price);
+            insertFoodStatement.setString(4, dish.name);
+            insertFoodStatement.setBoolean(5, false);
+            if (dish.isSideDish)
                 insertFoodStatement.setNull(6, java.sql.Types.INTEGER);
             else
-                insertFoodStatement.setInt(6, sideDishAmount);               
+                insertFoodStatement.setInt(6, dish.sideDishes);               
 
         } catch (SQLException ex) {
             errorFlag = true;
@@ -178,6 +179,53 @@ public class FoodManager {
             return rowsAffected;
         }
         return rowsAffected;
+    }
+    
+    public static ArrayList<Triplet<String,String,Boolean>> getFoodByCategory(String categoryName, boolean includeMainDishes, boolean includeArchived) {
+        ResultSet rs;
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
+        PreparedStatement getFoodByCategoryStatement;
+        if (!PreparedStatements.containsKey("getFoodByCategoryStatement")){
+            String sql = "SELECT Nombre, DireccionFoto, Archivado FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND (1 = ? OR CantidadAcomp IS NULL) AND (1 = ? OR Archivado = 0)";
+            try {
+                getFoodByCategoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return results;
+            }
+            PreparedStatements.put("getFoodByCategoryStatement", getFoodByCategoryStatement);
+        } else {
+            getFoodByCategoryStatement = PreparedStatements.get("getFoodByCategoryStatement");
+        }
+        try {
+            getFoodByCategoryStatement.setString(1, categoryName);
+            if (includeMainDishes)
+                getFoodByCategoryStatement.setInt(2, 1);
+            else
+                getFoodByCategoryStatement.setInt(2, 0);
+            if (includeArchived)
+                getFoodByCategoryStatement.setInt(3, 1);
+            else
+                getFoodByCategoryStatement.setInt(3, 0);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        try {
+            rs = getFoodByCategoryStatement.executeQuery();
+            while (rs.next()) {
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), rs.getString(2), rs.getBoolean(3));
+                results.add(result);
+            }
+            return results;
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return results;
+        }
     }
     
     public static ArrayList<Triplet<String,String,Boolean>> getUncategorizedFood (boolean includeMainDishes, boolean includeArchived) {
