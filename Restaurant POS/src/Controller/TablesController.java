@@ -26,7 +26,6 @@ import javafx.scene.layout.VBox;
 public class TablesController extends CategoryController implements Initializable {
      
     private ArrayList<Button> tableButtons;
-    private ArrayList<Button> itemButtons;
     private boolean menuOpen;
 
     @FXML
@@ -82,8 +81,6 @@ public class TablesController extends CategoryController implements Initializabl
     @FXML
     private AnchorPane popupOrder;
     @FXML
-    private ImageView search;
-    @FXML
     private HBox flowContainer;
     @FXML
     private Label tableNameBuild;
@@ -125,9 +122,9 @@ public class TablesController extends CategoryController implements Initializabl
         else if (event.getSource() == addOrder){
             popupOrder.setVisible(true);
             dimmer.setVisible(true);
-            itemButtons = setMenuCategories(null, menuGrid, 4, 182.0);
-            setGridButtons();
-            //set Food
+            setFoodCategories(null, menuGrid, 4, 182.0);
+            addButtonFunction(categoryButtons);
+            addButtonFunction(foodButtons);
             //set Flow
         }
         for (Button table : tableButtons){
@@ -141,12 +138,17 @@ public class TablesController extends CategoryController implements Initializabl
                 setTableOrder(table.getText());
             }
         }
-        for (Button item : itemButtons){
+        for (Button item : categoryButtons){
             if (event.getSource() == item){
-                itemButtons = setMenuCategories(item.getText(), menuGrid, 4, 182.0);
-                setGridButtons();
-                //set Food
+                setFoodCategories(item.getText(), menuGrid, 4, 182.0);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(foodButtons);
                 //set Flow
+            }
+        }
+        for (Button item : foodButtons){
+            if (event.getSource() == item){
+                //add food to order and check side dishes
             }
         }
         // SIDE MENU
@@ -162,6 +164,7 @@ public class TablesController extends CategoryController implements Initializabl
         
         itemContainer.getChildren().clear();
         this.tableName.setText(tableOrder.tableName);
+        this.tableNameBuild.setText(tableOrder.tableName);
         for (int i = 0; i < tableOrder.items.size(); i++){
             FXMLLoader loader = new FXMLLoader();
             try{
@@ -177,8 +180,8 @@ public class TablesController extends CategoryController implements Initializabl
     }
     
     @Override
-    public void setGridButtons(){
-        for (Button item : itemButtons){
+    public void addButtonFunction(ArrayList<Button> buttons){
+        for (Button item : buttons){
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -210,7 +213,8 @@ public class TablesController extends CategoryController implements Initializabl
         popupTable.setVisible(false);
         popupOrder.setVisible(false);
         dimmer.setVisible(false);
-        itemButtons = new ArrayList<>();
+        categoryButtons = new ArrayList<>();
+        foodButtons = new ArrayList<>();
         tableButtons = new ArrayList<>();
         tableButtons.add(table1);
         tableButtons.add(table2);
