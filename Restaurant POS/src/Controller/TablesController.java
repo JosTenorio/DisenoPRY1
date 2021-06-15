@@ -122,7 +122,7 @@ public class TablesController extends CategoryController implements Initializabl
         else if (event.getSource() == addOrder){
             popupOrder.setVisible(true);
             dimmer.setVisible(true);
-            setFoodCategories(null, menuGrid, 4, 182.0);
+            setFoodCategories(null, menuGrid, 4, 182.0, false);
             addButtonFunction(categoryButtons);
             addButtonFunction(foodButtons);
             //set Flow
@@ -140,7 +140,7 @@ public class TablesController extends CategoryController implements Initializabl
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
-                setFoodCategories(item.getText(), menuGrid, 4, 182.0);
+                setFoodCategories(item.getText(), menuGrid, 4, 182.0, false);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
                 //set Flow

@@ -13,7 +13,7 @@ public class MenuItemController {
     @FXML
     private Button button;
     
-    public void setData(String text, String path){
+    public void setData(String text, String path, boolean isArchived){
         button.setText(text);
         if (!"".equals(path)){
             try {
@@ -23,6 +23,10 @@ public class MenuItemController {
             }
         } else 
             button.setStyle("-fx-background-color: gray;");
+        if (isArchived){
+            //make black and white
+        } 
+            
     }
     
     public Button getButton(){

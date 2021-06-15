@@ -136,7 +136,7 @@ public class MenuController extends CategoryController implements Initializable 
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
-                setFoodCategories(item.getText(), menuGrid, 3, 210.0);
+                setFoodCategories(item.getText(), menuGrid, 3, 210.0, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
                 //set Flow
@@ -215,7 +215,7 @@ public class MenuController extends CategoryController implements Initializable 
         dishCard.setVisible(false);
         dishCardEdit.setVisible(false);
         addDish.setVisible(false);
-        setFoodCategories(null, menuGrid, 3, 210.0);
+        setFoodCategories(null, menuGrid, 3, 210.0, true);
         addButtonFunction(categoryButtons);
         addButtonFunction(foodButtons);
         editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
