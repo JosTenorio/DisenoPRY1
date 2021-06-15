@@ -1,0 +1,15 @@
+1- Vegetales:
+	
+	1- Cebolla
+	
+	2- Tomate
+
+	3- Zanahoria
+	
+	4- Chile dulce
+
+2- Carnes:
+
+3- Granos:
+
+4- Lácteos:

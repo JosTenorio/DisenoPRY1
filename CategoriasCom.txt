@@ -1,0 +1,34 @@
+1- Platos Fuertes:
+
+	4- Carnes:
+
+		5- Filete de salmón
+
+	5- Pastas:
+
+		1- Pasta boloñesa
+
+		2- Pasta alfredo
+
+	8- Sopa de mariscos
+
+
+2- Entradas:
+
+	3- Acompañamientos:
+
+		6- Ensaladas pequeñas:
+			
+			4- Ensalada de repollo
+
+			7- Ensalada verde
+
+		3- Papas fritas
+
+		6- Vegetales al vapor
+
+	7- Pinchos:
+
+8- Entradas:
+
+9- Postres:
