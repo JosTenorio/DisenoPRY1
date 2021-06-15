@@ -67,7 +67,7 @@ public class FoodManager {
         return rowsAffected;
     }
     
-    public static ArrayList<Pair<String,String>> getFoodByCathegory(String cathegoryName, boolean includeMainDishes) {
+    public static ArrayList<Pair<String,String>> getFoodByCategory(String categoryName, boolean includeMainDishes) {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
         PreparedStatement getFoodByCathegoryStatement;
@@ -85,7 +85,7 @@ public class FoodManager {
             getFoodByCathegoryStatement = PreparedStatements.get("getFoodByCathegoryStatement");
         }
         try {
-            getFoodByCathegoryStatement.setString(1, cathegoryName);
+            getFoodByCathegoryStatement.setString(1, categoryName);
             if (includeMainDishes)
                 getFoodByCathegoryStatement.setInt(2, 1);
             else

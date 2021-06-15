@@ -19,7 +19,6 @@ import javafx.scene.layout.HBox;
 
 public class MenuController extends CategoryController implements Initializable {
     
-    private ArrayList<Button> itemButtons;
     private boolean menuOpen;
 
     @FXML
@@ -74,12 +73,23 @@ public class MenuController extends CategoryController implements Initializable 
                 menuOpen = false;
             }
         }
-        for (Button item : itemButtons){
+        for (Button item : categoryButtons){
             if (event.getSource() == item){
-                itemButtons = setMenuCategories(item.getText(), menuGrid, 3, 210.0);
-                setGridButtons();
-                //set Food
+                setFoodCategories(item.getText(), menuGrid, 3, 210.0);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(foodButtons);
                 //set Flow
+            }
+        }
+        for (Button item : foodButtons){
+            if (event.getSource() == item){
+                if (dishName.getText().equals(item.getText())){
+                    dishCard.setVisible(false);
+                    dishName.setText("");
+                } else {
+                    dishCard.setVisible(true);
+                    populateDishCard(item.getText());
+                }
             }
         }
         // SIDE MENU
@@ -90,9 +100,13 @@ public class MenuController extends CategoryController implements Initializable 
         
     }
     
+    private void populateDishCard(String name){
+        dishName.setText(name);
+    }
+    
     @Override
-    public void setGridButtons(){
-        for (Button item : itemButtons){
+    public void addButtonFunction(ArrayList<Button> buttons){
+        for (Button item : buttons){
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -111,9 +125,9 @@ public class MenuController extends CategoryController implements Initializable 
         slideClose(slider);
         menuOpen = false;
         dishCard.setVisible(false);
-        itemButtons = setMenuCategories(null, menuGrid, 3, 210.0);
-        setGridButtons();
-        //set Food
+        setFoodCategories(null, menuGrid, 3, 210.0);
+        addButtonFunction(categoryButtons);
+        addButtonFunction(foodButtons);
         //set Flow
     }    
 

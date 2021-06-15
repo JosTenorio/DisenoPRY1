@@ -99,7 +99,7 @@ public class FoodCtgrManager {
     
     private static String getImageForCategory(String categoryName) throws SQLException {
         ResultSet rs;
-        String results;
+        String results = "";
         PreparedStatement getImageForCathegoryStatement;
         if (!PreparedStatements.containsKey("getImageForCathegoryStatement")){
             String sql = "WITH cte AS \n" +
@@ -121,8 +121,8 @@ public class FoodCtgrManager {
         }
         getImageForCathegoryStatement.setString(1, categoryName);
         rs = getImageForCathegoryStatement.executeQuery();
-        rs.next();
-        results = rs.getString(1);
+        if(rs.next())
+            results = rs.getString(1);
         return results;
         }
     }

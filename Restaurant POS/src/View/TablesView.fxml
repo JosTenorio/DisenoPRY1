@@ -142,7 +142,7 @@
             <String fx:value="white" />
             <String fx:value="popUp" />
          </styleClass></AnchorPane>
-      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
+      <AnchorPane fx:id="popupOrder" prefHeight="772.0" prefWidth="1162.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="144.0">
          <children>
             <AnchorPane prefHeight="78.0" prefWidth="858.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <styleClass>

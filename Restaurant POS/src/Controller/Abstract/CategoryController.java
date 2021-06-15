@@ -3,6 +3,7 @@ package Controller.Abstract;
 
 import Controller.Items.MenuItemController;
 import Model.Managers.FoodCtgrManager;
+import Model.Managers.FoodManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
@@ -14,22 +15,28 @@ import org.javatuples.Pair;
 
 public abstract class CategoryController extends SceneController {
     
-    public ArrayList<Button> setMenuCategories(String category, GridPane menuGrid, int cols, double size){
-        ArrayList<Pair<String, String>> categories = new ArrayList<>();
+    public ArrayList<Button> categoryButtons;
+    public ArrayList<Button> foodButtons;
+    
+    public void setFoodCategories(String category, GridPane menuGrid, int cols, double size){
+        menuGrid.getChildren().clear();
+        ArrayList<Pair<String, String>> categories;
+        ArrayList<Pair<String, String>> food;
         if (category == null){
             categories = FoodCtgrManager.getFatherCategories();
+            food = FoodManager.getUncategorizedFood(true);
         } else {
             categories = FoodCtgrManager.getSubCategories(category);
+            food = FoodManager.getFoodByCategory(category, true);
         } 
-        return setCategories(categories, menuGrid, cols, size);
+        categoryButtons = setItems(categories, menuGrid, 0, cols, size);
+        foodButtons = setItems(food, menuGrid, categories.size() % cols, cols, size);
     }
     
-    private ArrayList<Button> setCategories(ArrayList<Pair<String, String>> categories, GridPane menuGrid, int cols, double size){   
-        menuGrid.getChildren().clear();
+    private ArrayList<Button> setItems(ArrayList<Pair<String, String>> items, GridPane menuGrid, int col, int cols, double size){   
         ArrayList<Button> itemButtons = new ArrayList<>();
-        int col = 0;
         int row = 0;
-        for (int i = 0; i < categories.size(); i++){
+        for (int i = 0; i < items.size(); i++){
             FXMLLoader loader = new FXMLLoader();
             if (col == cols){
                 col = 0;
@@ -39,7 +46,7 @@ public abstract class CategoryController extends SceneController {
                 loader.setLocation(getClass().getResource("/View/Items/MenuItemView.fxml"));
                 AnchorPane pane = loader.load();
                 MenuItemController itemController = loader.getController();
-                itemController.setData(categories.get(i).getValue0(), categories.get(i).getValue1());
+                itemController.setData(items.get(i).getValue0(), items.get(i).getValue1());
                 pane.setPrefSize(size, size);
                 menuGrid.add(pane, col++, row);
                 GridPane.setMargin(pane, new Insets(10));
@@ -51,6 +58,6 @@ public abstract class CategoryController extends SceneController {
         return itemButtons;
     }
     
-    public abstract void setGridButtons();
+    public abstract void addButtonFunction(ArrayList<Button> buttons);
     
 }
