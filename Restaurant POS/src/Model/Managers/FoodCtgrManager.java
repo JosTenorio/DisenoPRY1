@@ -55,7 +55,7 @@ public class FoodCtgrManager {
         }
     }
     
-    public static ArrayList<Pair<String,String>> getSubCategories(String cathegoryName) {
+    public static ArrayList<Pair<String,String>> getSubCategories(String categoryName) {
         ResultSet rs;
         ArrayList<Pair<String,String>> results = new ArrayList<>();
         PreparedStatement getSubCategoriesStatement;
@@ -73,7 +73,7 @@ public class FoodCtgrManager {
             getSubCategoriesStatement = PreparedStatements.get("getSubCategoriesStatement");
         }
         try {
-            getSubCategoriesStatement.setString(1, cathegoryName);
+            getSubCategoriesStatement.setString(1, categoryName);
         } catch (SQLException ex) {
             errorFlag = true;
             Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,7 +94,7 @@ public class FoodCtgrManager {
         }
     }
     
-    private static String getImageForCategory(String cathegoryName) throws SQLException {
+    private static String getImageForCategory(String categoryName) throws SQLException {
         ResultSet rs;
         String results = "";
         PreparedStatement getImageForCategoryStatement;
@@ -116,7 +116,7 @@ public class FoodCtgrManager {
         } else {
             getImageForCategoryStatement = PreparedStatements.get("getImageForCategoryStatement");
         }
-        getImageForCategoryStatement.setString(1, cathegoryName);
+        getImageForCategoryStatement.setString(1, categoryName);
         rs = getImageForCategoryStatement.executeQuery();
         if(rs.next())
             results = rs.getString(1);
