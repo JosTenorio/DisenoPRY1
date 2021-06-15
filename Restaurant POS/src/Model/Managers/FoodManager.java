@@ -296,9 +296,9 @@ public class FoodManager {
             if (rs.next()) {
                 rs.getInt(6);
                 if (rs.wasNull())
-                    results = new Dish(rs.getString(4),rs.getString(2), rs.getString(1), true, rs.getDouble(3));
+                    results = new Dish(rs.getString(4),rs.getString(2), rs.getString(1), true, rs.getDouble(3), rs.getBoolean(5));
                 else
-                    results = new Dish(rs.getString(4),rs.getString(2), rs.getString(1), false, rs.getInt(6),rs.getDouble(3));
+                    results = new Dish(rs.getString(4),rs.getString(2), rs.getString(1), false, rs.getInt(6),rs.getDouble(3),rs.getBoolean(5));
             }
             return results;
         } catch (SQLException ex) {
