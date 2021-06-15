@@ -135,12 +135,16 @@ public class MenuController extends CategoryController implements Initializable 
                 setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
-            } else {
+            } else if (!isNewDish && validInputs()) {
                 //update info for dishName
             }
         }
         else if (event.getSource() == archive){
-            //send info and reset items
+            FoodManager.toggleFood(dishName.getText());
+            // catch error not found
+            setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
+            addButtonFunction(categoryButtons);
+            addButtonFunction(foodButtons);
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -220,11 +224,12 @@ public class MenuController extends CategoryController implements Initializable 
         String desc = dishDescInput.getText();
         boolean isSide = dishIsSide.isSelected();
         int sides = Integer.valueOf(dishSidesInput.getText());
-        double price = Double.valueOf(dishPriceInput.getText());        
+        double price = Double.valueOf(dishPriceInput.getText());  
+        boolean isArchvied = false; //CHANGE
         if (isSide)
-            return new Dish(name, path, desc, isSide, price);
+            return new Dish(name, path, desc, isSide, price, isArchvied);
         else
-            return new Dish(name, path, desc, isSide, sides, price);
+            return new Dish(name, path, desc, isSide, sides, price, isArchvied);
     }
     
     private boolean validInputs(){
