@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -137,7 +136,7 @@ public class MenuController extends CategoryController implements Initializable 
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
             } else {
-                //send info to dishName
+                //update info for dishName
             }
         }
         else if (event.getSource() == archive){
@@ -165,8 +164,8 @@ public class MenuController extends CategoryController implements Initializable 
                     } else {
                         dishCard.setVisible(true);
                     }
-                    // get dish item.getText()
-                    Dish dish = new Dish("Prueba", "", "Prueba", false, 2, 100.00);
+                    Dish dish = FoodManager.getFoodDetails(item.getText());
+                    // catch error dish not found
                     populateDishCard(dish);
                     populateDishCardEdit(dish);
                 }
