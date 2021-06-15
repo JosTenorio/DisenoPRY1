@@ -1,6 +1,8 @@
 
 package Controller;
 
+import Model.Managers.FoodManager;
+import Model.Managers.IngredientCtgrManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +18,7 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/View/TablesView.fxml"));
+        System.out.println(IngredientCtgrManager.getFatherCategories());
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

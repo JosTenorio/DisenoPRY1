@@ -43,7 +43,7 @@ public class IngredientCtgrManager {
             rs = getFatherCategoriesStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), getImageForCathegory(rs.getString(1)));
+                result = new Pair<>(rs.getString(1), getImageForCategory(rs.getString(1)));
                 results.add(result);
             }
             return results;
@@ -59,7 +59,7 @@ public class IngredientCtgrManager {
         ArrayList<Pair<String,String>> results = new ArrayList<>();
         PreparedStatement getSubCategoriesStatement;
         if (!PreparedStatements.containsKey("getSubCategoriesStatement")){
-            String sql = "SELECT nombre FROM CategoriaCom WHERE IdCategoriaPadre = (SELECT Id FROM CategoriaCom WHERE nombre = ?) ";
+            String sql = "SELECT nombre FROM CategoriaIng WHERE IdCategoriaPadre = (SELECT Id FROM CategoriaIng WHERE nombre = ?) ";
             try {
                 getSubCategoriesStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
@@ -82,7 +82,7 @@ public class IngredientCtgrManager {
             rs = getSubCategoriesStatement.executeQuery();
             while (rs.next()) {
                 Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), getImageForCathegory(rs.getString(1)));
+                result = new Pair<>(rs.getString(1), getImageForCategory(rs.getString(1)));
                 results.add(result);
             }
             return results;
@@ -93,30 +93,30 @@ public class IngredientCtgrManager {
         }
     }
     
-    private static String getImageForCathegory(String cathegoryName) throws SQLException {
+    private static String getImageForCategory(String cathegoryName) throws SQLException {
         ResultSet rs;
         String results = "";
-        PreparedStatement getImageForCathegoryStatement;
-        if (!PreparedStatements.containsKey("getImageForCathegoryStatement")){
+        PreparedStatement getImageForCategoryStatement;
+        if (!PreparedStatements.containsKey("getImageForCategoryStatement")){
             String sql = "WITH cte AS \n" +
                          "(\n" +
                          "  SELECT t1.Id\n" +
-                         "  FROM CategoriaCom t1\n" +
+                         "  FROM CategoriaIng t1\n" +
                          "  WHERE nombre = ?\n" +
                          "  UNION ALL\n" +
                          "  SELECT t2.Id\n" +
-                         "  FROM CategoriaCom t2 INNER JOIN cte c ON t2.IdCategoriaPadre = c.id\n" +
+                         "  FROM CategoriaIng t2 INNER JOIN cte c ON t2.IdCategoriaPadre = c.id\n" +
                          ")\n" +
-                         "SELECT TOP 1 Comida.DireccionFoto\n" +
-                         "FROM Comida\n" +
-                         "WHERE Comida.IdCategoria IN (SELECT Id FROM cte)";
-            getImageForCathegoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            PreparedStatements.put("getImageForCathegoryStatement", getImageForCathegoryStatement);        
+                         "SELECT TOP 1 Ingrediente.DireccionFoto\n" +
+                         "FROM Ingrediente\n" +
+                         "WHERE Ingrediente.IdCategoria IN (SELECT Id FROM cte)";
+            getImageForCategoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            PreparedStatements.put("getImageForCategoryStatement", getImageForCategoryStatement);        
         } else {
-            getImageForCathegoryStatement = PreparedStatements.get("getImageForCathegoryStatement");
+            getImageForCategoryStatement = PreparedStatements.get("getImageForCategoryStatement");
         }
-        getImageForCathegoryStatement.setString(1, cathegoryName);
-        rs = getImageForCathegoryStatement.executeQuery();
+        getImageForCategoryStatement.setString(1, cathegoryName);
+        rs = getImageForCategoryStatement.executeQuery();
         if(rs.next())
             results = rs.getString(1);
         return results;
