@@ -147,7 +147,6 @@ public class FoodManager {
         }
     }
     
-    
     public static int toggleFood (String foodName) {
         int rowsAffected = -1;
         PreparedStatement toggleFoodStatement;
@@ -179,53 +178,6 @@ public class FoodManager {
             return rowsAffected;
         }
         return rowsAffected;
-    }
-    
-    public static ArrayList<Triplet<String,String,Boolean>> getFoodByCategory(String categoryName, boolean includeMainDishes, boolean includeArchived) {
-        ResultSet rs;
-        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
-        PreparedStatement getFoodByCategoryStatement;
-        if (!PreparedStatements.containsKey("getFoodByCategoryStatement")){
-            String sql = "SELECT Nombre, DireccionFoto, Archivado FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND (1 = ? OR CantidadAcomp IS NULL) AND (1 = ? OR Archivado = 0)";
-            try {
-                getFoodByCategoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            } catch (SQLException ex) {
-                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
-                errorFlag = true;
-                return results;
-            }
-            PreparedStatements.put("getFoodByCategoryStatement", getFoodByCategoryStatement);
-        } else {
-            getFoodByCategoryStatement = PreparedStatements.get("getFoodByCategoryStatement");
-        }
-        try {
-            getFoodByCategoryStatement.setString(1, categoryName);
-            if (includeMainDishes)
-                getFoodByCategoryStatement.setInt(2, 1);
-            else
-                getFoodByCategoryStatement.setInt(2, 0);
-            if (includeArchived)
-                getFoodByCategoryStatement.setInt(3, 1);
-            else
-                getFoodByCategoryStatement.setInt(3, 0);
-        } catch (SQLException ex) {
-            errorFlag = true;
-            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
-            return results;
-        }
-        try {
-            rs = getFoodByCategoryStatement.executeQuery();
-            while (rs.next()) {
-                Triplet<String,String,Boolean> result;
-                result = new Triplet<>(rs.getString(1), rs.getString(2), rs.getBoolean(3));
-                results.add(result);
-            }
-            return results;
-        } catch (SQLException ex) {
-            errorFlag = true;
-            error = ex.getMessage();
-            return results;
-        }
     }
     
     public static ArrayList<Triplet<String,String,Boolean>> getUncategorizedFood (boolean includeMainDishes, boolean includeArchived) {
