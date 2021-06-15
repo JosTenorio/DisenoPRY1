@@ -2,6 +2,7 @@
 package Controller;
 
 import Controller.Abstract.CategoryController;
+import Model.Dish;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -126,13 +127,13 @@ public class MenuController extends CategoryController implements Initializable 
         }
         else if (event.getSource() == confirm){
             if (isNewDish){
-                //send info
+                Dish newDish = setDishInfo();
             } else {
                 //send info to dishName
             }
         }
         else if (event.getSource() == archive){
-            //todo
+            //send info and reset items
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -188,6 +189,19 @@ public class MenuController extends CategoryController implements Initializable 
         dishIsSide.setSelected(false);
         dishSidesInput.getValueFactory().setValue(0);
         dishPriceInput.getValueFactory().setValue(0.00);
+    }
+    
+    private Dish setDishInfo(){
+        String name = dishNameInput.getText();
+        String path = "";
+        String desc = dishDescInput.getText();
+        boolean isSide = dishIsSide.isSelected();
+        int sides = dishSidesInput.getValueFactory().getValue();
+        double price = dishPriceInput.getValueFactory().getValue();
+        if (isSide)
+            return new Dish(name, path, desc, isSide, price);
+        else
+            return new Dish(name, path, desc, isSide, sides, price);
     }
     
     @Override
