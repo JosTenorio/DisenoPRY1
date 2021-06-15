@@ -74,6 +74,15 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 4);
 }
 
+.textInput {
+    -fx-background-radius: 15px;
+    -fx-focus-color: #671B1B;
+}
+
+.roundedAll {
+    -fx-background-radius: 35px;
+}
+
 .roundedTop{
     -fx-background-radius : 35 35 0 0;
 }
@@ -111,7 +120,6 @@
 }
 
 .itemButton{
-    -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-family: "Montserrat Bold";
     -fx-font-size: 28px;
@@ -185,4 +193,38 @@
     -fx-background-color :derive(#4D4C4F,10.0%);
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
+}
+
+.check-box .box {
+    -fx-background-color :#E1E1E1;
+    -fx-border-color: #2B2E34;
+    -fx-border-radius :2px;
+    -fx-background-radius: 2px;
+}
+
+.spinner {
+    -fx-focus-color: #671B1B;
+}
+
+.spinner .increment-arrow-button {
+    -fx-background-color :#E1E1E1;
+    -fx-border-color: #2B2E34;
+    -fx-border-radius :2px;
+    -fx-background-radius: 2px;
+}
+.spinner .decrement-arrow-button {
+    -fx-background-color :#E1E1E1;
+    -fx-border-color: #2B2E34;
+    -fx-border-radius :2px;
+    -fx-background-radius: 2px;
+}
+
+.text-field .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-field .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-field .scroll-pane .content{
+    -fx-background-color: transparent;
 }

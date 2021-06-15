@@ -10,7 +10,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,8 +47,6 @@ public class MenuController extends CategoryController implements Initializable 
     @FXML
     private ImageView editMenu;
     @FXML
-    private ImageView editMenu1;
-    @FXML
     private HBox flowContainer;
     @FXML
     private Label dishName;
@@ -70,17 +71,21 @@ public class MenuController extends CategoryController implements Initializable 
     @FXML
     private TextField dishNameInput;
     @FXML
-    private ImageView dishImage1;
-    @FXML
-    private Button confirm1;
-    @FXML
-    private Label dishDesc1;
-    @FXML
-    private Label dishSides1;
-    @FXML
-    private Label dishPrice1;
-    @FXML
     private AnchorPane addPane;
+    @FXML
+    private Button archive;
+    @FXML
+    private ImageView dishImageEdit;
+    @FXML
+    private TextField dishDescInput;
+    @FXML
+    private CheckBox dishIsSide;
+    @FXML
+    private Spinner<Integer> dishSidesInput;
+    @FXML
+    private Spinner<Double> dishPriceInput;
+    @FXML
+    private ImageView dishImageInput;
     
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -113,7 +118,12 @@ public class MenuController extends CategoryController implements Initializable 
             }
         }
         else if (event.getSource() == addDish){
-            
+            dishCardOpen = true;
+            dishCardEdit.setVisible(true);
+            emptyDishCardEdit();
+        }
+        else if (event.getSource() == confirm){
+            //this button only creates doesnt update
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -159,6 +169,17 @@ public class MenuController extends CategoryController implements Initializable 
         //get info for dish or sidedish
     }
     
+    private void emptyDishCardEdit(){
+        dishNameInput.setText("");
+        dishNameInput.setPromptText("Nombre del plato...");
+        dishImageEdit.setImage(null);
+        dishDescInput.setText("");
+        dishDescInput.setPromptText("Descripción...");
+        dishIsSide.setSelected(false);
+        dishSidesInput.getValueFactory().setValue(0);
+        dishPriceInput.getValueFactory().setValue(0.00);
+    }
+    
     @Override
     public void addButtonFunction(ArrayList<Button> buttons){
         for (Button item : buttons){
@@ -189,8 +210,16 @@ public class MenuController extends CategoryController implements Initializable 
         addButtonFunction(foodButtons);
         editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
         addPane.setPickOnBounds(false);
+        setSpinners();
         //set Flow
     }    
+    
+    private void setSpinners(){
+        SpinnerValueFactory<Integer> valueFactoryInt = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100);
+        dishSidesInput.setValueFactory(valueFactoryInt);
+        SpinnerValueFactory<Double> valueFactoryDoub = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, 100000.00);
+        dishPriceInput.setValueFactory(valueFactoryDoub);
+    }
 
     
 }

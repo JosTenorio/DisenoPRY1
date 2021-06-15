@@ -81,8 +81,6 @@ public class TablesController extends CategoryController implements Initializabl
     @FXML
     private AnchorPane popupOrder;
     @FXML
-    private ImageView search;
-    @FXML
     private HBox flowContainer;
     @FXML
     private Label tableNameBuild;
@@ -151,7 +149,6 @@ public class TablesController extends CategoryController implements Initializabl
         for (Button item : foodButtons){
             if (event.getSource() == item){
                 //add food to order and check side dishes
-                System.out.println("AGREGAR COMIDA A LA ORDER");
             }
         }
         // SIDE MENU
