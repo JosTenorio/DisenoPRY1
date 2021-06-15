@@ -27,6 +27,7 @@ public class MenuController extends CategoryController implements Initializable 
     private boolean menuOpen;
     private boolean dishCardOpen;
     private boolean editMode;
+    private boolean isNewDish;
 
     @FXML
     private ImageView hambMenu;
@@ -118,12 +119,20 @@ public class MenuController extends CategoryController implements Initializable 
             }
         }
         else if (event.getSource() == addDish){
+            isNewDish = true;
             dishCardOpen = true;
             dishCardEdit.setVisible(true);
             emptyDishCardEdit();
         }
         else if (event.getSource() == confirm){
-            //this button only creates doesnt update
+            if (isNewDish){
+                //send info
+            } else {
+                //send info to dishName
+            }
+        }
+        else if (event.getSource() == archive){
+            //todo
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -140,6 +149,7 @@ public class MenuController extends CategoryController implements Initializable 
                     dishCard.setVisible(false);
                     dishCardEdit.setVisible(false);
                 } else {
+                    isNewDish = false;
                     dishCardOpen = true;
                     if (editMode){
                         dishCardEdit.setVisible(true);
