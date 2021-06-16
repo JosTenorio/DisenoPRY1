@@ -135,6 +135,9 @@ public class MenuController extends CategoryController implements Initializable 
                 setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
+                Dish dish = FoodManager.getFoodDetails(newDish.name);
+                // catch error dish not found
+                populateDishCard(dish);
             } else if (!isNewDish && validInputs()) {
                 Dish updateDish = setDishInfo();
                 FoodManager.updateFood(dishName.getText(), updateDish);
@@ -142,6 +145,9 @@ public class MenuController extends CategoryController implements Initializable 
                 setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
+                Dish dish = FoodManager.getFoodDetails(updateDish.name);
+                // catch error dish not found
+                populateDishCard(dish);
             }
         }
         else if (event.getSource() == archive){

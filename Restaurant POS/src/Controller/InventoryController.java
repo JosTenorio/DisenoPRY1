@@ -153,6 +153,9 @@ public class InventoryController extends CategoryController implements Initializ
                 setIngCategories(currentCategory, ingGrid, 3, 210.0);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
+                Ingredient ingredient = IngredientManager.getIngredientDetails(newIng.name);
+                // catch error ingredient not found
+                populateIngCard(ingredient);
             } else if (!isNewIng && validInputs()) {
                 Ingredient updateIng = setIngInfo();
                 IngredientManager.updateIngredient(ingName.getText(), updateIng);
@@ -160,12 +163,26 @@ public class InventoryController extends CategoryController implements Initializ
                 setIngCategories(currentCategory, ingGrid, 3, 210.0);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
+                Ingredient ingredient = IngredientManager.getIngredientDetails(updateIng.name);
+                // catch error ingredient not found
+                populateIngCard(ingredient);
             }
         }
         else if (event.getSource() == update){
             ingCard.setVisible(false);
             ingCardUpdate.setVisible(true);
             populateIngCardUpdate();
+        }
+        else if (event.getSource() == updateSave){
+            if (validUpdate()){
+                IngredientManager.updateIngQuantity(ingName.getText(), Double.valueOf(ingQuantityUpdate.getText()));
+                // catch error ingredient not found
+                Ingredient ingredient = IngredientManager.getIngredientDetails(ingName.getText());
+                // catch error ingredient not found
+                populateIngCard(ingredient);
+                ingCard.setVisible(true);
+                ingCardUpdate.setVisible(false);
+            }
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -271,6 +288,15 @@ public class InventoryController extends CategoryController implements Initializ
         try {
             Double.valueOf(ingNotifyInput.getText());
             Double.valueOf(ingQuantityInput.getText());
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+    
+    private boolean validUpdate(){
+        try {
+            Double.valueOf(ingQuantityUpdate.getText());
             return true;
         } catch (NumberFormatException e){
             return false;
