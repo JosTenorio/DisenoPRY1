@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
@@ -34,6 +35,7 @@ public class TablesController extends CategoryController implements Initializabl
     private int sidesQuantity;
     private int sidesAdded;
     private String currentCategory;
+    private Stack<String> categorySequence;
 
     @FXML
     private ImageView hambMenu;
@@ -86,8 +88,6 @@ public class TablesController extends CategoryController implements Initializabl
     @FXML
     private AnchorPane popupOrder;
     @FXML
-    private HBox flowContainer;
-    @FXML
     private Label tableNameBuild;
     @FXML
     private ImageView editOrderBuild;
@@ -109,6 +109,8 @@ public class TablesController extends CategoryController implements Initializabl
     private Button sideMenuSettings;
     @FXML
     private VBox orderContainer;
+    @FXML
+    private ImageView back;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -135,13 +137,33 @@ public class TablesController extends CategoryController implements Initializabl
             addButtonFunction(itemButtons);
             sidesAdded = 0;
             sidesQuantity = 0;
-            setFlow(null);
+            categorySequence = new Stack<>();
+            setFlow(null, true);
         }
         else if (event.getSource() == confirm){
             OrderManager.insertOrder(orderBuild);
             popupTable.setVisible(true);
             popupOrder.setVisible(false);
             setTableOrder(selectedTable);
+        }
+        else if (event.getSource() == back){
+            String newCategory;
+            try {
+                newCategory = categorySequence.pop();
+                newCategory = categorySequence.pop();
+            } catch (Exception e) {
+                newCategory = null;
+            }
+            if (sidesAdded < sidesQuantity){
+                setFoodCategories(newCategory, menuGrid, 4, 182.0, false, false);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(itemButtons);
+            } else {
+                setFoodCategories(newCategory, menuGrid, 4, 182.0, false, true);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(itemButtons);
+            }
+            setFlow(newCategory, false);
         }
         for (Button table : tableButtons){
             if (event.getSource() == table){
@@ -166,7 +188,7 @@ public class TablesController extends CategoryController implements Initializabl
                     addButtonFunction(categoryButtons);
                     addButtonFunction(itemButtons);
                 }
-                setFlow(item.getText());
+                setFlow(item.getText(), true);
             }
         }
         for (Button item : itemButtons){
@@ -182,8 +204,6 @@ public class TablesController extends CategoryController implements Initializabl
                     sidesAdded = 0;
                     sidesQuantity = FoodManager.getFoodSideDishes(item.getText());
                 }
-                // temporary reset
-                setFlow(null);
                 if (sidesAdded < sidesQuantity){
                     setFoodCategories(currentCategory, menuGrid, 4, 182.0, false, false);
                     addButtonFunction(categoryButtons);
@@ -245,8 +265,10 @@ public class TablesController extends CategoryController implements Initializabl
         }
     }
     
-    private void setFlow(String category){
-        // set flow menu to navigate
+    private void setFlow(String category, boolean forward){
+        if (forward) {
+            categorySequence.push(category);
+        }
         currentCategory = category;
     }
     
