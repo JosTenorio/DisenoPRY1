@@ -27,6 +27,11 @@ public class TablesController extends CategoryController implements Initializabl
      
     private ArrayList<Button> tableButtons;
     private boolean menuOpen;
+    private Order orderBuild;
+    private String selectedTable;
+    private int sidesQuantity;
+    private int sidesAdded;
+    private String currentCategory;
 
     @FXML
     private ImageView hambMenu;
@@ -120,12 +125,13 @@ public class TablesController extends CategoryController implements Initializabl
             dimmer.setVisible(false);
         }
         else if (event.getSource() == addOrder){
+            orderBuild = new Order(selectedTable);
             popupOrder.setVisible(true);
             dimmer.setVisible(true);
-            setFoodCategories(null, menuGrid, 4, 182.0, false);
+            setFoodCategories(null, menuGrid, 4, 182.0, false, true);
             addButtonFunction(categoryButtons);
             addButtonFunction(itemButtons);
-            //set Flow
+            setFlow(null);
         }
         for (Button table : tableButtons){
             if (event.getSource() == table){
@@ -135,20 +141,35 @@ public class TablesController extends CategoryController implements Initializabl
                 }
                 popupTable.setVisible(true);
                 dimmer.setVisible(true);
-                setTableOrder(table.getText());
+                selectedTable = table.getText();
+                setTableOrder(selectedTable);
             }
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
-                setFoodCategories(item.getText(), menuGrid, 4, 182.0, false);
+                setFoodCategories(item.getText(), menuGrid, 4, 182.0, false, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
-                //set Flow
+                setFlow(item.getText());
             }
         }
         for (Button item : itemButtons){
             if (event.getSource() == item){
-                //add food to order and check side dishes
+                if (sidesAdded < sidesQuantity){
+                    
+                } else {
+                    // get notes from button
+                    orderBuild.addItem(item.getText(), "");
+                    setBuildOrder();
+                    sidesAdded = 0;
+                    sidesQuantity = 2; //CHANGE
+                    if (sidesAdded < sidesQuantity){
+                        setFlow(null);
+                        setFoodCategories(currentCategory, menuGrid, 4, 182.0, false, false);
+                        addButtonFunction(categoryButtons);
+                        addButtonFunction(itemButtons);
+                    }
+                }
             }
         }
         // SIDE MENU
@@ -181,6 +202,15 @@ public class TablesController extends CategoryController implements Initializabl
         }
     }
     
+    private void setBuildOrder(){
+        
+    }
+    
+    private void setFlow(String category){
+        // set flow menu to navigate
+        currentCategory = category;
+    }
+    
     @Override
     public void addButtonFunction(ArrayList<Button> buttons){
         for (Button item : buttons){
@@ -194,17 +224,6 @@ public class TablesController extends CategoryController implements Initializabl
                     }
                 }
             });
-        }
-    }
-    
-    private void setTableNames(){
-        for (int i = 0; i < tableButtons.size(); i++){
-            tableButtons.get(i).setVisible(false);
-        }
-        ArrayList<String> tableNames = TableManager.getTableNames();
-        for (int i = 0; i < tableNames.size(); i++){
-            tableButtons.get(i).setText(tableNames.get(i));
-            tableButtons.get(i).setVisible(true);
         }
     }
 
@@ -232,6 +251,18 @@ public class TablesController extends CategoryController implements Initializabl
         tableButtons.add(table12);
         tableButtons.add(table13);
         setTableNames();
-        
+        sidesAdded = 0;
+        sidesQuantity = 0;
+    }
+    
+    private void setTableNames(){
+        for (int i = 0; i < tableButtons.size(); i++){
+            tableButtons.get(i).setVisible(false);
+        }
+        ArrayList<String> tableNames = TableManager.getTableNames();
+        for (int i = 0; i < tableNames.size(); i++){
+            tableButtons.get(i).setText(tableNames.get(i));
+            tableButtons.get(i).setVisible(true);
+        }
     }
 }

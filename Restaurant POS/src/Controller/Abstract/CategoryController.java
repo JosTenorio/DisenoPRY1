@@ -20,17 +20,19 @@ public abstract class CategoryController extends SceneController {
     public ArrayList<Button> categoryButtons;
     public ArrayList<Button> itemButtons;
     
-    public void setFoodCategories(String category, GridPane menuGrid, int cols, double size, boolean includeArchived){
+    public void setFoodCategories(String category, GridPane menuGrid, int cols, double size, boolean includeArchived, boolean includeMainDishes){
         menuGrid.getChildren().clear();
         ArrayList<Triplet<String, String, Boolean>> categories;
         ArrayList<Triplet<String, String, Boolean>> food;
         if (category == null){
             categories = FoodCtgrManager.getFatherCategories();
-            food = FoodManager.getUncategorizedFood(true, includeArchived);
+            food = FoodManager.getUncategorizedFood(includeMainDishes, includeArchived);
         } else {
             categories = FoodCtgrManager.getSubCategories(category);
-            food = FoodManager.getFoodByCategory(category, true, includeArchived);
+            food = FoodManager.getFoodByCategory(category, includeMainDishes, includeArchived);
         }
+        System.out.println(food);
+        System.out.println(categories);
         categoryButtons = setItems(categories, menuGrid, 0, 0, cols, size);
         itemButtons = setItems(food, menuGrid, categories.size() % cols, categories.size() / cols, cols, size);
     }

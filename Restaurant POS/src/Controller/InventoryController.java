@@ -29,6 +29,7 @@ public class InventoryController extends CategoryController implements Initializ
     private boolean isNewIng;
     private String currentCategory;
 
+    private String ingImgPath;
     private String ingUnitValue;
     private double ingQuantityValue;
     @FXML
@@ -184,6 +185,9 @@ public class InventoryController extends CategoryController implements Initializ
                 ingCardUpdate.setVisible(false);
             }
         }
+        else if (event.getSource() == ingImageInput){
+            // set ingImgPath
+        }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
                 setIngCategories(item.getText(), ingGrid, 3, 210.0);
@@ -246,6 +250,7 @@ public class InventoryController extends CategoryController implements Initializ
         ingUnitInput.setText(ingredient.unit);
         ingNotifyInput.setText(String.valueOf(ingredient.minimum));
         ingQuantityInput.setText(String.valueOf(ingredient.quantity));
+        ingImgPath = ingredient.imgPath;
     }
     
     private void populateIngCardUpdate(){
@@ -269,12 +274,12 @@ public class InventoryController extends CategoryController implements Initializ
         ingUnitInput.setText("");
         ingNotifyInput.setText("");
         ingQuantityInput.setText("");
+        ingImgPath = "";
     }
    
     private Ingredient setIngInfo(){
         String name = ingNameInput.getText();
-        // get path from button
-        String path = "";
+        String path = ingImgPath;
         String desc = ingDescInput.getText();
         String unit = ingUnitInput.getText();
         double minimum = Double.valueOf(ingNotifyInput.getText());

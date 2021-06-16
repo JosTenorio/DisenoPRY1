@@ -30,6 +30,7 @@ public class MenuController extends CategoryController implements Initializable 
     private boolean isNewDish;
     private String currentCategory;
 
+    private String dishImgPath;
     @FXML
     private ImageView hambMenu;
     @FXML
@@ -132,7 +133,7 @@ public class MenuController extends CategoryController implements Initializable 
                 // catch error wrong info
                 FoodManager.categorizeFood(newDish.name, currentCategory);
                 // catch error wrong info
-                setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
+                setFoodCategories(currentCategory, menuGrid, 3, 210.0, true, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
                 Dish dish = FoodManager.getFoodDetails(newDish.name);
@@ -142,7 +143,7 @@ public class MenuController extends CategoryController implements Initializable 
                 Dish updateDish = setDishInfo();
                 FoodManager.updateFood(dishName.getText(), updateDish);
                 // catch error dish not found or wrong info
-                setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
+                setFoodCategories(currentCategory, menuGrid, 3, 210.0, true, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
                 Dish dish = FoodManager.getFoodDetails(updateDish.name);
@@ -153,16 +154,19 @@ public class MenuController extends CategoryController implements Initializable 
         else if (event.getSource() == archive){
             FoodManager.toggleFood(dishName.getText());
             // catch error not found
-            setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
+            setFoodCategories(currentCategory, menuGrid, 3, 210.0, true, true);
             addButtonFunction(categoryButtons);
             addButtonFunction(itemButtons);
             Dish dish = FoodManager.getFoodDetails(dishName.getText());
             // catch error dish not found
             toggleArchiveText(dish);
         }
+        else if (event.getSource() == dishImageInput){
+            // set dishImgPath
+        }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
-                setFoodCategories(item.getText(), menuGrid, 3, 210.0, true);
+                setFoodCategories(item.getText(), menuGrid, 3, 210.0, true, true);
                 addButtonFunction(categoryButtons);
                 addButtonFunction(itemButtons);
                 setFlow(item.getText());
@@ -228,6 +232,7 @@ public class MenuController extends CategoryController implements Initializable 
         dishIsSide.setSelected(dish.isSideDish);
         dishSidesInput.setText(String.valueOf(dish.sideDishes));
         dishPriceInput.setText(String.valueOf(dish.price));
+        dishImgPath = dish.imgPath;
     }
     
     private void emptyDishCardEdit(){
@@ -239,12 +244,12 @@ public class MenuController extends CategoryController implements Initializable 
         dishIsSide.setSelected(false);
         dishSidesInput.setText("");
         dishPriceInput.setText("");
+        dishImgPath = "";
     }
     
     private Dish setDishInfo(){
         String name = dishNameInput.getText();
-        // get path from button
-        String path = "";
+        String path = dishImgPath;
         String desc = dishDescInput.getText();
         boolean isSide = dishIsSide.isSelected();
         int sides = Integer.valueOf(dishSidesInput.getText());
@@ -297,7 +302,7 @@ public class MenuController extends CategoryController implements Initializable 
         dishCard.setVisible(false);
         dishCardEdit.setVisible(false);
         addDish.setVisible(false);
-        setFoodCategories(null, menuGrid, 3, 210.0, true);
+        setFoodCategories(null, menuGrid, 3, 210.0, true, true);
         addButtonFunction(categoryButtons);
         addButtonFunction(itemButtons);
         editMenu.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
