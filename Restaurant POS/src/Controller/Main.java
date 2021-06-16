@@ -2,7 +2,9 @@
 package Controller;
 
 import Connection.ConnectionManager;
+import Model.Managers.FoodManager;
 import Model.Managers.ItemManager;
+import Model.Managers.OrderManager;
 import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +21,6 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/View/TablesView.fxml"));
-        System.out.println(ItemManager.markReadyItem(15));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

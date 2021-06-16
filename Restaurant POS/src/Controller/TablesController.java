@@ -182,7 +182,7 @@ public class TablesController extends CategoryController implements Initializabl
     }
     
     private void setTableOrder(String tableName){
-        Order tableOrder = OrderManager.getTableOrders(tableName, false);
+        Order tableOrder = OrderManager.getTableOrder(tableName, false);
         // catch error wrong name
         
         itemContainer.getChildren().clear();
