@@ -124,7 +124,7 @@ public class TablesController extends CategoryController implements Initializabl
             dimmer.setVisible(true);
             setFoodCategories(null, menuGrid, 4, 182.0, false);
             addButtonFunction(categoryButtons);
-            addButtonFunction(foodButtons);
+            addButtonFunction(itemButtons);
             //set Flow
         }
         for (Button table : tableButtons){
@@ -142,11 +142,11 @@ public class TablesController extends CategoryController implements Initializabl
             if (event.getSource() == item){
                 setFoodCategories(item.getText(), menuGrid, 4, 182.0, false);
                 addButtonFunction(categoryButtons);
-                addButtonFunction(foodButtons);
+                addButtonFunction(itemButtons);
                 //set Flow
             }
         }
-        for (Button item : foodButtons){
+        for (Button item : itemButtons){
             if (event.getSource() == item){
                 //add food to order and check side dishes
             }
@@ -156,6 +156,8 @@ public class TablesController extends CategoryController implements Initializabl
             tablesShow(event);
         else if (event.getSource() == sideMenuMenu)
             menuShow(event);
+        else if (event.getSource() == sideMenuInventory)
+            inventoryShow(event);
     }
     
     private void setTableOrder(String tableName){
@@ -214,7 +216,7 @@ public class TablesController extends CategoryController implements Initializabl
         popupOrder.setVisible(false);
         dimmer.setVisible(false);
         categoryButtons = new ArrayList<>();
-        foodButtons = new ArrayList<>();
+        itemButtons = new ArrayList<>();
         tableButtons = new ArrayList<>();
         tableButtons.add(table1);
         tableButtons.add(table2);

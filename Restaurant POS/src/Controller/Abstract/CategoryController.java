@@ -11,12 +11,13 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
 public abstract class CategoryController extends SceneController {
     
     public ArrayList<Button> categoryButtons;
-    public ArrayList<Button> foodButtons;
+    public ArrayList<Button> itemButtons;
     
     public void setFoodCategories(String category, GridPane menuGrid, int cols, double size, boolean includeArchived){
         menuGrid.getChildren().clear();
@@ -30,10 +31,10 @@ public abstract class CategoryController extends SceneController {
             food = FoodManager.getFoodByCategory(category, true, includeArchived);
         }
         categoryButtons = setItems(categories, menuGrid, 0, 0, cols, size);
-        foodButtons = setItems(food, menuGrid, categories.size() % cols, categories.size() / cols, cols, size);
+        itemButtons = setItems(food, menuGrid, categories.size() % cols, categories.size() / cols, cols, size);
     }
     
-    private ArrayList<Button> setItems(ArrayList<Triplet<String, String, Boolean>> items, GridPane menuGrid, int col, int row, int cols, double size){   
+    private ArrayList<Button> setItems(ArrayList<Triplet<String, String, Boolean>> items, GridPane grid, int col, int row, int cols, double size){   
         ArrayList<Button> itemButtons = new ArrayList<>();
         for (int i = 0; i < items.size(); i++){
             FXMLLoader loader = new FXMLLoader();
@@ -48,7 +49,7 @@ public abstract class CategoryController extends SceneController {
                 Triplet<String, String, Boolean> item = items.get(i);
                 itemController.setData(item.getValue0(), item.getValue1(), item.getValue2());
                 pane.setPrefSize(size, size);
-                menuGrid.add(pane, col++, row);
+                grid.add(pane, col++, row);
                 GridPane.setMargin(pane, new Insets(10));
                 itemButtons.add(itemController.getButton());
             } catch (IOException ex) {
