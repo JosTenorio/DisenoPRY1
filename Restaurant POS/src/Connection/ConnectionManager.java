@@ -37,14 +37,14 @@ public class ConnectionManager {
         if (Arrays.asList(Database, Port, Ip, Login, Password).contains(null))
             return;   
         String url = "jdbc:sqlserver://" + Ip  + ":" + Port + ";databaseName=" + Database + ";user=" + Login + ";password=" + Password;
-        //Proxy.openProxy();
+        Proxy.openProxy();
         connection = DriverManager.getConnection(url);
     }
     
     public static void disconnect() throws SQLException {
         if (connection != null)
             connection.close();
-        //Proxy.closeProxy();
+        Proxy.closeProxy();
     }
     
     public static Connection getConnection(){
