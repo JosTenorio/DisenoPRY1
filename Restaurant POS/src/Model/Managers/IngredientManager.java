@@ -39,8 +39,8 @@ public class IngredientManager {
         try {
             insertIngredientStatement.setString(1, ing.name);
             insertIngredientStatement.setString(2, ing.description);
-            insertIngredientStatement.setInt(3, ing.minimum);
-            insertIngredientStatement.setInt(4, ing.quantity);
+            insertIngredientStatement.setDouble(3, ing.minimum);
+            insertIngredientStatement.setDouble(4, ing.quantity);
             insertIngredientStatement.setString(5, ing.unit);
             insertIngredientStatement.setString(6, ing.imgPath);             
         } catch (SQLException ex) {
@@ -78,8 +78,8 @@ public class IngredientManager {
         try {
             updateIngredientStatement.setString(1, ing.name);
             updateIngredientStatement.setString(2, ing.description);
-            updateIngredientStatement.setInt(3, ing.minimum);
-            updateIngredientStatement.setInt(4, ing.quantity);
+            updateIngredientStatement.setDouble(3, ing.minimum);
+            updateIngredientStatement.setDouble(4, ing.quantity);
             updateIngredientStatement.setString(5, ing.unit);
             updateIngredientStatement.setString(6, ing.imgPath);
             updateIngredientStatement.setString(7, oldName);
@@ -125,7 +125,7 @@ public class IngredientManager {
         try {
             rs = getIngredientDetailsStatement.executeQuery();
             if (rs.next()) {
-                results = new Ingredient (rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6));
+                results = new Ingredient (rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4), rs.getString(5), rs.getString(6));
             }
             return results;
         } catch (SQLException ex) {
