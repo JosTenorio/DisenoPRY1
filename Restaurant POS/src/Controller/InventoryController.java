@@ -2,6 +2,8 @@
 package Controller;
 
 import Controller.Abstract.CategoryController;
+import Model.Ingredient;
+import Model.Managers.IngredientManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -44,8 +46,6 @@ public class InventoryController extends CategoryController implements Initializ
     @FXML
     private Label ingNotify;
     @FXML
-    private Label ingCuantity;
-    @FXML
     private TextField ingNameInput;
     @FXML
     private ImageView ingImageInput;
@@ -57,8 +57,6 @@ public class InventoryController extends CategoryController implements Initializ
     private TextField ingDescInput;
     @FXML
     private TextField ingNotifyInput;
-    @FXML
-    private TextField ingCuantityInput;
     @FXML
     private TextField ingUnitInput;
     @FXML
@@ -85,6 +83,10 @@ public class InventoryController extends CategoryController implements Initializ
     private AnchorPane ingCard;
     @FXML
     private AnchorPane ingCardEdit;
+    @FXML
+    private Label ingQuantity;
+    @FXML
+    private TextField ingQuantityInput;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -119,10 +121,10 @@ public class InventoryController extends CategoryController implements Initializ
                     } else {
                         ingCard.setVisible(true);
                     }
-                    //Dish dish = FoodManager.getFoodDetails(item.getText());
-                    // catch error dish not found
-                    //populateDishCard(dish);
-                    //populateDishCardEdit(dish);
+                    Ingredient ingredient = IngredientManager.getIngredientDetails(item.getText());
+                    // catch error ingredient not found
+                    populateIngCard(ingredient);
+                    populateIngCardEdit(ingredient);
                 }
             }
         }
@@ -133,6 +135,29 @@ public class InventoryController extends CategoryController implements Initializ
             menuShow(event);
         else if (event.getSource() == sideMenuInventory)
             inventoryShow(event);
+    }
+    
+    private void populateIngCard(Ingredient ingredient){
+        ingName.setText(ingredient.name);
+        try {
+            ingImage.setImage(new Image(getClass().getResourceAsStream(ingredient.imgPath)));
+        } catch (Exception e) {
+        }
+        ingDesc.setText(ingredient.description);
+        ingNotify.setText("Notificar con: " + ingredient.minimum + ingredient.unit);
+        ingQuantity.setText("Cantidad: " + ingredient.quantity + ingredient.unit);
+    }
+    
+    private void populateIngCardEdit(Ingredient ingredient){
+        ingNameInput.setText(ingredient.name);
+        try {
+            ingImageEdit.setImage(new Image(getClass().getResourceAsStream(ingredient.imgPath)));
+        } catch (Exception e) {
+        }
+        ingDescInput.setText(ingredient.description);
+        ingUnitInput.setText(ingredient.unit);
+        ingNotifyInput.setText(String.valueOf(ingredient.minimum));
+        ingQuantityInput.setText(String.valueOf(ingredient.quantity));
     }
     
     private void setFlow(String category){
