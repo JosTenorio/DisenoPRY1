@@ -175,7 +175,7 @@
                   <Image url="@../Images/Edit.png" />
                </image>
             </ImageView>
-            <HBox layoutY="78.0" prefHeight="694.0" prefWidth="858.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css">
+            <HBox layoutY="78.0" prefHeight="694.0" prefWidth="858.0" stylesheets="@../StyleSheets/AppStyle.css">
                <children>
                   <ScrollPane prefHeight="674.0" prefWidth="847.0" styleClass="scroller" stylesheets="@../StyleSheets/AppStyle.css">
                      <HBox.margin>
@@ -189,7 +189,11 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
-               </children></HBox>
+               </children>
+               <styleClass>
+                  <String fx:value="white" />
+                  <String fx:value="roundedAll" />
+               </styleClass></HBox>
          </children>
          <styleClass>
             <String fx:value="popUp" />

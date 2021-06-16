@@ -21,5 +21,10 @@ public class Item {
         this.notes = notes;
     }
     
+    public Item(String name, String notes){
+        this.name = name;
+        this.notes = notes;
+    }
+    
 }
     
