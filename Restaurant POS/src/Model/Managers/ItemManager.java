@@ -117,9 +117,10 @@ public class ItemManager {
     }
     
     /*
-    public static int readyItem (int itemId) {
+    public static int markReadyItem (int itemId) {
         
     
     }
 */
+
 }
