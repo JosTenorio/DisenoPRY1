@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="268.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="268.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Items.OrderBuildItemController">
    <children>
-      <BorderPane prefHeight="30.0" prefWidth="268.0" styleClass="lightGray" stylesheets="@../../StyleSheets/AppStyle.css">
+      <BorderPane prefWidth="268.0" styleClass="lightGray" stylesheets="@../../StyleSheets/AppStyle.css">
          <left>
             <HBox BorderPane.alignment="CENTER">
                <children>

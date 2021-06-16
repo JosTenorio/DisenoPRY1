@@ -311,7 +311,7 @@ public class FoodManager {
     
     public static int getFoodSideDishes (String foodName) {
         ResultSet rs;
-        int results = -1;
+        int results = 0;
         PreparedStatement getFoodSideDishesStatement;
         if (!PreparedStatements.containsKey("getFoodSideDishesStatement")){
             String sql = " SELECT CantidadAcomp FROM Comida WHERE Nombre = ? AND CantidadAcomp IS NOT NULL";

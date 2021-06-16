@@ -2,7 +2,9 @@
 package Controller;
 
 import Controller.Abstract.CategoryController;
+import Controller.Items.OrderBuildItemController;
 import Controller.Items.TableItemController;
+import Model.Managers.FoodManager;
 import Model.Managers.OrderManager;
 import Model.Managers.TableManager;
 import Model.Order;
@@ -82,8 +84,6 @@ public class TablesController extends CategoryController implements Initializabl
     @FXML
     private AnchorPane dimmer;
     @FXML
-    private ImageView add;
-    @FXML
     private AnchorPane popupOrder;
     @FXML
     private HBox flowContainer;
@@ -107,6 +107,8 @@ public class TablesController extends CategoryController implements Initializabl
     private Button sideMenuInventory;
     @FXML
     private Button sideMenuSettings;
+    @FXML
+    private VBox orderContainer;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -131,7 +133,15 @@ public class TablesController extends CategoryController implements Initializabl
             setFoodCategories(null, menuGrid, 4, 182.0, false, true);
             addButtonFunction(categoryButtons);
             addButtonFunction(itemButtons);
+            sidesAdded = 0;
+            sidesQuantity = 0;
             setFlow(null);
+        }
+        else if (event.getSource() == confirm){
+            OrderManager.insertOrder(orderBuild);
+            popupTable.setVisible(true);
+            popupOrder.setVisible(false);
+            setTableOrder(selectedTable);
         }
         for (Button table : tableButtons){
             if (event.getSource() == table){
@@ -147,28 +157,41 @@ public class TablesController extends CategoryController implements Initializabl
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
-                setFoodCategories(item.getText(), menuGrid, 4, 182.0, false, true);
-                addButtonFunction(categoryButtons);
-                addButtonFunction(itemButtons);
+                if (sidesAdded < sidesQuantity){
+                    setFoodCategories(item.getText(), menuGrid, 4, 182.0, false, false);
+                    addButtonFunction(categoryButtons);
+                    addButtonFunction(itemButtons);
+                } else {
+                    setFoodCategories(item.getText(), menuGrid, 4, 182.0, false, true);
+                    addButtonFunction(categoryButtons);
+                    addButtonFunction(itemButtons);
+                }
                 setFlow(item.getText());
             }
         }
         for (Button item : itemButtons){
             if (event.getSource() == item){
                 if (sidesAdded < sidesQuantity){
-                    
+                    orderBuild.addSide(item.getText());
+                    setBuildOrder(orderBuild);
+                    sidesAdded++;
                 } else {
                     // get notes from button
                     orderBuild.addItem(item.getText(), "");
-                    setBuildOrder();
+                    setBuildOrder(orderBuild);
                     sidesAdded = 0;
-                    sidesQuantity = 2; //CHANGE
-                    if (sidesAdded < sidesQuantity){
-                        setFlow(null);
-                        setFoodCategories(currentCategory, menuGrid, 4, 182.0, false, false);
-                        addButtonFunction(categoryButtons);
-                        addButtonFunction(itemButtons);
-                    }
+                    sidesQuantity = FoodManager.getFoodSideDishes(item.getText());
+                }
+                // temporary reset
+                setFlow(null);
+                if (sidesAdded < sidesQuantity){
+                    setFoodCategories(currentCategory, menuGrid, 4, 182.0, false, false);
+                    addButtonFunction(categoryButtons);
+                    addButtonFunction(itemButtons);
+                } else {
+                    setFoodCategories(currentCategory, menuGrid, 4, 182.0, false, true);
+                    addButtonFunction(categoryButtons);
+                    addButtonFunction(itemButtons);
                 }
             }
         }
@@ -202,8 +225,20 @@ public class TablesController extends CategoryController implements Initializabl
         }
     }
     
-    private void setBuildOrder(){
-        
+    private void setBuildOrder(Order orderBuild){
+        orderContainer.getChildren().clear();
+        for (int i = 0; i < orderBuild.items.size(); i++){
+            FXMLLoader loader = new FXMLLoader();
+            try{
+                loader.setLocation(getClass().getResource("/View/Items/OrderBuildItemView.fxml"));
+                HBox hbox = loader.load();
+                OrderBuildItemController itemController = loader.getController();
+                itemController.setData(orderBuild.items.get(i));
+                orderContainer.getChildren().add(hbox);
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+        }
     }
     
     private void setFlow(String category){
@@ -251,8 +286,6 @@ public class TablesController extends CategoryController implements Initializabl
         tableButtons.add(table12);
         tableButtons.add(table13);
         setTableNames();
-        sidesAdded = 0;
-        sidesQuantity = 0;
     }
     
     private void setTableNames(){
