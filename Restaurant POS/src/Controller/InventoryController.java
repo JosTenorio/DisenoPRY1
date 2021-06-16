@@ -4,11 +4,14 @@ package Controller;
 import Controller.Abstract.CategoryController;
 import Model.Ingredient;
 import Model.Managers.IngredientManager;
+import Model.Managers.TableManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -195,7 +198,10 @@ public class InventoryController extends CategoryController implements Initializ
             chooser.showOpenDialog(null);
             if (chooser.getSelectedFile() != null) {
                 File f = chooser.getSelectedFile();
-                ingImgPath = f.getCanonicalPath().replace("\\", "\\\\");
+                String path = f.getPath().replace("\\", "\\\\");
+                String base = System.getProperty("user.dir").replace("\\", "\\\\");;
+                String relative = new File(base).toURI().relativize(new File(path).toURI()).getPath();
+                ingImgPath = relative;
             }
         }
         for (Button item : categoryButtons){
@@ -240,10 +246,9 @@ public class InventoryController extends CategoryController implements Initializ
     private void populateIngCard(Ingredient ingredient){
         ingName.setText(ingredient.name);
         try {
-            System.out.println(ingredient.imgPath);
-            ingImage.setImage(new Image(getClass().getResourceAsStream(ingredient.imgPath)));
+            Image img = new Image(new File(ingredient.imgPath).toURI().toURL().toString());
+            ingImage.setImage(img);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
         ingDesc.setText(ingredient.description);
         ingNotify.setText("Notificar con: " + ingredient.minimum + ingredient.unit);
@@ -255,7 +260,8 @@ public class InventoryController extends CategoryController implements Initializ
     private void populateIngCardEdit(Ingredient ingredient){
         ingNameInput.setText(ingredient.name);
         try {
-            ingImageEdit.setImage(new Image(getClass().getResourceAsStream(ingredient.imgPath)));
+            Image img = new Image(new File(ingredient.imgPath).toURI().toURL().toString());
+            ingImageEdit.setImage(img);
         } catch (Exception e) {
         }
         ingDescInput.setText(ingredient.description);

@@ -171,7 +171,10 @@ public class MenuController extends CategoryController implements Initializable 
             chooser.showOpenDialog(null);
             if (chooser.getSelectedFile() != null) {
                 File f = chooser.getSelectedFile();
-                dishImgPath = f.getPath();
+                String path = f.getPath().replace("\\", "\\\\");
+                String base = System.getProperty("user.dir").replace("\\", "\\\\");;
+                String relative = new File(base).toURI().relativize(new File(path).toURI()).getPath();
+                dishImgPath = relative;
             }
         }
         for (Button item : categoryButtons){
