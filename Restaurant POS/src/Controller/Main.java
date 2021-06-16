@@ -2,8 +2,10 @@
 package Controller;
 
 import Model.Dish;
+import Model.Ingredient;
 import Model.Managers.FoodManager;
 import Model.Managers.IngredientCtgrManager;
+import Model.Managers.IngredientManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
