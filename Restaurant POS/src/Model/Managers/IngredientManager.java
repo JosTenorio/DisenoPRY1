@@ -100,7 +100,7 @@ public class IngredientManager {
         return rowsAffected;
     }
     
-        public static Ingredient getIngredientDetails (String foodName) {
+    public static Ingredient getIngredientDetails (String foodName) {
         ResultSet rs;
         Ingredient results = null;
         PreparedStatement getIngredientDetailsStatement;
@@ -138,12 +138,12 @@ public class IngredientManager {
         }
     }
         
-    public static ArrayList<Pair<String,String>> getIngredientByCategory(String categoryName) {
+    public static ArrayList<Triplet<String,String,Boolean>> getIngredientByCategory(String categoryName) {
         ResultSet rs;
-        ArrayList<Pair<String,String>> results = new ArrayList<>();
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
         PreparedStatement getIngredientByCategoryStatement;
         if (!PreparedStatements.containsKey("getIngredientByCategoryStatement")){
-            String sql = "SELECT Nombre, DireccionFoto, Archivado FROM Comida WHERE IdCategoria = (SELECT Id FROM CategoriaCom WHERE nombre = ?) AND (1 = ? OR CantidadAcomp IS NULL) AND (1 = ? OR Archivado = 0)";
+            String sql = "SELECT Nombre, DireccionFoto FROM Ingrediente WHERE IdCategoria = (SELECT Id FROM CategoriaIng WHERE Nombre = ?)";
             try {
                 getIngredientByCategoryStatement = ConnectionManager.getConnection().prepareStatement(sql);
             } catch (SQLException ex) {
@@ -166,8 +166,40 @@ public class IngredientManager {
         try {
             rs = getIngredientByCategoryStatement.executeQuery();
             while (rs.next()) {
-                Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), rs.getString(2));
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), rs.getString(2), false);
+                results.add(result);
+            }
+            return results;
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return results;
+        }
+    }
+    
+    public static ArrayList<Triplet<String,String,Boolean>> getUncategorizedIngs () {
+        ResultSet rs;
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
+        PreparedStatement getUncategorizedIngsStatement;
+        if (!PreparedStatements.containsKey("getUncategorizedIngsStatement")){
+            String sql = "SELECT Nombre, DireccionFoto FROM Ingrediente WHERE IdCategoria IS NULL";
+            try {
+                getUncategorizedIngsStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return results;
+            }
+            PreparedStatements.put("getUncategorizedIngsStatement", getUncategorizedIngsStatement);
+        } else {
+            getUncategorizedIngsStatement = PreparedStatements.get("getUncategorizedIngsStatement");
+        }
+        try {
+            rs = getUncategorizedIngsStatement.executeQuery();
+            while (rs.next()) {
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), rs.getString(2), false);
                 results.add(result);
             }
             return results;
