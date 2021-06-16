@@ -21,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import org.javatuples.Pair;
 
-public class KitchenController extends SceneController implements Initializable {
+public class OrderController extends SceneController implements Initializable {
 
     private boolean menuOpen;    
     private ArrayList<Pair<Integer, ImageView>> checkBoxes;
@@ -60,7 +60,7 @@ public class KitchenController extends SceneController implements Initializable 
         }
         for (Pair<Integer, ImageView> box : checkBoxes){
             if (event.getSource() == box.getValue1()){
-                ItemManager.markReadyItem(box.getValue0());
+                ItemManager.markDeliveredItem(box.getValue0());
                 setOrders();
                 addCheckBoxFunction(checkBoxes);
             }
@@ -80,7 +80,7 @@ public class KitchenController extends SceneController implements Initializable 
     
     private void setOrders(){
         this.checkBoxes = new ArrayList<>();
-        ArrayList<Order> orders = OrderManager.getUnreadyOrders();
+        ArrayList<Order> orders = OrderManager.getReadyOrders();
         itemContainer.getChildren().clear();
         for (int i = 0; i < orders.size(); i++){
             FXMLLoader loader = new FXMLLoader();
