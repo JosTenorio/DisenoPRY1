@@ -115,4 +115,11 @@ public class ItemManager {
         results = rs.getInt(1);
         return results;
     }
+    
+    /*
+    public static int readyItem (int itemId) {
+        
+    
+    }
+*/
 }
