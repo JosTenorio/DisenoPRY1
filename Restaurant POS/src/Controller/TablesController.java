@@ -204,6 +204,8 @@ public class TablesController extends CategoryController implements Initializabl
             inventoryShow(event);
         else if (event.getSource() == sideMenuKitchen)
             kitchenShow(event);
+        else if (event.getSource() == sideMenuOrders)
+            ordersShow(event);
     }
     
     private void setTableOrder(String tableName){

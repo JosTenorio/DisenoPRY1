@@ -4,14 +4,11 @@ package Controller;
 import Controller.Abstract.CategoryController;
 import Model.Ingredient;
 import Model.Managers.IngredientManager;
-import Model.Managers.TableManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -243,6 +240,8 @@ public class InventoryController extends CategoryController implements Initializ
             inventoryShow(event);
         else if (event.getSource() == sideMenuKitchen)
             kitchenShow(event);
+        else if (event.getSource() == sideMenuOrders)
+            ordersShow(event);
     }
     
     private void populateIngCard(Ingredient ingredient){

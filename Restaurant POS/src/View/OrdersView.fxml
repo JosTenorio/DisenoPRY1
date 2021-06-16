@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1366.0" styleClass="darkGray" stylesheets="@../StyleSheets/AppStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.KitchenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1366.0" styleClass="darkGray" stylesheets="@../StyleSheets/AppStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.OrderController">
    <children>
       <AnchorPane prefHeight="77.0" prefWidth="1366.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../Images/MenuBar.png" />
                </image>
             </ImageView>
-            <Label layoutX="102.0" layoutY="35.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Órdenes en proceso" AnchorPane.leftAnchor="103.0" AnchorPane.topAnchor="21.0" />
+            <Label layoutX="102.0" layoutY="35.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Órdenes listas" AnchorPane.leftAnchor="103.0" AnchorPane.topAnchor="21.0" />
             <HBox fx:id="flowContainer" layoutX="235.0" layoutY="28.0" prefHeight="22.0" prefWidth="0.0" />
          </children>
       </AnchorPane>
