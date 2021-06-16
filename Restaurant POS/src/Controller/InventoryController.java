@@ -29,6 +29,8 @@ public class InventoryController extends CategoryController implements Initializ
     private boolean isNewIng;
     private String currentCategory;
 
+    private String ingUnitValue;
+    private double ingQuantityValue;
     @FXML
     private ImageView hambMenu;
     @FXML
@@ -87,6 +89,22 @@ public class InventoryController extends CategoryController implements Initializ
     private TextField ingQuantityInput;
     @FXML
     private Button save;
+    @FXML
+    private AnchorPane ingCardUpdate;
+    @FXML
+    private Label ingNameUpdate;
+    @FXML
+    private ImageView ingImageUpdate;
+    @FXML
+    private Button updateSave;
+    @FXML
+    private Label ingDescUpdate;
+    @FXML
+    private TextField ingQuantityUpdate;
+    @FXML
+    private Label ingNotifyUpdate;
+    @FXML
+    private Label ingUnitUpdate;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -109,6 +127,7 @@ public class InventoryController extends CategoryController implements Initializ
                     ingCardEdit.setVisible(false);
                 }
             } else {
+                ingCardUpdate.setVisible(false);
                 editMode = true;
                 editInventory.setImage(new Image(getClass().getResourceAsStream("/Images/ConfirmEdit.png")));
                 addIng.setVisible(true);
@@ -143,6 +162,11 @@ public class InventoryController extends CategoryController implements Initializ
                 addButtonFunction(itemButtons);
             }
         }
+        else if (event.getSource() == update){
+            ingCard.setVisible(false);
+            ingCardUpdate.setVisible(true);
+            populateIngCardUpdate();
+        }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
                 setIngCategories(item.getText(), ingGrid, 3, 210.0);
@@ -153,6 +177,7 @@ public class InventoryController extends CategoryController implements Initializ
         }
         for (Button item : itemButtons){
             if (event.getSource() == item){
+                ingCardUpdate.setVisible(false);
                 if (ingName.getText().equals(item.getText()) && ingCardOpen){
                     ingCardOpen = false;
                     ingCard.setVisible(false);
@@ -190,6 +215,8 @@ public class InventoryController extends CategoryController implements Initializ
         ingDesc.setText(ingredient.description);
         ingNotify.setText("Notificar con: " + ingredient.minimum + ingredient.unit);
         ingQuantity.setText("Cantidad: " + ingredient.quantity + ingredient.unit);
+        ingQuantityValue = ingredient.quantity;
+        ingUnitValue = ingredient.unit; 
     }
     
     private void populateIngCardEdit(Ingredient ingredient){
@@ -202,6 +229,18 @@ public class InventoryController extends CategoryController implements Initializ
         ingUnitInput.setText(ingredient.unit);
         ingNotifyInput.setText(String.valueOf(ingredient.minimum));
         ingQuantityInput.setText(String.valueOf(ingredient.quantity));
+    }
+    
+    private void populateIngCardUpdate(){
+        ingNameUpdate.setText(ingName.getText());
+        try {
+            ingImageUpdate.setImage(ingImage.getImage());
+        } catch (Exception e) {
+        }
+        ingDescUpdate.setText(ingDesc.getText());
+        ingNotifyUpdate.setText(ingNotify.getText());
+        ingQuantityUpdate.setText(String.valueOf(ingQuantityValue));
+        ingUnitUpdate.setText(ingUnitValue);
     }
     
    private void emptyIngCardEdit(){
@@ -267,6 +306,7 @@ public class InventoryController extends CategoryController implements Initializ
         ingCardOpen = false;
         ingCard.setVisible(false);
         ingCardEdit.setVisible(false);
+        ingCardUpdate.setVisible(false);
         addIng.setVisible(false);
         setIngCategories(null, ingGrid, 3, 210.0);
         addButtonFunction(categoryButtons);

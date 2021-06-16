@@ -64,7 +64,7 @@
             <Label fx:id="ingQuantity" layoutX="91.0" layoutY="751.0" minWidth="505.0" prefWidth="505.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="757.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ingCardEdit" layoutX="774.0" layoutY="114.0" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
+      <AnchorPane fx:id="ingCardEdit" layoutX="774.0" layoutY="114.0" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
          <styleClass>
             <String fx:value="popUp" />
             <String fx:value="white" />
@@ -121,6 +121,40 @@
                   <String fx:value="txtLight" />
                </styleClass>
             </TextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ingCardUpdate" layoutX="774.0" layoutY="114.0" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
+         <styleClass>
+            <String fx:value="popUp" />
+            <String fx:value="white" />
+         </styleClass>
+         <children>
+            <AnchorPane layoutX="135.0" layoutY="106.0" prefHeight="77.0" prefWidth="200.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="lightGray" />
+                  <String fx:value="roundedTop" />
+               </styleClass>
+               <children>
+                  <Label fx:id="ingNameUpdate" layoutX="33.0" layoutY="19.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Ingrediente" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="ingImageUpdate" fitHeight="483.0" fitWidth="575.0" layoutX="55.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0" />
+            <Button fx:id="updateSave" layoutX="255.0" layoutY="833.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="51.0" prefWidth="236.0" stylesheets="@../StyleSheets/AppStyle.css" text="Guardar" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="815.0">
+               <styleClass>
+                  <String fx:value="normButton" />
+                  <String fx:value="size24" />
+               </styleClass>
+            </Button>
+            <Label fx:id="ingDescUpdate" layoutX="30.0" layoutY="583.0" minWidth="505.0" prefWidth="505.0" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" wrapText="true" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="579.0" />
+            <Label fx:id="ingNotifyUpdate" minWidth="505.0" prefWidth="505.0" styleClass="txtMed" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="680.0" />
+            <Label prefHeight="30.0" prefWidth="110.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" text="Cantidad: " AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="757.0" />
+            <TextField fx:id="ingQuantityUpdate" layoutX="155.0" layoutY="750.0" prefHeight="44.0" prefWidth="150.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.topAnchor="750.0">
+               <styleClass>
+                  <String fx:value="textInput" />
+                  <String fx:value="txtLight" />
+               </styleClass>
+            </TextField>
+            <Label fx:id="ingUnitUpdate" layoutX="316.0" layoutY="757.0" prefHeight="30.0" prefWidth="110.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" />
          </children>
       </AnchorPane>
       <HBox layoutY="77.0" prefHeight="947.0" prefWidth="762.0">
