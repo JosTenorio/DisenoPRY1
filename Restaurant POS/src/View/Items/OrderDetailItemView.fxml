@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="273.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Items.OrderDetailItemController">
+   <children>
+      <BorderPane prefWidth="273.0" styleClass="lightGray" stylesheets="@../../StyleSheets/AppStyle.css">
+         <left>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="name" styleClass="item" stylesheets="@../../StyleSheets/AppStyle.css" text="Nombre de plato" />
+               </children>
+            </HBox>
+         </left>
+         <right>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="checkBox" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/Checkbox.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+   </children>
+</HBox>

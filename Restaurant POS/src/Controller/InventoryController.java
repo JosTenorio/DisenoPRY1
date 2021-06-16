@@ -225,6 +225,8 @@ public class InventoryController extends CategoryController implements Initializ
             menuShow(event);
         else if (event.getSource() == sideMenuInventory)
             inventoryShow(event);
+        else if (event.getSource() == sideMenuKitchen)
+            kitchenShow(event);
     }
     
     private void populateIngCard(Ingredient ingredient){
