@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1366.0" styleClass="darkGray" stylesheets="@../StyleSheets/AppStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InventoryController">
+   <children>
+      <AnchorPane prefHeight="77.0" prefWidth="1366.0" styleClass="white" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="hambMenu" fitHeight="38.0" fitWidth="45.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="16.0">
+               <image>
+                  <Image url="@../Images/MenuBar.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="102.0" layoutY="35.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Inventario" AnchorPane.leftAnchor="103.0" AnchorPane.topAnchor="21.0" />
+            <ImageView fx:id="editInventory" fitHeight="44.0" fitWidth="44.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1301.0" AnchorPane.topAnchor="16.0">
+               <image>
+                  <Image url="@../Images/Edit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="1246.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="20.0">
+               <image>
+                  <Image url="@../Images/Search.png" />
+               </image>
+            </ImageView>
+            <HBox fx:id="flowContainer" layoutX="235.0" layoutY="28.0" prefHeight="22.0" prefWidth="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ingCard" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
+         <styleClass>
+            <String fx:value="popUp" />
+            <String fx:value="white" />
+         </styleClass>
+         <children>
+            <AnchorPane layoutX="135.0" layoutY="106.0" prefHeight="77.0" prefWidth="200.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="lightGray" />
+                  <String fx:value="roundedTop" />
+               </styleClass>
+               <children>
+                  <Label fx:id="ingName" layoutX="33.0" layoutY="19.0" styleClass="title" stylesheets="@../StyleSheets/AppStyle.css" text="Ingrediente" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="ingImage" fitHeight="483.0" fitWidth="575.0" layoutX="55.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0" />
+            <Button fx:id="update" layoutX="255.0" layoutY="833.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="51.0" prefWidth="236.0" stylesheets="@../StyleSheets/AppStyle.css" text="Actualizar" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="815.0">
+               <styleClass>
+                  <String fx:value="normButton" />
+                  <String fx:value="size24" />
+               </styleClass>
+            </Button>
+            <Label fx:id="ingDesc" layoutX="30.0" layoutY="583.0" prefWidth="505.0" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" wrapText="true" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="579.0" />
+            <Label fx:id="ingNotify" layoutX="125.0" layoutY="679.0" prefWidth="505.0" styleClass="txtMed" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="680.0" />
+            <Label fx:id="ingCuantity" layoutX="91.0" layoutY="751.0" prefWidth="505.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="757.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ingCardEdit" layoutX="774.0" layoutY="114.0" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
+         <styleClass>
+            <String fx:value="popUp" />
+            <String fx:value="white" />
+         </styleClass>
+         <children>
+            <AnchorPane layoutX="135.0" layoutY="106.0" prefHeight="77.0" prefWidth="200.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <styleClass>
+                  <String fx:value="lightGray" />
+                  <String fx:value="roundedTop" />
+               </styleClass>
+               <children>
+                  <TextField fx:id="ingNameInput" layoutX="7.0" layoutY="15.0" prefHeight="60.0" prefWidth="485.0" promptText="Nombre del ingrediente..." stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="15.0">
+                     <styleClass>
+                        <String fx:value="title" />
+                        <String fx:value="textInput" />
+                     </styleClass></TextField>
+                  <ImageView fx:id="ingImageInput" fitHeight="44.0" fitWidth="59.0" layoutX="496.0" layoutY="17.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="507.0" AnchorPane.topAnchor="15.0">
+                     <image>
+                        <Image url="@../Images/ImgInsert.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="ingImageEdit" fitHeight="483.0" fitWidth="575.0" layoutX="55.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0" />
+            <Button fx:id="confirm" layoutX="255.0" layoutY="833.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="51.0" prefWidth="236.0" stylesheets="@../StyleSheets/AppStyle.css" text="Guardar" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="815.0">
+               <styleClass>
+                  <String fx:value="normButton" />
+                  <String fx:value="size24" />
+               </styleClass>
+            </Button>
+            <Label layoutX="34.0" layoutY="700.0" prefHeight="30.0" prefWidth="176.0" styleClass="txtMed" stylesheets="@../StyleSheets/AppStyle.css" text="Notificar con:" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="700.0" />
+            <Label layoutX="91.0" layoutY="751.0" prefHeight="30.0" prefWidth="110.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" text="Cantidad: " AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="757.0" />
+            <TextField fx:id="ingDescInput" layoutX="22.0" layoutY="572.0" prefHeight="44.0" prefWidth="517.0" promptText="Descripción..." stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="572.0">
+               <styleClass>
+                  <String fx:value="txtLight" />
+                  <String fx:value="textInput" />
+               </styleClass></TextField>
+            <TextField fx:id="ingNotifyInput" layoutX="206.0" layoutY="693.0" prefWidth="150.0" stylesheets="@../StyleSheets/AppStyle.css">
+               <styleClass>
+                  <String fx:value="textInput" />
+                  <String fx:value="txtLight" />
+               </styleClass>
+            </TextField>
+            <TextField fx:id="ingCuantityInput" layoutX="155.0" layoutY="750.0" prefHeight="44.0" prefWidth="150.0" stylesheets="@../StyleSheets/AppStyle.css">
+               <styleClass>
+                  <String fx:value="textInput" />
+                  <String fx:value="txtLight" />
+               </styleClass>
+            </TextField>
+            <Label layoutX="34.0" layoutY="644.0" prefHeight="30.0" prefWidth="209.0" styleClass="txtMed" stylesheets="@../StyleSheets/AppStyle.css" text="Unidad de medida:" />
+            <TextField fx:id="ingUnitInput" layoutX="243.0" layoutY="637.0" prefWidth="150.0" stylesheets="@../StyleSheets/AppStyle.css">
+               <styleClass>
+                  <String fx:value="textInput" />
+                  <String fx:value="txtLight" />
+               </styleClass>
+            </TextField>
+         </children>
+      </AnchorPane>
+      <HBox layoutY="77.0" prefHeight="947.0" prefWidth="762.0">
+         <children>
+            <ScrollPane prefWidth="766.0" styleClass="scroller" stylesheets="@../StyleSheets/AppStyle.css">
+               <HBox.margin>
+                  <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
+               </HBox.margin>
+               <content>
+                  <GridPane fx:id="ingGrid" prefHeight="0.0" prefWidth="704.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="slider" layoutY="77.0" prefHeight="947.0" prefWidth="176.0" styleClass="sideBar" stylesheets="@../StyleSheets/AppStyle.css">
+         <children>
+            <VBox layoutX="30.0" layoutY="107.0" prefHeight="947.0" prefWidth="176.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="sideMenuTable" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Mesas">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Tables.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="sideMenuOrders" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Órdenes">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Orders.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="sideMenuKitchen" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Cocina">
+                     <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Kitchen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="sideMenuMenu" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Menú">
+                     <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Menu.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="sideMenuInventory" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="169.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css" text="Inventario">
+                     <graphic>
+                        <ImageView fitHeight="54.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Inventory.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="sideMenuSettings" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="102.0" prefWidth="176.0" styleClass="sideButton" stylesheets="@../StyleSheets/AppStyle.css">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="addPane" layoutX="-1.0" prefHeight="1024.0" prefWidth="762.0">
+         <children>
+            <ImageView fx:id="addIng" fitHeight="81.0" fitWidth="81.0" layoutX="680.0" layoutY="935.0" onMouseClicked="#btnHandle" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="660.0" AnchorPane.topAnchor="916.0">
+               <image>
+                  <Image url="@../Images/Add2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
