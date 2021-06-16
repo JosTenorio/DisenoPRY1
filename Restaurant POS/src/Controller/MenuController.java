@@ -220,10 +220,10 @@ public class MenuController extends CategoryController implements Initializable 
     private void populateDishCard(Dish dish){
         dishName.setText(dish.name);
         try {
-            System.out.println(dish.imgPath);
-            dishImage.setImage(new Image(getClass().getResourceAsStream(dish.imgPath)));
+            Image img = new Image(new File(dish.imgPath).toURI().toURL().toString());
+            dishImage.setImage(img);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
         }
         dishDesc.setText(dish.description);
         dishSides.setText("Inlcuye " + dish.sideDishes + " acompañamientos");
@@ -241,7 +241,8 @@ public class MenuController extends CategoryController implements Initializable 
     private void populateDishCardEdit(Dish dish){
         dishNameInput.setText(dish.name);
         try {
-            dishImageEdit.setImage(new Image(getClass().getResourceAsStream(dish.imgPath)));
+            Image img = new Image(new File(dish.imgPath).toURI().toURL().toString());
+            dishImageEdit.setImage(img);
         } catch (Exception e) {
         }
         dishDescInput.setText(dish.description);
