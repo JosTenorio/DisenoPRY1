@@ -136,7 +136,12 @@ public class MenuController extends CategoryController implements Initializable 
                 addButtonFunction(categoryButtons);
                 addButtonFunction(foodButtons);
             } else if (!isNewDish && validInputs()) {
-                //update info for dishName
+                Dish updateDish = setDishInfo();
+                FoodManager.updateFood(dishName.getText(), updateDish);
+                // catch error dish not found or wrong info
+                setFoodCategories(currentCategory, menuGrid, 3, 210.0, true);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(foodButtons);
             }
         }
         else if (event.getSource() == archive){
@@ -200,9 +205,9 @@ public class MenuController extends CategoryController implements Initializable 
     
     private void toggleArchiveText(Dish dish){
         if (dish.isArchived)
-            confirm.setText("Desarchivar");
+            archive.setText("Desarchivar");
         else
-            confirm.setText("Archivar");
+            archive.setText("Archivar");
     }
     
     private void populateDishCardEdit(Dish dish){
