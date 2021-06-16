@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
 
 
 public class OrderManager {
@@ -100,7 +102,7 @@ public class OrderManager {
         return affectedRows; 
     }
     
-    public static Order getTableOrders(String tableName, boolean includePaidItems) {
+    public static Order getTableOrder(String tableName, boolean includePaidItems) {
         Order result = null;
         ArrayList<Item> tableItems = new ArrayList<>();
         ArrayList<Integer> OrderIds;
@@ -130,6 +132,66 @@ public class OrderManager {
         return result;
     }
     
+    public static ArrayList<Order> getUnreadyOrders() {
+        ArrayList<Order> results = new ArrayList<>();
+        ArrayList<Triplet<Integer, String, String>> orders;
+        try {
+            orders = getOrdersDetails();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = "Esto no debería pasar";
+            Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        for (Triplet<Integer, String, String> order: orders) {
+            ArrayList<Item> items;
+            try {
+                items = ItemManager.getUnreadyItemsByOrder(order.getValue0());
+            } catch (SQLException ex) {
+                errorFlag = true;
+                error = "Esto no debería pasar";
+                Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
+                return results;
+            }
+            if (!items.isEmpty()) {
+                Order result;
+                result = new Order (order.getValue1(), items, order.getValue2());
+                results.add(result);
+            }
+        }
+        return results;
+    }
+    
+    public static ArrayList<Order> getReadyOrders() {
+        ArrayList<Order> results = new ArrayList<>();
+        ArrayList<Triplet<Integer, String, String>> orders;
+        try {
+            orders = getOrdersDetails();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = "Esto no debería pasar";
+            Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        for (Triplet<Integer, String, String> order: orders) {
+            ArrayList<Item> items;
+            try {
+                items = ItemManager.getReadyItemsByOrder(order.getValue0());
+            } catch (SQLException ex) {
+                errorFlag = true;
+                error = "Esto no debería pasar";
+                Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
+                return results;
+            }
+            if (!items.isEmpty()) {
+                Order result;
+                result = new Order (order.getValue1(), items, order.getValue2());
+                results.add(result);
+            }
+        }
+        return results;
+    }
+    
     private static ArrayList<Integer> getOrderIdsByTableName(String tableName) throws SQLException {
         ResultSet rs;
         ArrayList<Integer> results = new ArrayList<>();
@@ -145,6 +207,29 @@ public class OrderManager {
         rs = getOrderIdsByTableNameStatement.executeQuery();
        while (rs.next()) {
            results.add(rs.getInt(1));
+       }
+       return results;
+    }
+    
+    private static ArrayList<Triplet<Integer, String, String>> getOrdersDetails() throws SQLException {
+        ResultSet rs;
+        ArrayList<Triplet<Integer, String, String>> results = new ArrayList<>();
+        PreparedStatement getOrdersDetailsNameStatement;
+        if (!PreparedStatements.containsKey("getOrdersDetailsNameStatement")){
+            String sql = "SELECT Orden.Id, Mesa.Nombre ,convert(varchar(4),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())/3600,'000#'))+':'\n" +
+                         "+convert(varchar(2),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())%3600/60,'0#'))+':'\n" +
+                         "+convert(varchar(2),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())%60,'0#')) AS Age \n" +
+                          "FROM Orden INNER JOIN Mesa ON Mesa.Id = Orden.IdMesa";
+            getOrdersDetailsNameStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            PreparedStatements.put("getOrdersDetailsNameStatement", getOrdersDetailsNameStatement);
+        } else {
+            getOrdersDetailsNameStatement = PreparedStatements.get("getOrdersDetailsNameStatement");
+        }
+        rs = getOrdersDetailsNameStatement.executeQuery();
+       while (rs.next()) {
+           Triplet<Integer, String, String> result;
+           result = new Triplet<>(rs.getInt(1), rs.getString(2), rs.getString(3));
+           results.add(result);
        }
        return results;
     }

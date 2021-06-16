@@ -100,6 +100,46 @@ public class ItemManager {
         return results;
     }
     
+    public static ArrayList<Item> getUnreadyItemsByOrder (int orderId) throws SQLException {
+        ArrayList<Item> results = new ArrayList<>();
+        ArrayList<Septet<Integer,String,Double,Integer,String,Boolean,Boolean>> selectResults;
+        selectResults = selectItemsByOrder(orderId);
+        for (Septet<Integer,String,Double,Integer,String,Boolean,Boolean> result : selectResults) {
+            ArrayList<String> sideDishes;
+            if (result.getValue3()==0) {
+                if(result.getValue6()){
+                    sideDishes = SideDishManager.getSideDishNameByItem(result.getValue0());
+                }
+                else {
+                    sideDishes = null;
+                }
+                Item item = new Item(result.getValue0(), result.getValue1(),sideDishes,result.getValue2(),result.getValue3(),result.getValue4());
+                results.add(item);
+            }
+        }
+        return results;
+    }
+    
+    public static ArrayList<Item> getReadyItemsByOrder (int orderId) throws SQLException {
+        ArrayList<Item> results = new ArrayList<>();
+        ArrayList<Septet<Integer,String,Double,Integer,String,Boolean,Boolean>> selectResults;
+        selectResults = selectItemsByOrder(orderId);
+        for (Septet<Integer,String,Double,Integer,String,Boolean,Boolean> result : selectResults) {
+            ArrayList<String> sideDishes;
+            if (result.getValue3()==1) {
+                if(result.getValue6()){
+                    sideDishes = SideDishManager.getSideDishNameByItem(result.getValue0());
+                }
+                else {
+                    sideDishes = null;
+                }
+                Item item = new Item(result.getValue0(), result.getValue1(),sideDishes,result.getValue2(),result.getValue3(),result.getValue4());
+                results.add(item);
+            }
+        }
+        return results;
+    }
+    
     
     private static int getLastItemId() throws SQLException {
         ResultSet rs;
