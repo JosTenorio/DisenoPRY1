@@ -309,6 +309,44 @@ public class FoodManager {
         }
     }
     
+    public static int getFoodSideDishes (String foodName) {
+        ResultSet rs;
+        int results = -1;
+        PreparedStatement getFoodSideDishesStatement;
+        if (!PreparedStatements.containsKey("getFoodSideDishesStatement")){
+            String sql = " SELECT CantidadAcomp FROM Comida WHERE Nombre = ? AND CantidadAcomp IS NOT NULL";
+            try {
+                getFoodSideDishesStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return results;
+            }
+            PreparedStatements.put("getFoodSideDishesStatement", getFoodSideDishesStatement);
+        } else {
+            getFoodSideDishesStatement = PreparedStatements.get("getFoodSideDishesStatement");
+        }
+        try {
+            getFoodSideDishesStatement.setString(1, foodName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return results;
+        }
+        try {
+            rs = getFoodSideDishesStatement.executeQuery();
+            if (rs.next()) {
+                results = rs.getInt(1);
+            }
+            return results;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            errorFlag = true;
+            error = ex.getMessage();
+            return results;
+        }
+    }
+    
     public static boolean hasError() {
         return errorFlag;
     }
