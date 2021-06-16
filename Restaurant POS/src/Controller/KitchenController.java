@@ -3,12 +3,14 @@ package Controller;
 
 import Controller.Abstract.SceneController;
 import Controller.Items.OrderItemController;
+import Model.Managers.ItemManager;
 import Model.Managers.OrderManager;
 import Model.Order;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,11 +19,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import org.javatuples.Pair;
 
 public class KitchenController extends SceneController implements Initializable {
 
     private boolean menuOpen;    
+    private ArrayList<Pair<Integer, ImageView>> checkBoxes;
     
     @FXML
     private ImageView hambMenu;
@@ -45,7 +48,7 @@ public class KitchenController extends SceneController implements Initializable 
     private HBox itemContainer;
     
     @FXML
-    private void btnHandle(MouseEvent event) {
+    private void btnHandle(MouseEvent event) throws IOException {
         if (event.getSource() == hambMenu){
             if (!menuOpen){
                 slideOpen(slider);
@@ -55,9 +58,26 @@ public class KitchenController extends SceneController implements Initializable 
                 menuOpen = false;
             }
         }
+        for (Pair<Integer, ImageView> box : checkBoxes){
+            if (event.getSource() == box.getValue1()){
+                ItemManager.markReadyItem(box.getValue0());
+                setOrders();
+                addCheckBoxFunction(checkBoxes);
+            }
+        }
+        // SIDE MENU
+        if (event.getSource() == sideMenuTable)
+            tablesShow(event);
+        else if (event.getSource() == sideMenuMenu)
+            menuShow(event);
+        else if (event.getSource() == sideMenuInventory)
+            inventoryShow(event);
+        else if (event.getSource() == sideMenuKitchen)
+            kitchenShow(event);
     }
     
     private void setOrders(){
+        this.checkBoxes = new ArrayList<>();
         ArrayList<Order> orders = OrderManager.getUnreadyOrders();
         itemContainer.getChildren().clear();
         for (int i = 0; i < orders.size(); i++){
@@ -68,9 +88,28 @@ public class KitchenController extends SceneController implements Initializable 
                 OrderItemController itemController = loader.getController();
                 itemController.setData(orders.get(i));
                 itemContainer.getChildren().add(pane);
+                ArrayList<Pair<Integer, ImageView>> newBoxes = itemController.getCheckBoxes();
+                for (Pair<Integer, ImageView> box : newBoxes){
+                    checkBoxes.add(box);
+                }
             } catch (IOException ex) {
                 System.err.println(ex);
             }
+        }
+    }
+    
+    public void addCheckBoxFunction(ArrayList<Pair<Integer, ImageView>> checkBoxes){
+        for (Pair<Integer, ImageView> item : checkBoxes){
+            item.getValue1().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        btnHandle(event);
+                    } catch (IOException ex) {
+                        System.err.println(ex);
+                    }
+                }
+            });
         }
     }
 
@@ -79,6 +118,7 @@ public class KitchenController extends SceneController implements Initializable 
         slideClose(slider);
         menuOpen = false;
         setOrders();
+        addCheckBoxFunction(checkBoxes);
     }    
     
 }

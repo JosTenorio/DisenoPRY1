@@ -16,7 +16,7 @@
             <String fx:value="roundedTop" />
          </styleClass>
          <children>
-            <Label fx:id="tableName" layoutX="133.0" layoutY="42.0" styleClass="title" stylesheets="@../../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="27.0" />
+            <Label fx:id="tableName" layoutX="133.0" layoutY="42.0" styleClass="title" stylesheets="@../../StyleSheets/AppStyle.css" text="Mesa #" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="27.0" />
             <Label fx:id="orderAge" layoutX="118.0" layoutY="67.0" styleClass="txtReg" stylesheets="@../../StyleSheets/AppStyle.css" text="00:00:00" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="70.0" />
          </children>
       </AnchorPane>

@@ -30,8 +30,7 @@ public class MenuItemController {
             button.setStyle("-fx-background-color: gray;");
         if (isArchived){
             //make black and white
-        } 
-            
+        }    
     }
     
     public Button getButton(){
