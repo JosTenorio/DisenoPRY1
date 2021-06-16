@@ -55,9 +55,9 @@ public class ItemManager {
         }               
     }
     
-    private static ArrayList<Septet<Integer,String,Double,Boolean,String,Boolean,Boolean>> selectItemsByOrder (int orderId) throws SQLException {
+    private static ArrayList<Septet<Integer,String,Double,Integer,String,Boolean,Boolean>> selectItemsByOrder (int orderId) throws SQLException {
         ResultSet rs;
-        ArrayList<Septet<Integer,String,Double,Boolean,String,Boolean,Boolean>> results = new ArrayList<>();
+        ArrayList<Septet<Integer,String,Double,Integer,String,Boolean,Boolean>> results = new ArrayList<>();
         PreparedStatement selectItemsByOrderStatement;
         if (!PreparedStatements.containsKey("selectItemsByOrderStatement")){
             String sql = "SELECT Item.Id, Comida.Nombre, Comida.Precio, Item.Estado, Item.Nota, Item.Pago, Comida.CantidadAcomp FROM Item INNER JOIN Comida ON Comida.Id = Item.IdComida WHERE Item.IdOrden = ?";
@@ -69,10 +69,10 @@ public class ItemManager {
         selectItemsByOrderStatement.setInt(1, orderId);
         rs = selectItemsByOrderStatement.executeQuery();
         while (rs.next()) {
-           Septet<Integer,String,Double,Boolean,String,Boolean,Boolean> result;
+           Septet<Integer,String,Double,Integer,String,Boolean,Boolean> result;
            rs.getInt(7);
            boolean isMainDish = (!rs.wasNull());
-           result = new Septet<>(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getBoolean(4), rs.getString(5), rs.getBoolean(6), isMainDish);
+           result = new Septet<>(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getString(5), rs.getBoolean(6), isMainDish);
            results.add(result);
         }
         return results;
@@ -80,9 +80,9 @@ public class ItemManager {
     
     public static ArrayList<Item> getItemsByOrder (int orderId, boolean includePaidItems) throws SQLException {
         ArrayList<Item> results = new ArrayList<>();
-        ArrayList<Septet<Integer,String,Double,Boolean,String,Boolean,Boolean>> selectResults;
+        ArrayList<Septet<Integer,String,Double,Integer,String,Boolean,Boolean>> selectResults;
         selectResults = selectItemsByOrder(orderId);
-        for (Septet<Integer,String,Double,Boolean,String,Boolean,Boolean> result : selectResults) {
+        for (Septet<Integer,String,Double,Integer,String,Boolean,Boolean> result : selectResults) {
             ArrayList<String> sideDishes;
             if (includePaidItems || !result.getValue5()) {
                 if(result.getValue6()){
