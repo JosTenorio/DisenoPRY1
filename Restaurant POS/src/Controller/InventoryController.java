@@ -97,6 +97,35 @@ public class InventoryController extends CategoryController implements Initializ
                 menuOpen = false;
             }
         }
+        for (Button item : categoryButtons){
+            if (event.getSource() == item){
+                setIngCategories(item.getText(), ingGrid, 3, 210.0);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(itemButtons);
+                setFlow(item.getText());
+            }
+        }
+        for (Button item : itemButtons){
+            if (event.getSource() == item){
+                if (ingName.getText().equals(item.getText()) && ingCardOpen){
+                    ingCardOpen = false;
+                    ingCard.setVisible(false);
+                    ingCardEdit.setVisible(false);
+                } else {
+                    isNewIng = false;
+                    ingCardOpen = true;
+                    if (editMode){
+                        ingCardEdit.setVisible(true);
+                    } else {
+                        ingCard.setVisible(true);
+                    }
+                    //Dish dish = FoodManager.getFoodDetails(item.getText());
+                    // catch error dish not found
+                    //populateDishCard(dish);
+                    //populateDishCardEdit(dish);
+                }
+            }
+        }
         // SIDE MENU
         if (event.getSource() == sideMenuTable)
             tablesShow(event);
@@ -136,8 +165,7 @@ public class InventoryController extends CategoryController implements Initializ
         ingCard.setVisible(false);
         ingCardEdit.setVisible(false);
         addIng.setVisible(false);
-        //change
-        setFoodCategories(null, ingGrid, 3, 210.0, true);
+        setIngCategories(null, ingGrid, 3, 210.0);
         addButtonFunction(categoryButtons);
         addButtonFunction(itemButtons);
         editInventory.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));

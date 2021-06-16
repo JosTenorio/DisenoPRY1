@@ -1,7 +1,6 @@
 package Model.Managers;
 
 import Connection.ConnectionManager;
-import Model.Dish;
 import Model.Ingredient;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
 
@@ -43,7 +41,7 @@ public class IngredientManager {
             insertIngredientStatement.setString(2, ing.description);
             insertIngredientStatement.setInt(3, ing.minimum);
             insertIngredientStatement.setInt(4, ing.quantity);
-            insertIngredientStatement.setString(5, ing.measurement);
+            insertIngredientStatement.setString(5, ing.unit);
             insertIngredientStatement.setString(6, ing.imgPath);             
         } catch (SQLException ex) {
             errorFlag = true;
@@ -82,7 +80,7 @@ public class IngredientManager {
             updateIngredientStatement.setString(2, ing.description);
             updateIngredientStatement.setInt(3, ing.minimum);
             updateIngredientStatement.setInt(4, ing.quantity);
-            updateIngredientStatement.setString(5, ing.measurement);
+            updateIngredientStatement.setString(5, ing.unit);
             updateIngredientStatement.setString(6, ing.imgPath);
             updateIngredientStatement.setString(7, oldName);
         } catch (SQLException ex) {

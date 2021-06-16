@@ -29,7 +29,7 @@ public class TableItemController {
         }
         name.setText(itemNames);
         cost.setText("₡" + item.cost);
-        if (item.prepared){
+        if (item.state == 2){
             status.setStyle("-fx-background-color: #02A730");
         } else{
             status.setStyle("-fx-background-color: #DB6C38");

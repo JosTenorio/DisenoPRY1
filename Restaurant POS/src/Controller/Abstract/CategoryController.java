@@ -35,7 +35,7 @@ public abstract class CategoryController extends SceneController {
         itemButtons = setItems(food, menuGrid, categories.size() % cols, categories.size() / cols, cols, size);
     }
     
-    public void setIngCategories(String category, GridPane ingGrid, int cols, double size, boolean includeArchived){
+    public void setIngCategories(String category, GridPane ingGrid, int cols, double size){
         ingGrid.getChildren().clear();
         ArrayList<Triplet<String, String, Boolean>> categories;
         ArrayList<Triplet<String, String, Boolean>> ingredients;
