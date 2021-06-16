@@ -216,7 +216,7 @@ public class OrderManager {
         ArrayList<Triplet<Integer, String, String>> results = new ArrayList<>();
         PreparedStatement getOrdersDetailsNameStatement;
         if (!PreparedStatements.containsKey("getOrdersDetailsNameStatement")){
-            String sql = "SELECT Orden.Id, Mesa.Nombre ,convert(varchar(4),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())/3600,'000#'))+':'\n" +
+            String sql = "SELECT Orden.Id, Mesa.Nombre ,convert(varchar(2),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())/3600,'0#'))+':'\n" +
                          "+convert(varchar(2),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())%3600/60,'0#'))+':'\n" +
                          "+convert(varchar(2),FORMAT(DATEDIFF(s, Orden.FechaHora, GETDATE())%60,'0#')) AS Age \n" +
                           "FROM Orden INNER JOIN Mesa ON Mesa.Id = Orden.IdMesa";
