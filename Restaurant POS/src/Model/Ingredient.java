@@ -1,15 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
-/**
- *
- * @author JOS
- */
+
 public class Ingredient {
+    
+    public String name;
+    public String description;
+    public int minimum;
+    public int quantity;
+    public String measurement;
+    public String imgPath;
+    
+    public Ingredient (String name, String description, int minimum, int quantity, String measurement, String imgPath) {
+        this.name = name;
+        this.description = description;
+        this.minimum = minimum;
+        this.quantity = quantity;
+        this.measurement = measurement;
+        this.imgPath = imgPath;
+    }
+    
+    
     
     
 }
