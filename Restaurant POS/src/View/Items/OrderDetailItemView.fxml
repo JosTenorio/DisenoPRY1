@@ -8,7 +8,7 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="273.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Items.OrderDetailItemController">
    <children>
-      <BorderPane prefWidth="273.0" styleClass="lightGray" stylesheets="@../../StyleSheets/AppStyle.css">
+      <BorderPane prefWidth="273.0" styleClass="white" stylesheets="@../../StyleSheets/AppStyle.css">
          <left>
             <HBox BorderPane.alignment="CENTER">
                <children>
