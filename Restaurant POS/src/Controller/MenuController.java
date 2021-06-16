@@ -55,8 +55,6 @@ public class MenuController extends CategoryController implements Initializable 
     @FXML
     private ImageView dishImage;
     @FXML
-    private Button confirm;
-    @FXML
     private Label dishDesc;
     @FXML
     private Label dishSides;
@@ -88,6 +86,8 @@ public class MenuController extends CategoryController implements Initializable 
     private TextField dishPriceInput;
     @FXML
     private ImageView dishImageInput;
+    @FXML
+    private Button save;
     
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -125,7 +125,7 @@ public class MenuController extends CategoryController implements Initializable 
             dishCardEdit.setVisible(true);
             emptyDishCardEdit();
         }
-        else if (event.getSource() == confirm){
+        else if (event.getSource() == save){
             if (isNewDish && validInputs()){
                 Dish newDish = setDishInfo();
                 FoodManager.insertFood(newDish);

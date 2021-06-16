@@ -59,12 +59,12 @@
                   <String fx:value="size24" />
                </styleClass>
             </Button>
-            <Label fx:id="ingDesc" layoutX="30.0" layoutY="583.0" prefWidth="505.0" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" wrapText="true" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="579.0" />
-            <Label fx:id="ingNotify" layoutX="125.0" layoutY="679.0" prefWidth="505.0" styleClass="txtMed" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="680.0" />
-            <Label fx:id="ingQuantity" layoutX="91.0" layoutY="751.0" prefWidth="505.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="757.0" />
+            <Label fx:id="ingDesc" layoutX="30.0" layoutY="583.0" minWidth="505.0" prefWidth="505.0" styleClass="txtLight" stylesheets="@../StyleSheets/AppStyle.css" wrapText="true" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="579.0" />
+            <Label fx:id="ingNotify" layoutX="34.0" layoutY="679.0" minWidth="505.0" prefWidth="505.0" styleClass="txtMed" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="680.0" />
+            <Label fx:id="ingQuantity" layoutX="91.0" layoutY="751.0" minWidth="505.0" prefWidth="505.0" styleClass="txtBold" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="757.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ingCardEdit" layoutX="774.0" layoutY="114.0" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" visible="false" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
+      <AnchorPane fx:id="ingCardEdit" layoutX="774.0" layoutY="114.0" prefHeight="893.0" prefWidth="575.0" stylesheets="@../StyleSheets/AppStyle.css" AnchorPane.leftAnchor="764.0" AnchorPane.topAnchor="104.0">
          <styleClass>
             <String fx:value="popUp" />
             <String fx:value="white" />
@@ -89,7 +89,7 @@
                </children>
             </AnchorPane>
             <ImageView fx:id="ingImageEdit" fitHeight="483.0" fitWidth="575.0" layoutX="55.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="77.0" />
-            <Button fx:id="confirm" layoutX="255.0" layoutY="833.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="51.0" prefWidth="236.0" stylesheets="@../StyleSheets/AppStyle.css" text="Guardar" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="815.0">
+            <Button fx:id="save" layoutX="255.0" layoutY="833.0" mnemonicParsing="false" onMouseClicked="#btnHandle" prefHeight="51.0" prefWidth="236.0" stylesheets="@../StyleSheets/AppStyle.css" text="Guardar" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="815.0">
                <styleClass>
                   <String fx:value="normButton" />
                   <String fx:value="size24" />

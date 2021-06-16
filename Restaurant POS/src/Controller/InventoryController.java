@@ -52,8 +52,6 @@ public class InventoryController extends CategoryController implements Initializ
     @FXML
     private ImageView ingImageEdit;
     @FXML
-    private Button confirm;
-    @FXML
     private TextField ingDescInput;
     @FXML
     private TextField ingNotifyInput;
@@ -87,6 +85,8 @@ public class InventoryController extends CategoryController implements Initializ
     private Label ingQuantity;
     @FXML
     private TextField ingQuantityInput;
+    @FXML
+    private Button save;
 
     @FXML
     private void btnHandle(MouseEvent event) throws IOException {
@@ -97,6 +97,50 @@ public class InventoryController extends CategoryController implements Initializ
             } else{
                 slideClose(slider);
                 menuOpen = false;
+            }
+        }
+        else if (event.getSource() == editInventory){
+            if (editMode){
+                editMode = false;
+                editInventory.setImage(new Image(getClass().getResourceAsStream("/Images/Edit.png")));
+                addIng.setVisible(false);
+                if (ingCardOpen){
+                    ingCard.setVisible(true);
+                    ingCardEdit.setVisible(false);
+                }
+            } else {
+                editMode = true;
+                editInventory.setImage(new Image(getClass().getResourceAsStream("/Images/ConfirmEdit.png")));
+                addIng.setVisible(true);
+                if (ingCardOpen){
+                    ingCard.setVisible(false);
+                    ingCardEdit.setVisible(true);
+                }
+            }
+        }
+        else if (event.getSource() == addIng){
+            isNewIng = true;
+            ingCardOpen = true;
+            ingCardEdit.setVisible(true);
+            emptyIngCardEdit();
+        }
+        else if (event.getSource() == save){
+            if (isNewIng && validInputs()){
+                Ingredient newIng = setIngInfo();
+                IngredientManager.insertIngredient(newIng);
+                // catch error wrong info
+                IngredientManager.categorizeIng(newIng.name, currentCategory);
+                // catch error wrong info
+                setIngCategories(currentCategory, ingGrid, 3, 210.0);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(itemButtons);
+            } else if (!isNewIng && validInputs()) {
+                Ingredient updateIng = setIngInfo();
+                IngredientManager.updateIngredient(ingName.getText(), updateIng);
+                // catch error ingredient not found or wrong info
+                setIngCategories(currentCategory, ingGrid, 3, 210.0);
+                addButtonFunction(categoryButtons);
+                addButtonFunction(itemButtons);
             }
         }
         for (Button item : categoryButtons){
@@ -158,6 +202,40 @@ public class InventoryController extends CategoryController implements Initializ
         ingUnitInput.setText(ingredient.unit);
         ingNotifyInput.setText(String.valueOf(ingredient.minimum));
         ingQuantityInput.setText(String.valueOf(ingredient.quantity));
+    }
+    
+   private void emptyIngCardEdit(){
+        ingNameInput.setText("");
+        ingNameInput.setPromptText("Nombre del ingrediente...");
+        ingImageEdit.setImage(null);
+        ingDescInput.setText("");
+        ingDescInput.setPromptText("Descripción...");
+        ingUnitInput.setText("");
+        ingNotifyInput.setText("");
+        ingQuantityInput.setText("");
+    }
+   
+    private Ingredient setIngInfo(){
+        String name = ingNameInput.getText();
+        // get path from button
+        String path = "";
+        String desc = ingDescInput.getText();
+        String unit = ingUnitInput.getText();
+        double minimum = Double.valueOf(ingNotifyInput.getText());
+        double quantity = Double.valueOf(ingQuantityInput.getText()); 
+        return new Ingredient(name, desc, minimum, quantity, unit, path);
+    }
+   
+    private boolean validInputs(){
+        if ("".equals(ingNameInput.getText()))
+            return false;
+        try {
+            Double.valueOf(ingNotifyInput.getText());
+            Double.valueOf(ingQuantityInput.getText());
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
     }
     
     private void setFlow(String category){
