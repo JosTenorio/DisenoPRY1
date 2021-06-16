@@ -4,6 +4,7 @@ package Controller;
 import Controller.Abstract.CategoryController;
 import Model.Ingredient;
 import Model.Managers.IngredientManager;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InventoryController extends CategoryController implements Initializable {
     
@@ -186,7 +189,14 @@ public class InventoryController extends CategoryController implements Initializ
             }
         }
         else if (event.getSource() == ingImageInput){
-            // set ingImgPath
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileFilter(filter);
+            chooser.showOpenDialog(null);
+            if (chooser.getSelectedFile() != null) {
+                File f = chooser.getSelectedFile();
+                ingImgPath = f.getCanonicalPath().replace("\\", "\\\\");
+            }
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -232,8 +242,10 @@ public class InventoryController extends CategoryController implements Initializ
     private void populateIngCard(Ingredient ingredient){
         ingName.setText(ingredient.name);
         try {
+            System.out.println(ingredient.imgPath);
             ingImage.setImage(new Image(getClass().getResourceAsStream(ingredient.imgPath)));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         ingDesc.setText(ingredient.description);
         ingNotify.setText("Notificar con: " + ingredient.minimum + ingredient.unit);

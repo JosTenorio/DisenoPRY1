@@ -4,6 +4,7 @@ package Controller;
 import Controller.Abstract.CategoryController;
 import Model.Dish;
 import Model.Managers.FoodManager;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MenuController extends CategoryController implements Initializable {
     
@@ -162,7 +165,14 @@ public class MenuController extends CategoryController implements Initializable 
             toggleArchiveText(dish);
         }
         else if (event.getSource() == dishImageInput){
-            // set dishImgPath
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg");
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileFilter(filter);
+            chooser.showOpenDialog(null);
+            if (chooser.getSelectedFile() != null) {
+                File f = chooser.getSelectedFile();
+                dishImgPath = f.getPath();
+            }
         }
         for (Button item : categoryButtons){
             if (event.getSource() == item){
@@ -207,8 +217,10 @@ public class MenuController extends CategoryController implements Initializable 
     private void populateDishCard(Dish dish){
         dishName.setText(dish.name);
         try {
+            System.out.println(dish.imgPath);
             dishImage.setImage(new Image(getClass().getResourceAsStream(dish.imgPath)));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         dishDesc.setText(dish.description);
         dishSides.setText("Inlcuye " + dish.sideDishes + " acompañamientos");
