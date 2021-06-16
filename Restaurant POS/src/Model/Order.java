@@ -30,6 +30,9 @@ public class Order {
     }
     
     public void addSide(String name){
+        if (items.get(items.size()-1).sideDishes == null){
+            items.get(items.size()-1).sideDishes = new ArrayList<>();
+        }
         items.get(items.size()-1).sideDishes.add(name);
     }
 }

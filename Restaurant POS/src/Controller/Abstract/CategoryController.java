@@ -31,8 +31,6 @@ public abstract class CategoryController extends SceneController {
             categories = FoodCtgrManager.getSubCategories(category);
             food = FoodManager.getFoodByCategory(category, includeMainDishes, includeArchived);
         }
-        System.out.println(food);
-        System.out.println(categories);
         categoryButtons = setItems(categories, menuGrid, 0, 0, cols, size);
         itemButtons = setItems(food, menuGrid, categories.size() % cols, categories.size() / cols, cols, size);
     }
