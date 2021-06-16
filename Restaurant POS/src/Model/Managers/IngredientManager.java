@@ -176,6 +176,77 @@ public class IngredientManager {
         }
     }
     
+    public static int updateIngQuantity (String ingName, Double quantity) {
+        int rowsAffected = -1;
+        PreparedStatement updateIngQuantityStatement;
+        if (!PreparedStatements.containsKey("updateIngQuantityStatement")){
+            String sql = "UPDATE Ingrediente SET Cantidad = ? WHERE Nombre = ?";
+            try {
+                updateIngQuantityStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("updateIngQuantityStatement", updateIngQuantityStatement);
+        } else {
+            updateIngQuantityStatement = PreparedStatements.get("updateIngQuantityStatement");
+        }
+        try {
+            updateIngQuantityStatement.setDouble(1, quantity);
+            updateIngQuantityStatement.setString(2, ingName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = updateIngQuantityStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+    
+    public static int categorizeIng (String ingName, String categoryName) {
+        int rowsAffected = -1;
+        PreparedStatement categorizeIngStatement;
+        if (!PreparedStatements.containsKey("categorizeIngStatement")){
+            String sql = "UPDATE Ingrediente SET IdCategoria = (SELECT Id FROM CategoriaIng WHERE Nombre = ?) WHERE Nombre = ?";
+            try {
+                categorizeIngStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("categorizeIngStatement", categorizeIngStatement);
+        } else {
+            categorizeIngStatement = PreparedStatements.get("categorizeIngStatement");
+        }
+        try {
+            if (categoryName == null)
+                categorizeIngStatement.setNull(1, java.sql.Types.NVARCHAR);
+            else
+                categorizeIngStatement.setString(1, categoryName);
+            categorizeIngStatement.setString(2, ingName);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = categorizeIngStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+    
     public static ArrayList<Triplet<String,String,Boolean>> getUncategorizedIngs () {
         ResultSet rs;
         ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
