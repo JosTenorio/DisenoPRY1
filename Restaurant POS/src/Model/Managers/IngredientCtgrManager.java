@@ -14,6 +14,7 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.javatuples.Pair;
+import org.javatuples.Triplet;
 
 
 public class IngredientCtgrManager {
@@ -22,9 +23,9 @@ public class IngredientCtgrManager {
     private static String error;
     private static Boolean errorFlag;
     
-    public static ArrayList<Pair<String,String>> getFatherCategories() {
+    public static ArrayList<Triplet<String,String,Boolean>> getFatherCategories() {
         ResultSet rs;
-        ArrayList<Pair<String,String>> results = new ArrayList<>();
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
         PreparedStatement getFatherCategoriesStatement;
         if (!PreparedStatements.containsKey("getFatherCategoriesStatement")){
             String sql = "SELECT nombre FROM CategoriaIng WHERE IdCategoriaPadre IS NULL";
@@ -42,8 +43,8 @@ public class IngredientCtgrManager {
         try {
             rs = getFatherCategoriesStatement.executeQuery();
             while (rs.next()) {
-                Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), getImageForCategory(rs.getString(1)));
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), getImageForCategory(rs.getString(1)), false);
                 results.add(result);
             }
             return results;
@@ -54,9 +55,9 @@ public class IngredientCtgrManager {
         }
     }
     
-    public static ArrayList<Pair<String,String>> getSubCategories(String cathegoryName) {
+    public static ArrayList<Triplet<String,String,Boolean>> getSubCategories(String cathegoryName) {
         ResultSet rs;
-        ArrayList<Pair<String,String>> results = new ArrayList<>();
+        ArrayList<Triplet<String,String,Boolean>> results = new ArrayList<>();
         PreparedStatement getSubCategoriesStatement;
         if (!PreparedStatements.containsKey("getSubCategoriesStatement")){
             String sql = "SELECT nombre FROM CategoriaIng WHERE IdCategoriaPadre = (SELECT Id FROM CategoriaIng WHERE nombre = ?) ";
@@ -81,8 +82,8 @@ public class IngredientCtgrManager {
         try {
             rs = getSubCategoriesStatement.executeQuery();
             while (rs.next()) {
-                Pair<String,String> result;
-                result = new Pair<>(rs.getString(1), getImageForCategory(rs.getString(1)));
+                Triplet<String,String,Boolean> result;
+                result = new Triplet<>(rs.getString(1), getImageForCategory(rs.getString(1)), false);
                 results.add(result);
             }
             return results;
