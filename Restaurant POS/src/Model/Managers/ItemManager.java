@@ -20,6 +20,8 @@ import org.javatuples.Septet;
 public class ItemManager {
         
     private static Hashtable<String, PreparedStatement> PreparedStatements = new Hashtable<String, PreparedStatement>();
+    private static String error;
+    private static Boolean errorFlag;
     
     private static int createItem (String foodName, int orderId, String Notes) throws SQLException {
         int rowsAffected;
@@ -116,11 +118,105 @@ public class ItemManager {
         return results;
     }
     
-    /*
-    public static int markReadyItem (int itemId) {
-        
     
+    public static int markReadyItem (int itemId) {
+        int rowsAffected = -1;
+        PreparedStatement markReadyItemStatement;
+        if (!PreparedStatements.containsKey("markReadyItemStatement")){
+            String sql = "UPDATE Item SET Estado = 1 WHERE Id = ?";
+            try {
+                markReadyItemStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("markReadyItemStatement", markReadyItemStatement);
+        } else {
+            markReadyItemStatement = PreparedStatements.get("markReadyItemStatement");
+        }
+        try {
+            markReadyItemStatement.setInt(1, itemId);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = markReadyItemStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
     }
-*/
+    
+    public static int markDeliveredItem (int itemId) {
+        int rowsAffected = -1;
+        PreparedStatement markDeliveredItemStatement;
+        if (!PreparedStatements.containsKey("markDeliveredItemStatement")){
+            String sql = "UPDATE Item SET Estado = 2 WHERE Id = ?";
+            try {
+                markDeliveredItemStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("markDeliveredItemStatement", markDeliveredItemStatement);
+        } else {
+            markDeliveredItemStatement = PreparedStatements.get("markDeliveredItemStatement");
+        }
+        try {
+            markDeliveredItemStatement.setInt(1, itemId);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = markDeliveredItemStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+    
+    public static int markPaidItem (int itemId) {
+        int rowsAffected = -1;
+        PreparedStatement markPaidItemStatement;
+        if (!PreparedStatements.containsKey("markPaidItemStatement")){
+            String sql = "UPDATE Item SET Pago = 1 WHERE Id = ?";
+            try {
+                markPaidItemStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+                errorFlag = true;
+                return rowsAffected;
+            }
+            PreparedStatements.put("markPaidItemStatement", markPaidItemStatement);
+        } else {
+            markPaidItemStatement = PreparedStatements.get("markPaidItemStatement");
+        }
+        try {
+            markPaidItemStatement.setInt(1, itemId);
+        } catch (SQLException ex) {
+            errorFlag = true;
+            Logger.getLogger(TableManager.class.getName()).log(Level.SEVERE, null, ex);
+            return rowsAffected;
+        }
+        try {
+            rowsAffected = markPaidItemStatement.executeUpdate();
+        } catch (SQLException ex) {
+            errorFlag = true;
+            error = ex.getMessage();
+            return rowsAffected;
+        }
+        return rowsAffected;
+    }
+
 
 }
